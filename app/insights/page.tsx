@@ -82,12 +82,7 @@ const insights = [
 
 const categories = ['All', 'Analytics', 'Actuarial', 'Business Intelligence', 'Credit Rating', 'Technology', 'Sustainability']
 
-const stats = [
-  { label: 'Articles Published', value: '150+', icon: BookOpen },
-  { label: 'Monthly Readers', value: '25k+', icon: Users },
-  { label: 'Industry Reports', value: '50+', icon: TrendingUp },
-  { label: 'Expert Contributors', value: '20+', icon: Eye }
-]
+
 
 export default function InsightsPage() {
   return (
@@ -132,35 +127,7 @@ export default function InsightsPage() {
           </motion.p>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="glass rounded-xl p-4 text-center group hover:shadow-xl transition-all duration-300"
-            >
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg mb-3 group-hover:scale-110 transition-transform duration-300">
-                <stat.icon className="w-5 h-5 text-white" />
-              </div>
-              <div className="text-base md:text-lg font-bold text-secondary-900 dark:text-white mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs text-secondary-600 dark:text-secondary-400 font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
+    
         {/* Featured Articles */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

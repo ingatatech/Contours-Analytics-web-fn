@@ -7,40 +7,136 @@ import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-mo
 import { ArrowRight, BarChart3, Shield, Target, Star, TrendingUp, Database, Brain, Users, Globe, Award, CheckCircle, Eye, Sparkles, Zap, MousePointer2, Play, ChevronDown } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 
-const coreServices = [
-  {
-    icon: BarChart3,
+const servicesData = {
+  'data-analytics': {
     title: 'Data Analytics',
-    description: 'Transform raw data into strategic insights that drive business growth',
+    icon: BarChart3,
     gradient: 'from-blue-500 to-cyan-500',
-    features: ['Predictive Modeling', 'Real-time Analytics', 'Custom Dashboards'],
-    stats: { value: '500+', label: 'Projects' }
+    description: 'Transform raw data into strategic insights that drive business growth',
+    subServices: [
+      {
+        id: 'predictive-analytics',
+        name: 'Predictive Analytics',
+        description: 'Forecast future trends using statistical modeling and machine learning algorithms to help businesses make proactive decisions.',
+        keyContacts: [
+          {
+            id: '1',
+            name: 'Dr. Sarah Chen',
+            title: 'Senior Data Scientist',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 123-4567',
+            email: 'sarah.chen@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/sarahchen'
+          }
+        ]
+      },
+      {
+        id: 'descriptive-analytics',
+        name: 'Descriptive Analytics',
+        description: 'Analyze historical data to summarize performance trends and key metrics for comprehensive business insights.',
+        keyContacts: [
+          {
+            id: '2',
+            name: 'Michael Rodriguez',
+            title: 'Analytics Manager',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 234-5678',
+            email: 'michael.rodriguez@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/michaelrodriguez'
+          }
+        ]
+      }
+    ]
   },
-  {
-    icon: Shield,
+  'actuarial-services': {
     title: 'Actuarial Services',
-    description: 'Expert risk assessment and financial strategy solutions',
+    icon: Shield,
     gradient: 'from-emerald-500 to-teal-500',
-    features: ['Risk Modeling', 'Regulatory Compliance', 'Financial Planning'],
-    stats: { value: '99%', label: 'Accuracy' }
+    description: 'Expert risk assessment and financial strategy solutions',
+    subServices: [
+      {
+        id: 'risk-modeling',
+        name: 'Risk Modeling & Assessment',
+        description: 'Develop sophisticated risk models for insurance and finance using advanced statistical methods.',
+        keyContacts: [
+          {
+            id: '3',
+            name: 'Dr. James Wilson',
+            title: 'Chief Actuary',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 345-6789',
+            email: 'james.wilson@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/jameswilson'
+          }
+        ]
+      },
+      {
+        id: 'pricing-development',
+        name: 'Pricing & Product Development',
+        description: 'Design and evaluate insurance and financial products with optimal pricing strategies.',
+        keyContacts: [
+          {
+            id: '4',
+            name: 'Emily Thompson',
+            title: 'Pricing Specialist',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 456-7890',
+            email: 'emily.thompson@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/emilythompson'
+          }
+        ]
+      }
+    ]
   },
-  {
-    icon: Target,
+  'business-intelligence': {
     title: 'Business Intelligence',
+    icon: Target,
+    gradient: 'from-purple-500 to-pink-500',
     description: 'Build scalable, data-driven ecosystems for informed decisions',
-    gradient: 'from-primary-500 to-pink-500',
-    features: ['Data Integration', 'BI Dashboards', 'Strategic Planning'],
-    stats: { value: '1B+', label: 'Data Points' }
+    subServices: [
+      {
+        id: 'data-integration',
+        name: 'Data Architecture & Integration',
+        description: 'Design unified data systems for accessible insights across your organization.',
+        keyContacts: [
+          {
+            id: '5',
+            name: 'David Park',
+            title: 'BI Architect',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 567-8901',
+            email: 'david.park@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/davidpark'
+          }
+        ]
+      }
+    ]
   },
-  {
-    icon: Star,
+  'credit-rating': {
     title: 'Credit Rating',
-    description: 'Comprehensive credit assessment and rating services',
+    icon: Star,
     gradient: 'from-orange-500 to-red-500',
-    features: ['Credit Analysis', 'Rating Reports', 'Risk Assessment'],
-    stats: { value: '15+', label: 'Years' }
+    description: 'Comprehensive credit assessment and rating services',
+    subServices: [
+      {
+        id: 'public-ratings',
+        name: 'Public Credit Ratings',
+        description: 'Transparent ratings for improved market visibility and investor confidence.',
+        keyContacts: [
+          {
+            id: '6',
+            name: 'Lisa Martinez',
+            title: 'Credit Rating Analyst',
+            image: '/api/placeholder/150/150',
+            phone: '+1 (555) 678-9012',
+            email: 'lisa.martinez@contoursanalytics.com',
+            linkedin: 'https://linkedin.com/in/lisamartinez'
+          }
+        ]
+      }
+    ]
   }
-]
+}
 
 const insights = [
   {
@@ -77,8 +173,7 @@ const partners = [
 
 
 
-function InteractiveServiceCard({ service, index }: { service: any, index: number }) {
-  const [isExpanded, setIsExpanded] = useState(false)
+function ServiceCard({ serviceKey, service, index, onServiceClick }: { serviceKey: string, service: any, index: number, onServiceClick: (key: string) => void }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
 
@@ -99,19 +194,13 @@ function InteractiveServiceCard({ service, index }: { service: any, index: numbe
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
       onMouseMove={handleMouseMove}
-      onClick={() => setIsExpanded(!isExpanded)}
+      onClick={() => onServiceClick(serviceKey)}
       className="group cursor-pointer relative"
     >
       <motion.div
-        animate={{
-          rotateX: (mousePosition.y - 150) / 30,
-          rotateY: (mousePosition.x - 150) / 30
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        style={{ transformStyle: "preserve-3d" }}
+        whileHover={{ y: -8, scale: 1.02 }}
         className="relative overflow-hidden rounded-2xl"
       >
-        {/* Spotlight effect */}
         <motion.div
           animate={{
             background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
@@ -123,21 +212,15 @@ function InteractiveServiceCard({ service, index }: { service: any, index: numbe
         <div className="relative glass border border-white/20 p-8">
           <div className="flex items-start justify-between mb-6">
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              whileHover={{ scale: 1.1, rotate: 5 }}
               className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl shadow-lg`}
             >
               <service.icon className="w-8 h-8 text-white" />
             </motion.div>
             
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: isExpanded ? 1 : 0 }}
-              className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full"
-            >
-              <Sparkles className="w-3 h-3 text-yellow-400" />
-              <span className="text-xs text-white font-medium">{service.stats.value}</span>
-            </motion.div>
+            <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+              <span className="text-xs text-white font-medium">{service.subServices.length} Services</span>
+            </div>
           </div>
           
           <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
@@ -147,43 +230,121 @@ function InteractiveServiceCard({ service, index }: { service: any, index: numbe
             {service.description}
           </p>
           
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <div className="grid grid-cols-1 gap-2 pt-4 border-t border-white/10">
-                  {service.features.map((feature: string, idx: number) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-xs text-secondary-600 dark:text-secondary-400">
-                        {feature}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            className="absolute bottom-4 right-4"
-          >
-            <ChevronDown className="w-5 h-5 text-secondary-400" />
-          </motion.div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-secondary-500">Click to explore services</span>
+            <ArrowRight className="w-4 h-4 text-secondary-400 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+          </div>
         </div>
       </motion.div>
+    </motion.div>
+  )
+}
+
+function ServiceDetailView({ service, onBack }: { service: any, onBack: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      className="space-y-8"
+    >
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-8">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <ArrowRight className="w-4 h-4 rotate-180" />
+          Back to Services
+        </button>
+      </div>
+
+      <div className="text-center mb-12">
+        <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-3xl shadow-lg mb-6`}>
+          <service.icon className="w-10 h-10 text-white" />
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">{service.title}</h2>
+        <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto">
+          {service.description}
+        </p>
+      </div>
+
+      {/* Sub-Services */}
+      <div className="grid gap-8">
+        {service.subServices.map((subService: any, index: number) => (
+          <motion.div
+            key={subService.id}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="bg-white dark:bg-secondary-800 rounded-2xl border border-secondary-200 dark:border-secondary-700 p-8 hover:shadow-xl transition-all duration-300"
+          >
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Service Info */}
+              <div>
+                <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-4">
+                  {subService.name}
+                </h3>
+                <p className="text-secondary-600 dark:text-secondary-400 leading-relaxed mb-6">
+                  {subService.description}
+                </p>
+              </div>
+
+              {/* Key Contacts */}
+              <div>
+                <h4 className="text-lg font-semibold text-secondary-900 dark:text-white mb-4">
+                  Key Contacts
+                </h4>
+                <div className="space-y-4">
+                  {subService.keyContacts.map((contact: any) => (
+                    <div key={contact.id} className="flex items-center gap-4 p-4 bg-secondary-50 dark:bg-secondary-700 rounded-xl">
+                      <img
+                        src={contact.image}
+                        alt={contact.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-secondary-900 dark:text-white">
+                          {contact.name}
+                        </h5>
+                        <p className="text-sm text-secondary-600 dark:text-secondary-400">
+                          {contact.title}
+                        </p>
+                        <div className="flex items-center gap-4 mt-2">
+                          <a
+                            href={`mailto:${contact.email}`}
+                            className="text-xs text-primary hover:text-primary/80 transition-colors"
+                          >
+                            {contact.email}
+                          </a>
+                          <a
+                            href={`tel:${contact.phone}`}
+                            className="text-xs text-secondary-600 dark:text-secondary-400 hover:text-primary transition-colors"
+                          >
+                            {contact.phone}
+                          </a>
+                          {contact.linkedin && (
+                            <a
+                              href={contact.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-700 transition-colors"
+                            >
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   )
 }
@@ -353,6 +514,7 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
+  const [selectedService, setSelectedService] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -362,6 +524,14 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleServiceClick = (serviceKey: string) => {
+    setSelectedService(serviceKey)
+  }
+
+  const handleBackToServices = () => {
+    setSelectedService(null)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/30 dark:from-secondary-900 dark:via-blue-900/10 dark:to-cyan-900/10 overflow-hidden">
@@ -558,38 +728,6 @@ export default function Home() {
           </AnimatePresence>
         </section>
 
-        {/* Core Services Section */}
-        <section className="py-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-4"
-                style={{
-                  backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text"
-                }}
-              >
-                Our Core Services
-              </motion.h2>
-              <p className="text-base text-secondary-600 dark:text-secondary-300 ">
-                Comprehensive solutions that transform data into strategic advantages
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {coreServices.map((service, index) => (
-                <InteractiveServiceCard key={service.title} service={service} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Insights Highlights */}
         <section className="py-10 bg-secondary-50/50 dark:bg-secondary-800/20">

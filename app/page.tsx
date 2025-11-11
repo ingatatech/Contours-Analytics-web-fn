@@ -559,7 +559,7 @@ export default function Home() {
           {/* Dynamic Background with Data Visualization Elements */}
           <div className="absolute inset-0">
             {/* Base gradient */}
-            <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800" />
             
             {/* Animated data grid lines */}
             <motion.svg 
@@ -637,7 +637,7 @@ export default function Home() {
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                   <span className="block mb-2">Transform Your Data</span>
                   <motion.span
-                    className="block bg-linear-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+                    className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
                     animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -693,7 +693,7 @@ export default function Home() {
                 >
                   <a
                     href="/services"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
                   >
                     Explore Our Solutions
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -753,16 +753,47 @@ export default function Home() {
 
 
         {/* Insights Highlights */}
-        <section className="py-10 bg-secondary-50/50 dark:bg-secondary-800/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 relative overflow-hidden">
+          {/* Animated background elements */}
+          <motion.div
+            className="absolute inset-0 opacity-5"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{
+              backgroundImage: "radial-gradient(circle at 20% 50%, #0891b2 0%, transparent 50%), radial-gradient(circle at 80% 80%, #3b82f6 0%, transparent 50%)",
+              backgroundSize: "100% 100%"
+            }}
+          />
+          
+          {/* Grid pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="insights-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#0891b2" strokeWidth="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#insights-grid)" />
+            </svg>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-20"
             >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-full mb-6 opacity-80"
+              >
+                <Sparkles className="w-7 h-7 text-white" />
+              </motion.div>
+              
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-4"
+                className="text-4xl md:text-5xl font-bold mb-4"
                 style={{
                   backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6)",
                   WebkitBackgroundClip: "text",
@@ -772,12 +803,12 @@ export default function Home() {
               >
                 Latest Insights
               </motion.h2>
-              <p className="text-base text-secondary-600 dark:text-secondary-300 ">
+              <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-2xl mx-auto">
                 Stay informed with our latest thought leadership and industry expertise
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {insights.map((insight, index) => (
                 <InteractiveInsightCard key={insight.title} insight={insight} index={index} />
               ))}
@@ -787,14 +818,14 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-left mt-12"
+              className="flex justify-center"
             >
               <motion.button
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center text-primary font-semibold hover:text-primary/80 transition-colors"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                View All Insights <ArrowRight className="w-4 h-4 ml-2" />
+                View All Insights <ArrowRight className="w-5 h-5" />
               </motion.button>
             </motion.div>
           </div>

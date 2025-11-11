@@ -107,7 +107,7 @@ export default function ApproachPage() {
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800" />
           
           {/* Animated data grid lines */}
           <motion.svg 
@@ -186,7 +186,7 @@ export default function ApproachPage() {
                 <span>Transform</span>
                 <span className="block">
                   <motion.span
-                    className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-400 to-blue-300"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -219,7 +219,7 @@ export default function ApproachPage() {
                 href="#methodology"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Our Process
                 <ArrowRight className="w-5 h-5" />
@@ -261,7 +261,7 @@ export default function ApproachPage() {
         className="relative min-h-auto flex items-center justify-center overflow-hidden"
       >
         {/* Animated Grid Background */}
-        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-secondary-900 dark:via-secondary-950 dark:to-purple-950">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-secondary-900 dark:via-secondary-950 dark:to-purple-950">
           <div className="absolute inset-0" style={{
             backgroundImage: `
               linear-gradient(to right, rgb(59 130 246 / 0.05) 1px, transparent 1px),

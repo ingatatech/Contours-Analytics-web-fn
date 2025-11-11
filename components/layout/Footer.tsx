@@ -39,7 +39,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-primary-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -70,15 +70,15 @@ export default function Footer() {
                 {/* Contact Info */}
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 text-slate-300">
-                    <Mail className="w-5 h-5 text-blue-400" />
+                    <Mail className="w-5 h-5 text-primary-300" />
                     <span>info@contoursanalytics.com</span>
                   </div>
                   <div className="flex items-center space-x-3 text-slate-300">
-                    <Phone className="w-5 h-5 text-blue-400" />
+                    <Phone className="w-5 h-5 text-primary-300" />
                     <span>+1 (555) 123-4567</span>
                   </div>
                   <div className="flex items-center space-x-3 text-slate-300">
-                    <MapPin className="w-5 h-5 text-blue-400" />
+                    <MapPin className="w-5 h-5 text-primary-300" />
                     <span>New York, NY 10001</span>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-blue-400 transition-colors duration-200"
+                      className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -120,7 +120,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-blue-400 transition-colors duration-200"
+                      className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -142,7 +142,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-blue-400 transition-colors duration-200"
+                      className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -164,7 +164,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-blue-400 transition-colors duration-200"
+                      className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -192,9 +192,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-64 px-4 py-3 bg-slate-800 border border-slate-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 md:w-64 px-4 py-3 bg-slate-800 border border-slate-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
-              <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-r-lg hover:shadow-lg transition-all duration-200 font-medium">
+              <button className="px-6 py-3 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 hover:shadow-lg transition-all duration-200 font-medium">
                 Subscribe
               </button>
             </div>
@@ -222,7 +222,7 @@ export default function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all duration-200"
+                  className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary-300 hover:bg-slate-700 transition-all duration-200"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>

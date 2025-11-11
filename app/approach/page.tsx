@@ -158,7 +158,7 @@ export default function ApproachPage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -255,105 +255,7 @@ export default function ApproachPage() {
         </motion.div>
       </section>
 
-      {/* Content Section */}
-      <motion.section 
-        style={{ opacity, scale }}
-        className="relative min-h-auto flex items-center justify-center overflow-hidden"
-      >
-        {/* Animated Grid Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-secondary-900 dark:via-secondary-950 dark:to-purple-950">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              linear-gradient(to right, rgb(59 130 246 / 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgb(59 130 246 / 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px'
-          }} />
-        </div>
-
-        {/* Floating Orbs */}
-        <motion.div
-          animate={{ 
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ 
-            x: [0, -100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-        />
-
-        <div className="relative z-10 text-center px-4 max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="inline-block mb-8"
-            >
-              <div className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white font-semibold shadow-lg shadow-blue-500/30">
-                Our Methodology
-              </div>
-            </motion.div>
-
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-secondary-900 via-blue-600 to-purple-600 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              A Proven<br />Approach
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed">
-              Our 5-step methodology delivers measurable results and sustainable business transformation
-            </p>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Benefits Stats */}
-      <section className="relative -mt-20 z-20 px-4 mb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white dark:bg-secondary-900 rounded-2xl shadow-xl border border-secondary-200 dark:border-secondary-800 p-6 text-center group"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <benefit.icon className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
-                  {benefit.metric}
-                </div>
-                <div className="text-xs md:text-sm text-secondary-600 dark:text-secondary-400 font-medium">
-                  {benefit.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
+   
       {/* Process Steps - Timeline Style */}
       <section className="max-w-7xl mx-auto px-4 mb-32">
         <motion.div

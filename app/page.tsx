@@ -355,10 +355,10 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
   
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.05, y: -5 }}
+      whileHover={{ scale: 1.08, y: -8 }}
       onHoverStart={() => {
         setIsHovered(true)
         setShowRipple(true)
@@ -367,52 +367,100 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
         setIsHovered(false)
         setTimeout(() => setShowRipple(false), 600)
       }}
-      className="relative glass rounded-2xl p-6 text-left group hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer"
+      className="relative group cursor-pointer"
     >
-      {/* Ripple effect */}
-      <AnimatePresence>
-        {showRipple && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0.5 }}
-            animate={{ scale: 2, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className={`absolute inset-0 bg-gradient-to-r ${gradient} rounded-2xl`}
-          />
-        )}
-      </AnimatePresence>
-      
+      {/* Glow effect */}
       <motion.div
         animate={{
-          scale: isHovered ? 1.1 : 1,
-          rotate: isHovered ? 360 : 0
+          opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1 : 0.9
         }}
-        transition={{ duration: 0.6 }}
-        className={`relative inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${gradient} rounded-xl mb-4`}
-      >
-        <Icon className="w-6 h-6 text-white" />
-      </motion.div>
-      
-      <motion.div 
-        animate={{ scale: isHovered ? 1.1 : 1 }}
-        className="relative text-2xl md:text-3xl font-bold text-secondary-900 dark:text-white mb-1"
-      >
-        {targetValue}
-      </motion.div>
-      
-      <div className="relative text-sm text-secondary-600 dark:text-secondary-400 font-medium">
-        {label}
-      </div>
-      
-      {/* Pulse animation */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.5, 0, 0.5]
-        }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className={`absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r ${gradient} rounded-full`}
+        transition={{ duration: 0.3 }}
+        className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-2xl blur-xl opacity-50`}
       />
+
+      <div className="relative rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 p-6 overflow-hidden group-hover:shadow-2xl">
+        {/* Animated gradient background */}
+        <motion.div
+          animate={{
+            backgroundPosition: isHovered ? ["0% 0%", "100% 100%"] : "0% 0%"
+          }}
+          transition={{ duration: 3, repeat: isHovered ? Infinity : 0, ease: "linear" }}
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5`}
+          style={{ backgroundSize: "200% 200%" }}
+        />
+
+        {/* Ripple effect */}
+        <AnimatePresence>
+          {showRipple && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0.5 }}
+              animate={{ scale: 2.5, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className={`absolute inset-0 bg-gradient-to-r ${gradient} rounded-2xl`}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Content */}
+        <div className="relative">
+          {/* Icon */}
+          <motion.div
+            animate={{
+              scale: isHovered ? 1.2 : 1,
+              rotate: isHovered ? 360 : 0
+            }}
+            transition={{ duration: 0.6 }}
+            className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${gradient} rounded-xl mb-4 shadow-lg group-hover:shadow-xl transition-all`}
+          >
+            <Icon className="w-7 h-7 text-white" />
+          </motion.div>
+
+          {/* Value */}
+          <motion.div 
+            animate={{ 
+              scale: isHovered ? 1.08 : 1,
+              opacity: isHovered ? 1 : 0.9
+            }}
+            className="relative text-3xl md:text-4xl font-bold bg-gradient-to-r from-secondary-900 dark:from-white to-secondary-700 dark:to-secondary-200 bg-clip-text text-transparent mb-2"
+          >
+            {targetValue}
+          </motion.div>
+
+          {/* Label */}
+          <div className="relative text-sm font-semibold text-secondary-700 dark:text-secondary-300 mb-4">
+            {label}
+          </div>
+
+          {/* Trend indicator */}
+          <motion.div
+            animate={{
+              width: isHovered ? "100%" : "0%"
+            }}
+            transition={{ duration: 0.5 }}
+            className={`h-1 bg-gradient-to-r ${gradient} rounded-full`}
+          />
+        </div>
+
+        {/* Floating elements */}
+        <motion.div
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+          className={`absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r ${gradient} rounded-full blur-sm`}
+        />
+        <motion.div
+          animate={{
+            y: [0, 10, 0],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          className={`absolute -bottom-2 -left-2 w-4 h-4 bg-gradient-to-r ${gradient} rounded-full blur-sm`}
+        />
+      </div>
     </motion.div>
   )
 }
@@ -420,6 +468,7 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
 function InteractiveInsightCard({ insight, index }: { insight: any, index: number }) {
   const [isLiked, setIsLiked] = useState(false)
   const [likes, setLikes] = useState(() => Math.floor(Math.random() * 100))
+  const [isHovered, setIsHovered] = useState(false)
   
   return (
     <motion.div
@@ -427,84 +476,134 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      whileHover={{ y: -12, scale: 1.03 }}
+      whileHover={{ y: -16, scale: 1.04 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       className="group cursor-pointer"
       style={{ transformStyle: "preserve-3d" }}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 hover:border-primary/50 hover:shadow-2xl transition-all duration-300">
+      {/* Glow effect */}
+      <motion.div
+        animate={{
+          opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1 : 0.9
+        }}
+        transition={{ duration: 0.3 }}
+        className={`absolute -inset-2 bg-gradient-to-r ${insight.gradient} rounded-2xl blur-xl opacity-40 -z-10`}
+      />
+
+      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-2xl">
+        {/* Animated background gradient */}
         <motion.div
           animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+            backgroundPosition: isHovered ? ["0% 50%", "100% 50%", "0% 50%"] : "0% 50%"
           }}
-          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary-500/5 opacity-0 group-hover:opacity-100"
+          transition={{ duration: 5, repeat: isHovered ? Infinity : 0, ease: "linear" }}
+          className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
           style={{ backgroundSize: "200% 200%" }}
         />
         
-        <div className="relative p-6">
+        {/* Header */}
+        <div className="relative p-6 pb-4">
           <div className="flex items-center justify-between mb-4">
+            {/* Category badge */}
             <motion.span 
-              whileHover={{ scale: 1.1 }}
-              className={`inline-block px-3 py-1 bg-gradient-to-r ${insight.gradient} text-white text-xs font-medium rounded-full`}
+              whileHover={{ scale: 1.12 }}
+              className={`inline-block px-4 py-1.5 bg-gradient-to-r ${insight.gradient} text-white text-xs font-bold rounded-full shadow-lg`}
             >
               {insight.category}
             </motion.span>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 text-xs text-secondary-500 dark:text-secondary-400">
-                <Eye className="w-3 h-3" />
+
+            {/* Stats section */}
+            <div className="flex items-center gap-4">
+              <motion.div 
+                animate={{ scale: isHovered ? 1.1 : 1 }}
+                className="flex items-center gap-1.5 text-xs font-semibold text-secondary-600 dark:text-secondary-300 bg-secondary-100/50 dark:bg-secondary-700/30 px-3 py-1.5 rounded-lg"
+              >
+                <Eye className="w-3.5 h-3.5 text-primary" />
                 <span>{insight.views}</span>
-              </div>
+              </motion.div>
+
+              {/* Like button */}
               <motion.button
                 whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.85 }}
                 onClick={(e) => {
                   e.stopPropagation()
                   setIsLiked(!isLiked)
                   setLikes(isLiked ? likes - 1 : likes + 1)
                 }}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all group/like hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
               >
                 <motion.div
-                  animate={{ scale: isLiked ? [1, 1.3, 1] : 1 }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ 
+                    scale: isLiked ? [1, 1.4, 1] : 1,
+                    rotate: isLiked ? [0, -15, 0] : 0
+                  }}
+                  transition={{ duration: 0.4 }}
+                  key={isLiked ? 'liked' : 'unliked'}
                 >
                   <Star 
-                    className={`w-4 h-4 ${isLiked ? 'fill-yellow-400 text-yellow-400' : 'text-secondary-400'}`}
+                    className={`w-4 h-4 ${isLiked ? 'fill-yellow-400 text-yellow-400' : 'text-secondary-400 group-hover/like:text-yellow-300'}`}
                   />
                 </motion.div>
-                <span className="text-xs text-secondary-500">{likes}</span>
+                <span className="text-xs font-semibold text-secondary-600 dark:text-secondary-300">{likes}</span>
               </motion.button>
             </div>
           </div>
           
-          <h3 className="text-base font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors">
+          {/* Title */}
+          <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
             {insight.title}
           </h3>
-          
+
+          {/* Divider */}
+          <motion.div
+            animate={{
+              width: isHovered ? "100%" : "0%"
+            }}
+            transition={{ duration: 0.5 }}
+            className={`h-0.5 bg-gradient-to-r ${insight.gradient} rounded-full`}
+          />
+        </div>
+
+        {/* Footer */}
+        <div className="relative px-6 py-4 border-t border-secondary-100/50 dark:border-secondary-700/50 bg-secondary-50/30 dark:bg-secondary-800/30">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-secondary-500">{insight.readTime}</span>
+            <motion.span 
+              animate={{ opacity: isHovered ? 0.7 : 1 }}
+              className="text-xs font-medium text-secondary-600 dark:text-secondary-400"
+            >
+              {insight.readTime}
+            </motion.span>
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               whileHover={{ x: 0, opacity: 1 }}
-              className="inline-flex items-center text-primary font-medium text-sm"
+              className="inline-flex items-center text-primary font-bold text-sm hover:text-accent transition-colors gap-1"
             >
-              Read More <ArrowRight className="w-3 h-3 ml-1" />
+              Read More 
+              <motion.div
+                animate={{ x: isHovered ? 5 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ArrowRight className="w-4 h-4" />
+              </motion.div>
             </motion.div>
           </div>
         </div>
-        
-        {/* Shine effect */}
+
+        {/* Shine effect on hover */}
         <motion.div
           animate={{
-            x: ["-100%", "200%"]
+            x: isHovered ? ["0%", "150%"] : "-100%"
           }}
           transition={{
             duration: 2,
-            repeat: Infinity,
+            repeat: isHovered ? Infinity : 0,
             repeatDelay: 3,
             ease: "easeInOut"
           }}
-          className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 opacity-0 group-hover:opacity-100"
+          className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 opacity-0 group-hover:opacity-100 pointer-events-none"
         />
       </div>
     </motion.div>
@@ -610,7 +709,7 @@ export default function Home() {
           </div>
 
           {/* Content */}
-          <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+          <div className="relative z-20 container mx-auto px-4 max-w-6xl py-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -753,7 +852,7 @@ export default function Home() {
 
 
         {/* Insights Highlights */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-10 relative overflow-hidden">
           {/* Animated background elements */}
           <motion.div
             className="absolute inset-0 opacity-5"
@@ -832,31 +931,56 @@ export default function Home() {
         </section>
 
         {/* Partner Trust Indicators */}
-        <section className="py-10 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-10 relative overflow-hidden">
+          {/* Animated gradient background */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              backgroundPosition: ["0% 0%", "100% 100%"]
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            style={{
+              backgroundImage: "linear-gradient(-45deg, transparent 0%, rgba(8, 145, 178, 0.05) 25%, transparent 50%, rgba(59, 130, 246, 0.05) 75%, transparent 100%)",
+              backgroundSize: "400% 400%"
+            }}
+          />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-16"
             >
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-6 opacity-80"
+              >
+                <Users className="w-7 h-7 text-white" />
+              </motion.div>
+
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-4"
+                className="text-4xl md:text-5xl font-bold mb-4"
                 style={{
-                  backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6)",
+                  backgroundImage: "linear-gradient(90deg, #10b981, #0891b2, #3b82f6)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text"
                 }}
               >
-                Trusted Partners
+                Trusted by Industry Leaders
               </motion.h2>
-              <p className="text-base text-secondary-600 dark:text-secondary-300 ">
-                Strategic collaborations that enhance our capabilities and deliver greater value
+              <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-2xl mx-auto">
+                Strategic partnerships that amplify our capabilities and deliver exceptional value
               </p>
             </motion.div>
 
             <div className="relative">
+              {/* Gradient fade effects */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-secondary-50 dark:from-secondary-900 to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary-50 dark:from-secondary-900 to-transparent z-10 pointer-events-none" />
+
               <motion.div
                 animate={{ x: [0, -100 * partners.length] }}
                 transition={{
@@ -869,89 +993,231 @@ export default function Home() {
                 {[...partners, ...partners, ...partners].map((partner, index) => (
                   <motion.div
                     key={`${partner.name}-${index}`}
-                    whileHover={{ y: -5, scale: 1.05 }}
-                    className="group flex-shrink-0 w-48"
+                    whileHover={{ y: -8, scale: 1.08 }}
+                    className="group flex-shrink-0 w-56"
                   >
-                    <div className="glass rounded-xl p-4 text-left hover:shadow-xl transition-all duration-300 cursor-pointer">
-                      <motion.div 
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                        className="w-full h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg mb-3 flex items-center justify-center text-lg font-bold text-primary group-hover:from-primary/20 group-hover:to-accent/20 transition-all"
-                      >
-                        {partner.name.split(' ').map(word => word[0]).join('')}
-                      </motion.div>
-                      <h3 className="text-sm font-semibold text-secondary-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
-                        {partner.name}
-                      </h3>
-                      <p className="text-xs text-secondary-600 dark:text-secondary-400">
-                        {partner.category}
-                      </p>
+                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl">
+                      {/* Glowing background effect */}
+                      <motion.div
+                        animate={{
+                          backgroundPosition: ["0% 0%", "100% 100%"]
+                        }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                        style={{ backgroundSize: "200% 200%" }}
+                      />
+
+                      <div className="relative p-6">
+                        <motion.div 
+                          whileHover={{ rotate: 360, scale: 1.1 }}
+                          transition={{ duration: 0.8 }}
+                          className="w-full h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl mb-4 flex items-center justify-center text-2xl font-bold text-primary group-hover:from-primary/20 group-hover:to-accent/20 transition-all relative overflow-hidden"
+                        >
+                          {/* Pulsing glow */}
+                          <motion.div
+                            animate={{
+                              scale: [1, 1.2, 1],
+                              opacity: [0.3, 0.6, 0.3]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl"
+                          />
+                          <span className="relative">{partner.name.split(' ').map(word => word[0]).join('')}</span>
+                        </motion.div>
+
+                        <div className="relative">
+                          <h3 className="text-sm font-bold text-secondary-900 dark:text-white mb-1 group-hover:text-primary transition-colors line-clamp-1">
+                            {partner.name}
+                          </h3>
+                          <motion.p 
+                            animate={{ opacity: [0.6, 1, 0.6] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                            className="text-xs text-secondary-600 dark:text-secondary-400 font-medium inline-flex items-center gap-1"
+                          >
+                            <motion.span
+                              animate={{ scale: [1, 1.3, 1] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                              className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent"
+                            />
+                            {partner.category}
+                          </motion.p>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
               </motion.div>
             </div>
+
           </div>
         </section>
 
         {/* Interactive CTA Section */}
         <section className="py-5 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-primary-600 opacity-10" />
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          {/* Floating orbs background */}
+          <motion.div
+            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl"
+            animate={{
+              y: [0, 30, 0],
+              x: [-30, 0, -30]
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
+            animate={{
+              y: [0, -30, 0],
+              x: [30, 0, 30]
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass rounded-3xl p-12 relative overflow-hidden"
+              className="relative rounded-3xl overflow-hidden"
             >
-              {/* Animated background pattern */}
+              {/* Main gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary-900/50 dark:to-secondary-800" />
+
+              {/* Animated mesh gradient */}
               <motion.div
                 animate={{
                   backgroundPosition: ["0% 0%", "100% 100%"]
                 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 opacity-5"
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 opacity-10"
                 style={{
-                  backgroundImage: "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.5) 0%, transparent 50%)",
-                  backgroundSize: "100% 100%"
+                  backgroundImage: "radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.5) 0%, transparent 50%)",
+                  backgroundSize: "200% 200%"
                 }}
               />
-              
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
+
+              {/* Grid pattern overlay */}
+              <div className="absolute inset-0 opacity-5">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="cta-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#0891b2" strokeWidth="0.5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#cta-grid)" />
+                </svg>
+              </div>
+
+              {/* Glass border effect */}
+              <div className="absolute inset-0 rounded-3xl border border-white/10 dark:border-white/5" />
+
+              {/* Content */}
+              <div className="relative px-8 py-5 md:px-12 flex flex-col items-center justify-center min-h-96">
+                {/* Animated icon */}
                 <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-primary-500 rounded-full mb-6"
+                  animate={{ 
+                    rotate: 360,
+                    y: [0, -10, 0]
+                  }}
+                  transition={{ 
+                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                  className="relative mb-8"
                 >
-                  <Zap className="w-8 h-8 text-white" />
-                </motion.div>
-                
-                <h2 className="text-3xl md:text-4xl font-bold text-secondary-900 dark:text-white mb-4">
-                  Ready to Transform Your Business?
-                </h2>
-                <p className="text-lg text-secondary-600 dark:text-secondary-300 mb-8 max-w-2xl mx-auto">
-                  Let's discuss how our data-driven solutions can accelerate your growth and drive sustainable success.
-                </p>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-primary-600 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
-                >
-                  <span>Start Your Journey</span>
                   <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1, repeat: Infinity }}
+                    animate={{
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute -inset-4 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur-lg opacity-50"
+                  />
+                  <div className="relative w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-2xl">
+                    <Zap className="w-10 h-10 text-white" />
+                  </div>
+                </motion.div>
+
+                {/* Text content */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="text-center max-w-2xl"
+                >
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6">
+                    Ready to Transform Your Business?
+                  </h2>
+                  <p className="text-lg md:text-xl text-secondary-600 dark:text-secondary-300 mb-10">
+                    Unlock the power of data-driven decision-making and accelerate your growth with our proven analytics solutions.
+                  </p>
+                </motion.div>
+
+                {/* CTA Buttons */}
+                <motion.div
+                  initial={{ y: 30, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="flex flex-col md:flex-row gap-6 items-center justify-center w-full"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.08, y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative group overflow-hidden px-10 py-4 rounded-xl font-semibold text-lg text-white shadow-2xl"
                   >
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.div>
-                </motion.button>
-              </motion.div>
+                    {/* Animated gradient background */}
+                    <motion.div
+                      animate={{
+                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary"
+                      style={{ backgroundSize: "200% 200%" }}
+                    />
+
+                    {/* Shine effect */}
+                    <motion.div
+                      animate={{
+                        x: ["-100%", "200%"]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 2,
+                        ease: "easeInOut"
+                      }}
+                      className="absolute inset-0 w-1/3 bg-white/20 skew-x-12"
+                    />
+
+                    <span className="relative flex items-center gap-2">
+                      Start Your Journey
+                      <motion.div
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </motion.div>
+                    </span>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.08, y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-10 py-4 rounded-xl font-semibold text-lg text-white border-2 border-primary/50 hover:border-primary bg-secondary-900/20 dark:bg-white/5 backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
+                  >
+                    <span className="flex items-center gap-2">
+                      Schedule a Demo
+                      <motion.div
+                        whileHover={{ scale: 1.2 }}
+                        className="w-5 h-5"
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </motion.div>
+                    </span>
+                  </motion.button>
+                </motion.div>
+
+              </div>
             </motion.div>
           </div>
         </section>

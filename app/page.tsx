@@ -1,164 +1,65 @@
 'use client'
 
-import AnimatedCounter from '@/components/ui/AnimatedCounter'
-import { InteractiveCursor } from '@/components/ui/InteractiveCursor'
 import { ParticleField } from '@/components/ui/ParticleField'
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion'
-import { ArrowRight, BarChart3, Shield, Target, Star, TrendingUp, Database, Brain, Users, Globe, Award, CheckCircle, Eye, Sparkles, Zap, MousePointer2, Play, ChevronDown } from 'lucide-react'
+import { motion,  AnimatePresence } from 'framer-motion'
+import { ArrowRight,  Star, TrendingUp, Database, Brain, Users, Globe, Award, CheckCircle, Eye, Sparkles, Zap, MousePointer2, Play, ChevronDown } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 
-const servicesData = {
-  'data-analytics': {
-    title: 'Data Analytics',
-    icon: BarChart3,
-    gradient: 'from-blue-500 to-cyan-500',
-    description: 'Transform raw data into strategic insights that drive business growth',
-    subServices: [
-      {
-        id: 'predictive-analytics',
-        name: 'Predictive Analytics',
-        description: 'Forecast future trends using statistical modeling and machine learning algorithms to help businesses make proactive decisions.',
-        keyContacts: [
-          {
-            id: '1',
-            name: 'Dr. Sarah Chen',
-            title: 'Senior Data Scientist',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 123-4567',
-            email: 'sarah.chen@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/sarahchen'
-          }
-        ]
-      },
-      {
-        id: 'descriptive-analytics',
-        name: 'Descriptive Analytics',
-        description: 'Analyze historical data to summarize performance trends and key metrics for comprehensive business insights.',
-        keyContacts: [
-          {
-            id: '2',
-            name: 'Michael Rodriguez',
-            title: 'Analytics Manager',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 234-5678',
-            email: 'michael.rodriguez@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/michaelrodriguez'
-          }
-        ]
-      }
-    ]
-  },
-  'actuarial-services': {
-    title: 'Actuarial Services',
-    icon: Shield,
-    gradient: 'from-emerald-500 to-teal-500',
-    description: 'Expert risk assessment and financial strategy solutions',
-    subServices: [
-      {
-        id: 'risk-modeling',
-        name: 'Risk Modeling & Assessment',
-        description: 'Develop sophisticated risk models for insurance and finance using advanced statistical methods.',
-        keyContacts: [
-          {
-            id: '3',
-            name: 'Dr. James Wilson',
-            title: 'Chief Actuary',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 345-6789',
-            email: 'james.wilson@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/jameswilson'
-          }
-        ]
-      },
-      {
-        id: 'pricing-development',
-        name: 'Pricing & Product Development',
-        description: 'Design and evaluate insurance and financial products with optimal pricing strategies.',
-        keyContacts: [
-          {
-            id: '4',
-            name: 'Emily Thompson',
-            title: 'Pricing Specialist',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 456-7890',
-            email: 'emily.thompson@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/emilythompson'
-          }
-        ]
-      }
-    ]
-  },
-  'business-intelligence': {
-    title: 'Business Intelligence',
-    icon: Target,
-    gradient: 'from-purple-500 to-pink-500',
-    description: 'Build scalable, data-driven ecosystems for informed decisions',
-    subServices: [
-      {
-        id: 'data-integration',
-        name: 'Data Architecture & Integration',
-        description: 'Design unified data systems for accessible insights across your organization.',
-        keyContacts: [
-          {
-            id: '5',
-            name: 'David Park',
-            title: 'BI Architect',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 567-8901',
-            email: 'david.park@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/davidpark'
-          }
-        ]
-      }
-    ]
-  },
-  'credit-rating': {
-    title: 'Credit Rating',
-    icon: Star,
-    gradient: 'from-orange-500 to-red-500',
-    description: 'Comprehensive credit assessment and rating services',
-    subServices: [
-      {
-        id: 'public-ratings',
-        name: 'Public Credit Ratings',
-        description: 'Transparent ratings for improved market visibility and investor confidence.',
-        keyContacts: [
-          {
-            id: '6',
-            name: 'Lisa Martinez',
-            title: 'Credit Rating Analyst',
-            image: '/api/placeholder/150/150',
-            phone: '+1 (555) 678-9012',
-            email: 'lisa.martinez@contoursanalytics.com',
-            linkedin: 'https://linkedin.com/in/lisamartinez'
-          }
-        ]
-      }
-    ]
-  }
-}
+
 
 const insights = [
   {
+    id: 1,
     title: 'Leveraging Predictive Analytics for Business Growth',
     category: 'Analytics',
-    readTime: '5 min read',
+    excerpt: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
+    date: 'Nov 15, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    views: '2.3k'
+    image: '📊'
   },
   {
+    id: 2,
     title: 'IFRS 17 Compliance: A Comprehensive Guide',
     category: 'Actuarial',
-    readTime: '8 min read',
-    gradient: 'from-emerald-500 to-teal-500',
-    views: '1.8k'
+    excerpt: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
+    date: 'Nov 12, 2024',
+    gradient: 'from-blue-500 to-cyan-500',
   },
   {
+    id: 3,
     title: 'Building a Data-Driven Organization',
     category: 'Business Intelligence',
-    readTime: '6 min read',
-    gradient: 'from-primary-500 to-pink-500',
-    views: '3.1k'
+    excerpt: 'Transform your organization with a strategic approach to data management and analytics.',
+    date: 'Nov 10, 2024',
+    gradient: 'from-blue-500 to-cyan-500',
+    image: '🎯'
+  },
+  {
+    id: 4,
+    title: 'Credit Risk Assessment in Uncertain Times',
+    category: 'Credit Rating',
+    excerpt: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
+    date: 'Nov 8, 2024',
+    gradient: 'from-blue-500 to-cyan-500',
+    image: '⭐'
+  },
+  {
+    id: 5,
+    title: 'AI-Powered Risk Management Solutions',
+    category: 'Technology',
+    excerpt: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
+    date: 'Nov 5, 2024',
+    gradient: 'from-blue-500 to-cyan-500',
+    image: '🤖'
+  },
+  {
+    id: 6,
+    title: 'ESG Reporting: Best Practices and Frameworks',
+    category: 'Sustainability',
+    excerpt: 'A comprehensive guide to environmental, social, and governance reporting standards.',
+    date: 'Nov 2, 2024',
+    gradient: 'from-blue-500 to-cyan-500',
+    image: '🌱'
   }
 ]
 
@@ -173,181 +74,6 @@ const partners = [
 
 
 
-function ServiceCard({ serviceKey, service, index, onServiceClick }: { serviceKey: string, service: any, index: number, onServiceClick: (key: string) => void }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    })
-  }
-
-  return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      onMouseMove={handleMouseMove}
-      onClick={() => onServiceClick(serviceKey)}
-      className="group cursor-pointer relative"
-    >
-      <motion.div
-        whileHover={{ y: -8, scale: 1.02 }}
-        className="relative overflow-hidden rounded-2xl"
-      >
-        <motion.div
-          animate={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
-          }}
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
-        
-        <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-10`} />
-        <div className="relative glass border border-white/20 p-8">
-          <div className="flex items-start justify-between mb-6">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl shadow-lg`}
-            >
-              <service.icon className="w-8 h-8 text-white" />
-            </motion.div>
-            
-            <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
-              <span className="text-xs text-white font-medium">{service.subServices.length} Services</span>
-            </div>
-          </div>
-          
-          <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-            {service.title}
-          </h3>
-          <p className="text-sm text-secondary-600 dark:text-secondary-300 leading-relaxed mb-4">
-            {service.description}
-          </p>
-          
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-secondary-500">Click to explore services</span>
-            <ArrowRight className="w-4 h-4 text-secondary-400 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-function ServiceDetailView({ service, onBack }: { service: any, onBack: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      className="space-y-8"
-    >
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-8">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-        >
-          <ArrowRight className="w-4 h-4 rotate-180" />
-          Back to Services
-        </button>
-      </div>
-
-      <div className="text-center mb-12">
-        <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-3xl shadow-lg mb-6`}>
-          <service.icon className="w-10 h-10 text-white" />
-        </div>
-        <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">{service.title}</h2>
-        <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto">
-          {service.description}
-        </p>
-      </div>
-
-      {/* Sub-Services */}
-      <div className="grid gap-8">
-        {service.subServices.map((subService: any, index: number) => (
-          <motion.div
-            key={subService.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="bg-white dark:bg-secondary-800 rounded-2xl border border-secondary-200 dark:border-secondary-700 p-8 hover:shadow-xl transition-all duration-300"
-          >
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Service Info */}
-              <div>
-                <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-4">
-                  {subService.name}
-                </h3>
-                <p className="text-secondary-600 dark:text-secondary-400 leading-relaxed mb-6">
-                  {subService.description}
-                </p>
-              </div>
-
-              {/* Key Contacts */}
-              <div>
-                <h4 className="text-lg font-semibold text-secondary-900 dark:text-white mb-4">
-                  Key Contacts
-                </h4>
-                <div className="space-y-4">
-                  {subService.keyContacts.map((contact: any) => (
-                    <div key={contact.id} className="flex items-center gap-4 p-4 bg-secondary-50 dark:bg-secondary-700 rounded-xl">
-                      <img
-                        src={contact.image}
-                        alt={contact.name}
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div className="flex-1">
-                        <h5 className="font-semibold text-secondary-900 dark:text-white">
-                          {contact.name}
-                        </h5>
-                        <p className="text-sm text-secondary-600 dark:text-secondary-400">
-                          {contact.title}
-                        </p>
-                        <div className="flex items-center gap-4 mt-2">
-                          <a
-                            href={`mailto:${contact.email}`}
-                            className="text-xs text-primary-500 hover:text-primary-400 transition-colors"
-                          >
-                            {contact.email}
-                          </a>
-                          <a
-                            href={`tel:${contact.phone}`}
-                            className="text-xs text-secondary-600 dark:text-secondary-400 hover:text-primary transition-colors"
-                          >
-                            {contact.phone}
-                          </a>
-                          {contact.linkedin && (
-                            <a
-                              href={contact.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:text-blue-700 transition-colors"
-                            >
-                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                              </svg>
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  )
-}
 
 function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: string, targetValue: string, icon: any, gradient: string }) {
   const [isHovered, setIsHovered] = useState(false)
@@ -379,7 +105,7 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
         className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-2xl blur-xl opacity-50`}
       />
 
-      <div className="relative rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 p-6 overflow-hidden group-hover:shadow-2xl">
+      <div className="relative rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 p-6 overflow-hidden group-hover:shadow-2xl">
         {/* Animated gradient background */}
         <motion.div
           animate={{
@@ -466,8 +192,6 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
 }
 
 function InteractiveInsightCard({ insight, index }: { insight: any, index: number }) {
-  const [isLiked, setIsLiked] = useState(false)
-  const [likes, setLikes] = useState(() => Math.floor(Math.random() * 100))
   const [isHovered, setIsHovered] = useState(false)
   
   return (
@@ -492,14 +216,14 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
         className={`absolute -inset-2 bg-gradient-to-r ${insight.gradient} rounded-2xl blur-xl opacity-40 -z-10`}
       />
 
-      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 shadow-lg hover:shadow-2xl">
         {/* Animated background gradient */}
         <motion.div
           animate={{
             backgroundPosition: isHovered ? ["0% 50%", "100% 50%", "0% 50%"] : "0% 50%"
           }}
           transition={{ duration: 5, repeat: isHovered ? Infinity : 0, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-accent/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
           style={{ backgroundSize: "200% 200%" }}
         />
         
@@ -514,42 +238,7 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
               {insight.category}
             </motion.span>
 
-            {/* Stats section */}
-            <div className="flex items-center gap-4">
-              <motion.div 
-                animate={{ scale: isHovered ? 1.1 : 1 }}
-                className="flex items-center gap-1.5 text-xs font-semibold text-secondary-600 dark:text-secondary-300 bg-secondary-100/50 dark:bg-secondary-700/30 px-3 py-1.5 rounded-lg"
-              >
-                <Eye className="w-3.5 h-3.5 text-primary" />
-                <span>{insight.views}</span>
-              </motion.div>
-
-              {/* Like button */}
-              <motion.button
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.85 }}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsLiked(!isLiked)
-                  setLikes(isLiked ? likes - 1 : likes + 1)
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all group/like hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
-              >
-                <motion.div
-                  animate={{ 
-                    scale: isLiked ? [1, 1.4, 1] : 1,
-                    rotate: isLiked ? [0, -15, 0] : 0
-                  }}
-                  transition={{ duration: 0.4 }}
-                  key={isLiked ? 'liked' : 'unliked'}
-                >
-                  <Star 
-                    className={`w-4 h-4 ${isLiked ? 'fill-yellow-400 text-yellow-400' : 'text-secondary-400 group-hover/like:text-yellow-300'}`}
-                  />
-                </motion.div>
-                <span className="text-xs font-semibold text-secondary-600 dark:text-secondary-300">{likes}</span>
-              </motion.button>
-            </div>
+          
           </div>
           
           {/* Title */}
@@ -574,12 +263,12 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
               animate={{ opacity: isHovered ? 0.7 : 1 }}
               className="text-xs font-medium text-secondary-600 dark:text-secondary-400"
             >
-              {insight.readTime}
+              {insight.date}
             </motion.span>
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               whileHover={{ x: 0, opacity: 1 }}
-              className="inline-flex items-center text-primary font-bold text-sm hover:text-accent transition-colors gap-1"
+              className="inline-flex items-center text-primary-500 font-bold text-sm hover:text-accent transition-colors gap-1"
             >
               Read More 
               <motion.div
@@ -649,7 +338,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
-      <InteractiveCursor />
       <ParticleField />
 
       <div className="relative z-10">
@@ -733,10 +421,10 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                  <span className="block mb-2">Transform Your Data</span>
+                <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
+                  <span className="mb-2">Transform Your Data</span>{" "}
                   <motion.span
-                    className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+                    className="bg-gradient-to-r from-cyan-400 via-blue-400 to-primary-600 bg-clip-text text-transparent"
                     animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -750,7 +438,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
+                className="text-lg  text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
               >
                 We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
               </motion.p>
@@ -883,16 +571,14 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-20"
             >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-full mb-6 opacity-80"
-              >
-                <Sparkles className="w-7 h-7 text-white" />
-              </motion.div>
-              
-              <motion.h2 
-                className="text-4xl md:text-5xl font-bold mb-4"
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="inline-flex items-center justify-center w-14 h-14 bg-primary-500 rounded-full mb-6 opacity-80 shadow-lg"
+            >
+              <Sparkles className="w-7 h-7 text-white" />
+            </motion.div>              <motion.h2 
+                className="text-4xl  font-bold mb-4"
                 style={{
                   backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6)",
                   WebkitBackgroundClip: "text",
@@ -922,7 +608,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-500 to-primary-500 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 View All Insights <ArrowRight className="w-5 h-5" />
               </motion.button>
@@ -955,13 +641,13 @@ export default function Home() {
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-6 opacity-80"
+                className="inline-flex items-center justify-center w-14 h-14 bg-primary-500 rounded-full mb-6 opacity-80 shadow-lg"
               >
                 <Users className="w-7 h-7 text-white" />
               </motion.div>
 
               <motion.h2 
-                className="text-4xl md:text-5xl font-bold mb-4"
+                className="text-4xl  font-bold mb-4"
                 style={{
                   backgroundImage: "linear-gradient(90deg, #10b981, #0891b2, #3b82f6)",
                   WebkitBackgroundClip: "text",
@@ -996,14 +682,14 @@ export default function Home() {
                     whileHover={{ y: -8, scale: 1.08 }}
                     className="group flex-shrink-0 w-56"
                   >
-                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl">
+                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl">
                       {/* Glowing background effect */}
                       <motion.div
                         animate={{
                           backgroundPosition: ["0% 0%", "100% 100%"]
                         }}
                         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
                         style={{ backgroundSize: "200% 200%" }}
                       />
 
@@ -1011,7 +697,7 @@ export default function Home() {
                         <motion.div 
                           whileHover={{ rotate: 360, scale: 1.1 }}
                           transition={{ duration: 0.8 }}
-                          className="w-full h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl mb-4 flex items-center justify-center text-2xl font-bold text-primary group-hover:from-primary/20 group-hover:to-accent/20 transition-all relative overflow-hidden"
+                          className="w-full h-20 bg-gradient-to-br from-primary-500/10 to-primary-500/10 rounded-xl mb-4 flex items-center justify-center text-2xl font-bold text-primary group-hover:from-primary-500/20 group-hover:to-primary-500/20 transition-all relative overflow-hidden"
                         >
                           {/* Pulsing glow */}
                           <motion.div
@@ -1020,7 +706,7 @@ export default function Home() {
                               opacity: [0.3, 0.6, 0.3]
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl"
+                            className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-primary-500/20 rounded-xl"
                           />
                           <span className="relative">{partner.name.split(' ').map(word => word[0]).join('')}</span>
                         </motion.div>
@@ -1037,7 +723,7 @@ export default function Home() {
                             <motion.span
                               animate={{ scale: [1, 1.3, 1] }}
                               transition={{ duration: 2, repeat: Infinity }}
-                              className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent"
+                              className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-primary-500"
                             />
                             {partner.category}
                           </motion.p>
@@ -1056,7 +742,7 @@ export default function Home() {
         <section className="py-5 relative overflow-hidden">
           {/* Floating orbs background */}
           <motion.div
-            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl"
+            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary-500/20 to-primary-500/20 rounded-full blur-3xl"
             animate={{
               y: [0, 30, 0],
               x: [-30, 0, -30]
@@ -1080,7 +766,7 @@ export default function Home() {
               className="relative rounded-3xl overflow-hidden"
             >
               {/* Main gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary-900/50 dark:to-secondary-800" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-accent/5 to-secondary-900/50 dark:to-secondary-800" />
 
               {/* Animated mesh gradient */}
               <motion.div
@@ -1113,30 +799,28 @@ export default function Home() {
               {/* Content */}
               <div className="relative px-8 py-5 md:px-12 flex flex-col items-center justify-center min-h-96">
                 {/* Animated icon */}
-                <motion.div
-                  animate={{ 
-                    rotate: 360,
-                    y: [0, -10, 0]
-                  }}
-                  transition={{ 
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-                  }}
-                  className="relative mb-8"
-                >
                   <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1]
+                    animate={{ 
+                      rotate: 360,
+                      y: [0, -10, 0]
                     }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute -inset-4 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur-lg opacity-50"
-                  />
-                  <div className="relative w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-2xl">
-                    <Zap className="w-10 h-10 text-white" />
-                  </div>
-                </motion.div>
-
-                {/* Text content */}
+                    transition={{ 
+                      rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                      y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                    }}
+                    className="relative mb-8"
+                  >
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute -inset-4 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur-lg opacity-50"
+                    />
+                    <div className="relative w-20 h-20 bg-primary-500 rounded-full flex items-center justify-center shadow-2xl">
+                      <Zap className="w-10 h-10 text-white" />
+                    </div>
+                  </motion.div>                {/* Text content */}
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
@@ -1144,7 +828,7 @@ export default function Home() {
                   transition={{ delay: 0.2 }}
                   className="text-center max-w-2xl"
                 >
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6">
+                  <h2 className="text-4xl  lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6">
                     Ready to Transform Your Business?
                   </h2>
                   <p className="text-lg md:text-xl text-secondary-600 dark:text-secondary-300 mb-10">
@@ -1171,7 +855,7 @@ export default function Home() {
                         backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
                       }}
                       transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary"
+                      className="absolute inset-0 bg-gradient-to-r from-primary to-primary opacity-100"
                       style={{ backgroundSize: "200% 200%" }}
                     />
 
@@ -1203,7 +887,7 @@ export default function Home() {
                   <motion.button
                     whileHover={{ scale: 1.08, y: -4 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-10 py-4 rounded-xl font-semibold text-lg text-white border-2 border-primary/50 hover:border-primary bg-secondary-900/20 dark:bg-white/5 backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
+                    className="px-10 py-4 rounded-xl font-semibold text-lg text-white border-2 border-primary-500/50 hover:border-primary-500 bg-primary-500/10 backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
                   >
                     <span className="flex items-center gap-2">
                       Schedule a Demo

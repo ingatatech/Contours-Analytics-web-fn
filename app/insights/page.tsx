@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Calendar, Clock, ArrowRight, TrendingUp, Users, BookOpen, Download, Share2, Eye } from 'lucide-react'
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 
@@ -13,9 +12,6 @@ const insights = [
     category: 'Analytics',
     excerpt: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
     date: 'Nov 15, 2024',
-    readTime: '5 min read',
-    views: '2.4k',
-    featured: true,
     gradient: 'from-blue-500 to-cyan-500',
     image: '📊'
   },
@@ -25,11 +21,7 @@ const insights = [
     category: 'Actuarial',
     excerpt: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
     date: 'Nov 12, 2024',
-    readTime: '8 min read',
-    views: '1.8k',
-    featured: false,
-    gradient: 'from-emerald-500 to-teal-500',
-    image: '⚖️'
+    gradient: 'from-blue-500 to-cyan-500',
   },
   {
     id: 3,
@@ -37,10 +29,7 @@ const insights = [
     category: 'Business Intelligence',
     excerpt: 'Transform your organization with a strategic approach to data management and analytics.',
     date: 'Nov 10, 2024',
-    readTime: '6 min read',
-    views: '3.1k',
-    featured: true,
-    gradient: 'from-purple-500 to-pink-500',
+    gradient: 'from-blue-500 to-cyan-500',
     image: '🎯'
   },
   {
@@ -49,10 +38,7 @@ const insights = [
     category: 'Credit Rating',
     excerpt: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
     date: 'Nov 8, 2024',
-    readTime: '7 min read',
-    views: '1.5k',
-    featured: false,
-    gradient: 'from-orange-500 to-red-500',
+    gradient: 'from-blue-500 to-cyan-500',
     image: '⭐'
   },
   {
@@ -61,10 +47,7 @@ const insights = [
     category: 'Technology',
     excerpt: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
     date: 'Nov 5, 2024',
-    readTime: '4 min read',
-    views: '2.7k',
-    featured: false,
-    gradient: 'from-indigo-500 to-purple-500',
+    gradient: 'from-blue-500 to-cyan-500',
     image: '🤖'
   },
   {
@@ -73,10 +56,7 @@ const insights = [
     category: 'Sustainability',
     excerpt: 'A comprehensive guide to environmental, social, and governance reporting standards.',
     date: 'Nov 2, 2024',
-    readTime: '9 min read',
-    views: '1.9k',
-    featured: false,
-    gradient: 'from-green-500 to-emerald-500',
+    gradient: 'from-blue-500 to-cyan-500',
     image: '🌱'
   }
 ]
@@ -103,7 +83,7 @@ export default function InsightsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Insights with Data Analytics Focus */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-10">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
@@ -158,7 +138,7 @@ export default function InsightsPage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -182,10 +162,10 @@ export default function InsightsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                <span className="block mb-2">Latest</span>
+              <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
+                <span className="mb-2">Latest</span>{" "}
                 <motion.span
-                  className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-transparent"
+                  className=" bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
@@ -259,60 +239,110 @@ export default function InsightsPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-12"
+          className="mb-20"
         >
-          <h2 className="text-xl md:text-2xl font-bold gradient-text mb-8 text-center">Featured Articles</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {insights.filter(insight => insight.featured).map((insight, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-6 opacity-80"
+            >
+              <BookOpen className="w-7 h-7 text-white" />
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
+              Latest <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Insights</span>
+            </h2>
+            <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
+              Explore our most popular insights and in-depth analysis
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {insights.map((insight, index) => (
               <motion.div
                 key={insight.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 + index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group cursor-pointer"
+                initial={{ opacity: 0, y: 30, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -12, scale: 1.03 }}
+                className="group cursor-pointer relative"
+                style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="relative overflow-hidden rounded-2xl">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${insight.gradient} opacity-10`} />
-                  <div className="relative glass border border-white/20 p-6 md:p-8">
+                {/* Glow effect */}
+                <motion.div
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: index * 0.3 }}
+                  className={`absolute -inset-2 bg-gradient-to-br ${insight.gradient} rounded-2xl blur-2xl opacity-30`}
+                />
+
+                <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 p-8 hover:border-primary/50 hover:shadow-2xl transition-all duration-300">
+                  {/* Animated background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%"]
+                    }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    className={`absolute inset-0 bg-gradient-to-br ${insight.gradient} opacity-0 group-hover:opacity-5 transition-opacity`}
+                    style={{ backgroundSize: "200% 200%" }}
+                  />
+
+                  <div className="relative">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-3xl">{insight.image}</span>
-                        <span className={`inline-block px-3 py-1 bg-gradient-to-r ${insight.gradient} text-white text-xs font-medium rounded-full`}>
+                        
+                        <motion.span
+                          whileHover={{ scale: 1.1 }}
+                          className={`inline-block px-4 py-1.5 bg-gradient-to-r ${insight.gradient} text-white text-xs font-bold rounded-full shadow-lg`}
+                        >
                           {insight.category}
-                        </span>
+                        </motion.span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-secondary-500 dark:text-secondary-400">
-                        <Eye className="w-3 h-3" />
-                        <span>{insight.views}</span>
-                      </div>
+                 
                     </div>
                     
-                    <h3 className="text-base md:text-lg font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
                       {insight.title}
                     </h3>
                     
                     <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-4 leading-relaxed">
                       {insight.excerpt}
                     </p>
+
+                    {/* Divider */}
+                    <motion.div
+                      animate={{
+                        width: ["0%", "100%", "0%"]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full my-4"
+                    />
                     
-                    <div className="flex items-center justify-between pt-4 border-t border-secondary-200/50 dark:border-secondary-700/50">
+                    <div className="flex items-center justify-between pt-4">
                       <div className="flex items-center gap-4 text-xs text-secondary-500 dark:text-secondary-400">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
+                        <motion.div
+                          whileHover={{ x: 2 }}
+                          className="flex items-center gap-1"
+                        >
+                          <Calendar className="w-4 h-4 text-primary" />
                           <span>{insight.date}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>{insight.readTime}</span>
-                        </div>
+                        </motion.div>
+                     
                       </div>
                       <motion.div
                         initial={{ x: -10, opacity: 0 }}
                         whileHover={{ x: 0, opacity: 1 }}
-                        className="inline-flex items-center text-primary font-medium text-sm"
+                        className="inline-flex items-center text-primary font-bold text-sm"
                       >
-                        Read More <ArrowRight className="w-3 h-3 ml-1" />
+                        Read <ArrowRight className="w-4 h-4 ml-1" />
                       </motion.div>
                     </div>
                   </div>
@@ -322,71 +352,7 @@ export default function InsightsPage() {
           </div>
         </motion.div>
 
-        {/* All Articles */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="mb-16"
-        >
-          <h2 className="text-xl md:text-2xl font-bold gradient-text mb-8 text-center">Latest Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {insights.filter(insight => !insight.featured).map((insight, index) => (
-              <motion.div
-                key={insight.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group cursor-pointer"
-              >
-                <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 p-6 hover:border-primary/50 hover:shadow-xl transition-all duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl">{insight.image}</span>
-                        <span className={`inline-block px-2 py-1 bg-gradient-to-r ${insight.gradient} text-white text-xs font-medium rounded-full`}>
-                          {insight.category}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-secondary-500 dark:text-secondary-400">
-                        <Eye className="w-3 h-3" />
-                        <span>{insight.views}</span>
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-sm font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                      {insight.title}
-                    </h3>
-                    
-                    <p className="text-xs text-secondary-600 dark:text-secondary-400 mb-4 leading-relaxed line-clamp-3">
-                      {insight.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center justify-between pt-3 border-t border-secondary-200 dark:border-secondary-700">
-                      <div className="flex items-center gap-3 text-xs text-secondary-500 dark:text-secondary-400">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>{insight.date}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>{insight.readTime}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Share2 className="w-3 h-3 text-secondary-400 hover:text-primary cursor-pointer transition-colors" />
-                        <Download className="w-3 h-3 text-secondary-400 hover:text-primary cursor-pointer transition-colors" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
+     
         {/* Newsletter Signup */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

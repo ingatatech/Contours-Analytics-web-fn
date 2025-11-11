@@ -60,7 +60,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
             >
               <Link
                 href="/services"
-                className="group inline-flex items-center space-x-2 bg-linear-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+                className="group inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
               >
                 <span>Explore Services</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -96,7 +96,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
                 whileHover={{ y: -5 }}
                 className="glass rounded-2xl p-6 text-left group hover:shadow-xl transition-all duration-300"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-linear-to-r from-blue-600 to-cyan-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">

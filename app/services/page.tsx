@@ -156,7 +156,7 @@ export default function ServicesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
                
                 <span className="block">
                   <motion.span
@@ -177,7 +177,7 @@ export default function ServicesPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mb-8"
             >
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg  text-slate-300 leading-relaxed max-w-3xl mx-auto">
                {selectedService.longDescription}
               </p>
             </motion.div>
@@ -437,11 +437,11 @@ export default function ServicesPage() {
                               </div>
 
                               {/* Bottom Accent Line */}
-                              <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-500 via-cyan-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                             </div>
 
                             {/* Floating Shadow Effect */}
-                            <div className="absolute inset-0 -z-10 bg-linear-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-105" />
+                            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-105" />
                           </motion.div>
                         )
                       })}
@@ -457,7 +457,7 @@ export default function ServicesPage() {
       {/* CTA Section */}
       <section className="relative py-12 bg-blue-600 text-white">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-linear-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
         </div>
         <div className="relative container mx-auto px-4 text-center max-w-7xl">
           <h2 className="text-3xl font-bold mb-6">

@@ -110,7 +110,7 @@ export default function ServicesOverview() {
                 <ul className="space-y-2 mb-6">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center text-sm text-slate-600 dark:text-slate-400">
-                      <div className={`w-2 h-2 bg-linear-to-r ${service.gradient} rounded-full mr-3`} />
+                      <div className={`w-2 h-2 bg-gradient-to-r ${service.gradient} rounded-full mr-3`} />
                     {feature}
                     </li>
                   ))}
@@ -146,7 +146,7 @@ export default function ServicesOverview() {
           >
             <Link
               href="/services"
-              className="inline-flex items-center space-x-2 bg-linear-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300"
             >
               <span>View All Services</span>
               <ArrowRight className="w-5 h-5" />

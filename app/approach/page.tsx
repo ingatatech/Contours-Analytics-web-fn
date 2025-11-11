@@ -265,8 +265,8 @@ export default function ApproachPage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
-            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">5-Step Process</span>
+          <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
+            Our <span className="bg-gradient-to-r from-blue-600 to-primary-500 bg-clip-text text-transparent">5-Step Process</span>
           </h2>
           <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
             A systematic approach that transforms complexity into clarity
@@ -351,7 +351,7 @@ export default function ApproachPage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
+          <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
             Guided by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Core Principles</span>
           </h2>
           <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
@@ -422,7 +422,7 @@ export default function ApproachPage() {
               </div>
             </motion.div>
             
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-3xl  font-bold mb-4">
               Ready to Get Started?
             </h2>
             <p className="text-lg md:text-xl opacity-90 mb-8 max-w-2xl mx-auto leading-relaxed">

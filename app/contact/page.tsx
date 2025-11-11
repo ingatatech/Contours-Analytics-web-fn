@@ -12,7 +12,7 @@ const contactMethods = [
     description: 'Send us an email anytime',
     contact: 'info@contoursanalytics.com',
     href: 'mailto:info@contoursanalytics.com',
-    gradient: 'from-blue-500 to-cyan-500'
+    gradient: 'from-primary-500 to-primary-500'
   },
   {
     icon: Phone,
@@ -20,7 +20,7 @@ const contactMethods = [
     description: 'Mon-Fri from 8am to 6pm',
     contact: '+1 (555) 123-4567',
     href: 'tel:+15551234567',
-    gradient: 'from-emerald-500 to-teal-500'
+   gradient: 'from-primary-500 to-primary-500'
   },
   {
     icon: MapPin,
@@ -28,27 +28,10 @@ const contactMethods = [
     description: 'Come say hello at our office',
     contact: 'New York, NY 10001',
     href: '#',
-    gradient: 'from-purple-500 to-pink-500'
+    gradient: 'from-primary-500 to-primary-500'
   }
 ]
 
-const features = [
-  {
-    icon: Clock,
-    title: '24h Response Time',
-    description: 'We respond to all inquiries within 24 hours'
-  },
-  {
-    icon: Users,
-    title: 'Expert Team',
-    description: 'Direct access to our senior consultants'
-  },
-  {
-    icon: MessageSquare,
-    title: 'Free Consultation',
-    description: 'Complimentary 30-minute strategy session'
-  }
-]
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -110,7 +93,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Contact with Data Focus */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-10">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
@@ -165,7 +148,7 @@ export default function ContactPage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,10 +172,10 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                <span className="block mb-2">Let's Transform</span>
+              <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
+                <span className="mb-2">Let's Transform</span>{" "}
                 <motion.span
-                  className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-transparent"
+                  className=" bg-gradient-to-r from-primary-500 via-accent to-primary-500 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
@@ -223,9 +206,9 @@ export default function ContactPage() {
                 href="#contact-form"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
-                Start a Conversation
+                Email Us
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
               <motion.a
@@ -260,72 +243,145 @@ export default function ContactPage() {
       </section>
 
       {/* Content Section */}
-      <div className="pt-20 pb-20 bg-gray-50">
+      <div className="py-10 relative overflow-hidden">
+        {/* Background elements */}
+        <motion.div
+          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl"
+          animate={{
+            y: [0, 30, 0],
+            x: [-30, 0, -30]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-6 opacity-80"
+            >
+              <MessageSquare className="w-7 h-7 text-white" />
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
+              Get In <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Touch</span>
+            </h2>
+            <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
+              Choose your preferred way to reach us. We're here to help and look forward to connecting with you.
+            </p>
+          </motion.div>
+
           {/* Contact Methods */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="lg:col-span-2 space-y-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="grid md:grid-cols-3 gap-8 mb-16"
           >
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-secondary-900 dark:text-white mb-4">
-                Contact Information
-              </h2>
-              <p className="text-secondary-600 dark:text-secondary-400">
-                Choose your preferred way to reach us. We're here to help!
-              </p>
-            </div>
-            
             {contactMethods.map((method, index) => (
               <motion.a
                 key={method.title}
                 href={method.href}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 + index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="group block"
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8, scale: 1.04 }}
+                className="group relative"
               >
-                <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 p-6 hover:border-primary/50 hover:shadow-2xl transition-all duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative flex items-start space-x-4">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${method.gradient} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
+                {/* Glow effect */}
+                <motion.div
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: index * 0.3 }}
+                  className={`absolute -inset-1 bg-gradient-to-br ${method.gradient} rounded-2xl blur-xl opacity-20`}
+                />
+
+                <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 p-8 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer h-full">
+                  {/* Animated background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%"]
+                    }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    className={`absolute inset-0 bg-gradient-to-br ${method.gradient} opacity-0 group-hover:opacity-5 transition-opacity`}
+                    style={{ backgroundSize: "200% 200%" }}
+                  />
+
+                  <div className="relative">
+                    <motion.div
+                      animate={{
+                        rotate: 360,
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ 
+                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 3, repeat: Infinity }
+                      }}
+                      className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${method.gradient} rounded-xl mb-4 shadow-lg group-hover:shadow-xl transition-all`}
+                    >
                       <method.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-secondary-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
-                        {method.title}
-                      </h3>
-                      <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-2">
-                        {method.description}
-                      </p>
-                      <p className="text-secondary-900 dark:text-white font-medium">
-                        {method.contact}
-                      </p>
-                    </div>
+                    </motion.div>
+
+                    <h3 className="font-bold text-secondary-900 dark:text-white mb-2 text-lg group-hover:text-primary transition-colors">
+                      {method.title}
+                    </h3>
+                    <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-3">
+                      {method.description}
+                    </p>
+                    <p className="text-secondary-900 dark:text-white font-bold text-primary">
+                      {method.contact}
+                    </p>
                   </div>
                 </div>
               </motion.a>
             ))}
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form Section */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="lg:col-span-3"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="relative"
           >
-            <div className="relative overflow-hidden rounded-3xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10" />
-              <div className="relative glass border border-blue-200/20 p-8 md:p-10">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-2xl" />
+            <div className="relative glass border border-blue-200/20 dark:border-blue-900/20 rounded-3xl p-8 md:p-12 overflow-hidden">
+              {/* Grid background */}
+              <div className="absolute inset-0 opacity-5">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="contact-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#0891b2" strokeWidth="0.5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#contact-grid)" />
+                </svg>
+              </div>
+
+              <div className="relative">
                 <div className="mb-8">
-                  <h2 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">
+                  <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-2">
                     Send us a Message
                   </h2>
-                  <p className="text-sm text-secondary-600 dark:text-secondary-400">
+                  <motion.div
+                    animate={{
+                      width: ["0%", "100%", "0%"]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full my-3"
+                  />
+                  <p className="text-secondary-600 dark:text-secondary-400">
                     Fill out the form below and we'll get back to you within 24 hours.
                   </p>
                 </div>

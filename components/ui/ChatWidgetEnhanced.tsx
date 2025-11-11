@@ -173,7 +173,7 @@ export default function ChatWidgetEnhanced() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="mb-4 w-96 h-96 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
           >
-            <div className="bg-linear-to-r from-cyan-600 to-cyan-500 text-white p-4 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white p-4 flex justify-between items-center">
               <h3 className="font-bold text-lg">{translatedUI.title}</h3>
               <button onClick={() => setIsOpen(false)} className="hover:bg-cyan-700 p-1 rounded-lg transition" aria-label="Close">
                 <X className="w-5 h-5" />
@@ -210,7 +210,7 @@ export default function ChatWidgetEnhanced() {
         )}
       </AnimatePresence>
 
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="p-4 rounded-full bg-linear-to-r from-cyan-600 to-cyan-500 text-white shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Open chat">
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="p-4 rounded-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Open chat">
         <MessageCircle className="w-6 h-6" />
       </motion.button>
     </div>

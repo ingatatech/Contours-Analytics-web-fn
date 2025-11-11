@@ -9,28 +9,28 @@
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
   --secondary-foreground: #475569;
-  --accent: #06b6d4;
+  --accent: #0891b2;
   --accent-foreground: #ffffff;
   --muted: #f8fafc;
   --muted-foreground: #64748b;
   --border: #e2e8f0;
   --gradient-from: #038bca;
-  --gradient-to: #06b6d4;
+  --gradient-to: #0891b2;
 }
 
 /* Dark mode */
 html.dark {
   --background: #0f172a;
   --foreground: #f8fafc;
-  --primary: #0891b2;
+  --primary: #038bca;
   --secondary: #1e293b;
   --secondary-foreground: #cbd5e1;
-  --accent: #0ea5e9;
+  --accent: #0891b2;
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
   --border: #334155;
-  --gradient-from: #0891b2;
-  --gradient-to: #0ea5e9;
+  --gradient-from: #038bca;
+  --gradient-to: #0891b2;
 }
 
 body {

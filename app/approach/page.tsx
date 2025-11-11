@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Target, Database, BarChart3, Eye, Rocket, CheckCircle, ArrowRight, Users, Clock, Award, Zap, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 const approachSteps = [
   {
@@ -78,6 +78,20 @@ const benefits = [
 
 export default function ApproachPage() {
   const containerRef = useRef(null)
+  const [isClient, setIsClient] = useState(false)
+  const [randomPositions] = useState(() =>
+    [...Array(12)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 4 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }))
+  )
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -88,13 +102,166 @@ export default function ApproachPage() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
-      {/* Hero Section */}
+      {/* Hero Section - Approach with Data Analytics Focus */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+        {/* Dynamic Background with Data Visualization Elements */}
+        <div className="absolute inset-0">
+          {/* Base gradient */}
+          <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
+          
+          {/* Animated data grid lines */}
+          <motion.svg 
+            className="absolute inset-0 w-full h-full opacity-10"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <pattern id="grid-approach" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-blue-400"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-approach)" />
+          </motion.svg>
+
+          {/* Floating Data Points Animation */}
+          {isClient && randomPositions.map((pos, i) => (
+            <motion.div
+              key={`data-point-${i}`}
+              className="absolute w-2 h-2 bg-blue-400 rounded-full"
+              style={{
+                left: `${pos.left}%`,
+                top: `${pos.top}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: pos.duration,
+                repeat: Infinity,
+                delay: pos.delay,
+              }}
+            />
+          ))}
+
+          {/* Glowing accent orbs */}
+          <motion.div
+            className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-40 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
+            >
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+              <span className="text-sm font-medium text-blue-300">Our Proven Methodology</span>
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                <span>Transform</span>
+                <span className="block">
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-400 to-blue-300"
+                    animate={{ backgroundPosition: ["0%", "200%"] }}
+                    transition={{ duration: 8, repeat: Infinity }}
+                  >
+                    Data Into Strategy
+                  </motion.span>
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="mb-8"
+            >
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+                Our five-step methodology combines industry best practices with cutting-edge analytics to deliver transformative business results.
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex gap-4 justify-center pt-6"
+            >
+              <motion.a
+                href="#methodology"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+              >
+                Explore Our Process
+                <ArrowRight className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                href="/contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+              >
+                Schedule Consultation
+              </motion.a>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs text-slate-400">Discover our methodology</span>
+            <motion.div
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-6 h-10 border border-blue-500/30 rounded-full flex justify-center items-center"
+            >
+              <div className="w-1 h-2 bg-blue-500 rounded-full" />
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Content Section */}
       <motion.section 
         style={{ opacity, scale }}
-        className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-auto flex items-center justify-center overflow-hidden"
       >
         {/* Animated Grid Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-secondary-900 dark:via-secondary-950 dark:to-purple-950">
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-secondary-900 dark:via-secondary-950 dark:to-purple-950">
           <div className="absolute inset-0" style={{
             backgroundImage: `
               linear-gradient(to right, rgb(59 130 246 / 0.05) 1px, transparent 1px),

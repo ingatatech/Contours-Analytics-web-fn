@@ -14,9 +14,19 @@ export default function ServicesPage() {
   const [selectedSubServiceId, setSelectedSubServiceId] = useState<string | null>(null)
   const [expandedContacts, setExpandedContacts] = useState<Set<string>>(new Set())
   const [mounted, setMounted] = useState(false)
+  const [isClient, setIsClient] = useState(false)
+  const [randomPositions] = useState(() =>
+    [...Array(12)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 4 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }))
+  )
 
   useEffect(() => {
     setMounted(true)
+    setIsClient(true)
     // Get service from URL params
     const service = searchParams?.get('service')
     if (service && servicesData.find(s => s.id === service)) {
@@ -66,82 +76,155 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-16 bg-linear-to-br from-slate-900 via-blue-900 to-cyan-800 text-white overflow-hidden mt-20">
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-48 translate-x-48 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/20 rounded-full translate-y-32 -translate-x-32" />
-        
-        {/* Floating Particles */}
+      {/* Hero Section - Services with Data Analytics Focus */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+        {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {/* Base gradient */}
+          <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
+          
+          {/* Animated data grid lines */}
+          <motion.svg 
+            className="absolute inset-0 w-full h-full opacity-10"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <pattern id="grid-services" width="50" height="50" patternUnits="userSpaceOnUse">
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-blue-400"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-services)" />
+          </motion.svg>
+
+          {/* Floating Data Points Animation */}
+          {isClient && randomPositions.map((pos, i) => (
             <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+              key={`data-point-${i}`}
+              className="absolute w-2 h-2 bg-blue-400 rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${pos.left}%`,
+                top: `${pos.top}%`,
               }}
               animate={{
-                y: [-15, 15],
-                opacity: [0.3, 1, 0.3],
+                y: [0, -30, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.5, 1],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: pos.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: pos.delay,
               }}
             />
           ))}
+
+          {/* Glowing accent orbs */}
+          <motion.div
+            className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-40 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          />
         </div>
 
-        <div className="relative container mx-auto px-4 max-w-6xl">
-          <div className="text-left">
-              <div className="flex items-start justify-start mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <div className="inline-flex items-center text-sm font-medium border border-white/40 text-white/90 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full">
-                <Sparkles className="w-4 h-4 mr-2 text-yellow-400" />
-                {selectedService?.name || "Services"}
-                <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </div>
-            </div>
-            <h1 className="text-5xl lg:text-5xl font-bold mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
-             {selectedService.name}
-            </h1>
-            <p className="text-xl text-blue-100 mb-10 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-bottom-8 duration-700">
-             {selectedService.longDescription}
-            </p>
-
+        {/* Content */}
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            {/* Badge */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 1 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center border-2 border-white/30 text-white px-10 py-3 rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 group"
-                >
-                 Get in Touch
-                  <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
-                </Link>
-              </motion.div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+              <span className="text-sm font-medium text-blue-300">Comprehensive Solutions</span>
             </motion.div>
-          </div>
+
+            {/* Main Heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                <span>Our</span>
+                <span className="block">
+                  <motion.span
+                    className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-400 to-blue-300"
+                    animate={{ backgroundPosition: ["0%", "200%"] }}
+                    transition={{ duration: 8, repeat: Infinity }}
+                  >
+                    Services
+                  </motion.span>
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="mb-8"
+            >
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+                From advanced analytics to actuarial consulting, we deliver tailored solutions that drive transformative business outcomes.
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex gap-4 justify-center pt-6"
+            >
+              <motion.a
+                href="#services"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+              >
+                Explore Services
+                <ArrowRight className="w-5 h-5" />
+              </motion.a>
+              <motion.a
+                href="/contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+              >
+                Get Consultation
+              </motion.a>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs text-slate-400">Discover our solutions</span>
             <motion.div
-              className="w-1 h-3 bg-white rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
+              animate={{ y: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-            />
+              className="w-6 h-10 border border-blue-500/30 rounded-full flex justify-center items-center"
+            >
+              <div className="w-1 h-2 bg-blue-500 rounded-full" />
+            </motion.div>
           </div>
         </motion.div>
       </section>

@@ -313,7 +313,7 @@ function ServiceDetailView({ service, onBack }: { service: any, onBack: () => vo
                         <div className="flex items-center gap-4 mt-2">
                           <a
                             href={`mailto:${contact.email}`}
-                            className="text-xs text-primary hover:text-primary/80 transition-colors"
+                            className="text-xs text-primary-500 hover:text-primary-400 transition-colors"
                           >
                             {contact.email}
                           </a>
@@ -419,7 +419,7 @@ function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: st
 
 function InteractiveInsightCard({ insight, index }: { insight: any, index: number }) {
   const [isLiked, setIsLiked] = useState(false)
-  const [likes, setLikes] = useState(Math.floor(Math.random() * 100))
+  const [likes, setLikes] = useState(() => Math.floor(Math.random() * 100))
   
   return (
     <motion.div
@@ -515,8 +515,23 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
   const [selectedService, setSelectedService] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false)
+
+  // Generate random positions once on mount to avoid hydration mismatch
+  const [randomPositions] = useState(() =>
+    [...Array(12)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 4 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }))
+  )
 
   useEffect(() => {
+    setIsClient(true)
+    // Guard against SSR - only run on client side
+    if (typeof window === 'undefined') return
+
     const handleScroll = () => {
       setScrollY(window.scrollY)
       setShowScrollIndicator(window.scrollY < 100)
@@ -534,161 +549,168 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/30 dark:from-secondary-900 dark:via-blue-900/10 dark:to-cyan-900/10 overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       <InteractiveCursor />
       <ParticleField />
-      
-      {/* Advanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          style={{ y: scrollY * 0.5 }}
-          animate={{ 
-            rotate: 360,
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ y: scrollY * 0.3 }}
-          animate={{ 
-            rotate: -360,
-            scale: [1, 1.3, 1]
-          }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-primary-400/20 to-pink-400/20 rounded-full blur-3xl"
-        />
-      </div>
 
       <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="min-h-screen py-20 flex items-center justify-center overflow-hidden relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
+        {/* Hero Section - Data Science & Analytics Focused */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+          {/* Dynamic Background with Data Visualization Elements */}
+          <div className="absolute inset-0">
+            {/* Base gradient */}
+            <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
+            
+            {/* Animated data grid lines */}
+            <motion.svg 
+              className="absolute inset-0 w-full h-full opacity-10"
+              preserveAspectRatio="none"
             >
-              {/* Interactive Badge */}
+              <defs>
+                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                  <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-400"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </motion.svg>
+
+            {/* Floating Data Points Animation */}
+            {isClient && randomPositions.map((pos, i) => (
               <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                className="inline-flex items-center gap-2 bg-white/80 dark:bg-secondary-800/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg cursor-pointer"
+                key={`data-point-${i}`}
+                className="absolute w-2 h-2 bg-cyan-400 rounded-full"
+                style={{
+                  left: `${pos.left}%`,
+                  top: `${pos.top}%`,
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  opacity: [0.3, 0.8, 0.3],
+                  scale: [1, 1.5, 1],
+                }}
+                transition={{
+                  duration: pos.duration,
+                  repeat: Infinity,
+                  delay: pos.delay,
+                }}
+              />
+            ))}
+
+            {/* Glowing accent orbs */}
+            <motion.div
+              className="absolute top-20 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 8, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute bottom-40 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm"
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  <Sparkles className="w-4 h-4 text-blue-500" />
-                </motion.div>
-                <span className="text-sm font-medium text-secondary-700 dark:text-secondary-300">
-                  Powered by Advanced AI & Analytics
-                </span>
+                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-cyan-300">Advanced Analytics & Data Science</span>
               </motion.div>
 
-              {/* Main Headline */}
-              <div className="space-y-4 text-left">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
-                >
-                  <motion.span 
-                    className=" text-slate-900 dark:text-white"
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                  >
-                    Transform Data Into {" "}
-                  </motion.span>
-                  <motion.span 
-                    className="relative"
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                  >
-                    <motion.span
-                      animate={{ 
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-                      }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                      style={{
-                        backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6, #0891b2)",
-                        backgroundSize: "200% auto",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text"
-                      }}
-                    >
-                      Strategic Insights
-                    </motion.span>
-                  </motion.span>
-                </motion.div>
-                
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.7 }}
-                  className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-6xl leading-relaxed"
-                >
-                  Empowering businesses with comprehensive{" "}
-                  <motion.span 
-                    className="font-semibold text-blue-600 dark:text-blue-400 cursor-pointer"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    data analytics
-                  </motion.span>
-                  , actuarial services, and business intelligence solutions that drive sustainable growth.
-                </motion.p>
-              </div>
-
-              {/* Enhanced CTA Buttons */}
+              {/* Main Heading */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.9 }}
-                className="flex flex-col sm:flex-row gap-4 justify-start items-start"
+                transition={{ delay: 0.3, duration: 0.8 }}
               >
-                <motion.button 
-                  whileHover={{ scale: 1.05 }} 
-                  whileTap={{ scale: 0.95 }}
-                  className="relative group"
-                >
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                  <span className="block mb-2">Transform Your Data</span>
+                  <motion.span
+                    className="block bg-linear-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+                    animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+                    transition={{ duration: 8, repeat: Infinity }}
+                  >
+                    Into Competitive Advantage
+                  </motion.span>
+                </h1>
+              </motion.div>
+
+              {/* Subheading */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
+              >
+                We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
+              </motion.p>
+
+              {/* Key Values */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
+              >
+                {[
+                  { icon: "📊", label: "Advanced Analytics", desc: "Statistical modeling & predictive insights" },
+                  { icon: "🔐", label: "Risk Mitigation", desc: "Actuarial expertise across industries" },
+                  { icon: "⚡", label: "Actionable Intelligence", desc: "Data-driven decisions for growth" },
+                ].map((item, idx) => (
                   <motion.div
-                    animate={{
-                      boxShadow: [
-                        "0 0 20px rgba(59, 130, 246, 0.3)",
-                        "0 0 40px rgba(59, 130, 246, 0.6)",
-                        "0 0 20px rgba(59, 130, 246, 0.3)"
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 rounded-xl blur-sm"
-                  />
-                  <div className="relative inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-base overflow-hidden">
-                    <motion.div
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
-                      className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    />
-                    <span className="relative">Explore Services</span>
-                    <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </motion.button>
-                
-                <motion.button 
-                  whileHover={{ scale: 1.05 }} 
+                    key={idx}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-500/40 transition-all"
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h3 className="font-semibold text-white mb-1">{item.label}</h3>
+                    <p className="text-sm text-slate-400">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="relative inline-flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-semibold text-base border border-slate-200 dark:border-slate-700 overflow-hidden group"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                  <span className="relative">Contact Us</span>
-                </motion.button>
+                  <a
+                    href="/services"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
+                  >
+                    Explore Our Solutions
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-cyan-500/50 text-white rounded-lg font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
+                  >
+                    Get Started Today
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </motion.div>
               </motion.div>
 
               {/* Live KPI Widgets */}
@@ -696,36 +718,37 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.1 }}
-                className="relative grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl mx-auto"
               >
-                <LiveKPIWidget label="Projects Completed" targetValue="500+" icon={TrendingUp} gradient="from-blue-600 to-cyan-500" />
+                <LiveKPIWidget label="Projects Completed" targetValue="500+" icon={TrendingUp} gradient="from-cyan-600 to-blue-500" />
                 <LiveKPIWidget label="Client Satisfaction" targetValue="99%" icon={Star} gradient="from-emerald-600 to-teal-500" />
-                <LiveKPIWidget label="Data Points Analyzed" targetValue="1B+" icon={Database} gradient="from-primary-600 to-pink-500" />
+                <LiveKPIWidget label="Data Points Analyzed" targetValue="1B+" icon={Database} gradient="from-purple-600 to-pink-500" />
                 <LiveKPIWidget label="Years Experience" targetValue="15+" icon={Award} gradient="from-orange-600 to-red-500" />
               </motion.div>
             </motion.div>
           </div>
-          
+
           {/* Scroll Indicator */}
-          <AnimatePresence>
-            {showScrollIndicator && (
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-sm text-slate-400">Scroll to explore</span>
               <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-6 h-10 border-2 border-cyan-500/50 rounded-full flex justify-center"
               >
                 <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <span className="text-xs text-secondary-500">Scroll to explore</span>
-                  <ChevronDown className="w-5 h-5 text-secondary-400" />
-                </motion.div>
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-1 h-2 bg-cyan-400 rounded-full mt-2"
+                />
               </motion.div>
-            )}
-          </AnimatePresence>
+            </div>
+          </motion.div>
         </section>
 
 

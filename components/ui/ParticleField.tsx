@@ -1,7 +1,18 @@
 'use client';
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 export function ParticleField() {
+  const [isClient, setIsClient] = useState(false)
+  
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+  
+  if (!isClient) {
+    return <div className="absolute inset-0" />
+  }
+  
   const particles = Array.from({ length: 30 })
   
   return (

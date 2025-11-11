@@ -23,7 +23,6 @@ const navigationItems = [
     ]
   },
   { name: 'Insights', href: '/insights' },
-  { name: 'Partners', href: '/partners' },
   { name: 'Contact', href: '/contact' },
 ]
 

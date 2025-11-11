@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Award, Globe, Lightbulb, Target, Heart, Zap, Shield } from 'lucide-react'
+import { Award, Globe, Lightbulb, Target, Heart, Zap, Shield } from 'lucide-react'
 
 
 const values = [
@@ -27,12 +27,7 @@ const values = [
   }
 ]
 
-const achievements = [
-  { number: '15+', label: 'Years of Excellence', icon: Award },
-  { number: '500+', label: 'Projects Delivered', icon: Target },
-  { number: '50+', label: 'Global Clients', icon: Globe },
-  { number: '99%', label: 'Client Satisfaction', icon: Heart }
-]
+
 
 const team = [
   {
@@ -95,7 +90,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl md:text-5xl font-bold mb-6"
+            className="text-5xl md:text-7xl font-bold mb-6"
           >
             <span className="gradient-text">Who We Are</span>
           </motion.h1>
@@ -103,40 +98,12 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base md:text-lg text-secondary-600 dark:text-secondary-300 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-secondary-600 dark:text-secondary-300 max-w-4xl mx-auto leading-relaxed"
           >
             A leading provider of comprehensive data analytics, actuarial services, and business intelligence solutions that transform businesses worldwide
           </motion.p>
         </motion.div>
 
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
-        >
-          {achievements.map((achievement, index) => (
-            <motion.div
-              key={achievement.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="glass rounded-2xl p-6 text-center group hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                <achievement.icon className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-base md:text-lg font-bold text-secondary-900 dark:text-white mb-1">
-                {achievement.number}
-              </div>
-              <div className="text-sm text-secondary-600 dark:text-secondary-400 font-medium">
-                {achievement.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* Mission & Vision */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
@@ -151,7 +118,7 @@ export default function AboutPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl mb-6">
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">Our Mission</h2>
+              <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-4">Our Mission</h2>
               <p className="text-lg text-secondary-700 dark:text-secondary-300 leading-relaxed">
                 To empower businesses with actionable insights and innovative solutions, driving sustainable growth and success in an ever-evolving digital landscape through data-driven excellence.
               </p>
@@ -169,7 +136,7 @@ export default function AboutPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl mb-6">
                 <Zap className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">Our Vision</h2>
+              <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-4">Our Vision</h2>
               <p className="text-lg text-secondary-700 dark:text-secondary-300 leading-relaxed">
                 To pioneer innovative solutions that redefine industry standards, leveraging cutting-edge technology and unparalleled expertise to empower businesses worldwide.
               </p>
@@ -185,7 +152,7 @@ export default function AboutPage() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-xl md:text-2xl font-bold gradient-text mb-4">Our Core Values</h2>
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Our Core Values</h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-3xl mx-auto">
               The principles that guide everything we do and define who we are as an organization
             </p>
@@ -227,7 +194,7 @@ export default function AboutPage() {
           className="mb-20"
         >
           <div className="text-center mb-12">
-            <h2 className="text-xl md:text-2xl font-bold gradient-text mb-4">Leadership Team</h2>
+            <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">Leadership Team</h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-3xl mx-auto">
               Decades of combined experience in data science, actuarial science, and business strategy
             </p>

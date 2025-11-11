@@ -13,40 +13,8 @@ const stats = [
 export default function Hero() {
   return (
     <section className="relative min-h-screen py-20 flex items-center justify-center overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-slate-900 dark:via-blue-900/20 dark:to-cyan-900/20" />
-      
-      {/* Animated Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 100, 0],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  
+      <div className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,26 +22,26 @@ export default function Hero() {
           className="space-y-8"
         >
           {/* Main Headline */}
-          <div className="space-y-4">
-            <motion.h1
+          <div className="space-y-4 text-left">
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+              className="max-w-7xl mx-auto  text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight"
             >
-              <span className="block text-slate-900 dark:text-white">
+              <span className="text-slate-900 dark:text-white">
                 Transform Data Into
               </span>
-              <span className="block gradient-text">
+              <span className="gradient-text">
                 Strategic Insights
               </span>
-            </motion.h1>
+            </motion.p>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed"
+              className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl leading-relaxed"
             >
 Empowering businesses with comprehensive data analytics, actuarial services, and business intelligence solutions that drive sustainable growth and success.
             </motion.p>
@@ -84,7 +52,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-start items-start"
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -126,7 +94,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="glass rounded-2xl p-6 text-center group hover:shadow-xl transition-all duration-300"
+                className="glass rounded-2xl p-6 text-left group hover:shadow-xl transition-all duration-300"
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-linear-to-r from-blue-600 to-cyan-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
                   <stat.icon className="w-6 h-6 text-white" />

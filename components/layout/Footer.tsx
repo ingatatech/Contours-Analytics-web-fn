@@ -15,7 +15,6 @@ const footerLinks = {
   company: [
     { name: 'Who We Are', href: '/who-we-are' },
     { name: 'Our Approach', href: '/our-approach' },
-    { name: 'Partners', href: '/partners' },
     { name: 'Careers', href: '/careers' },
   ],
   resources: [

@@ -101,7 +101,7 @@ export default function ApproachPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl md:text-5xl font-bold mb-4"
+            className="text-4xl md:text-6xl font-bold mb-4"
           >
             <span className="gradient-text">Our Approach</span>
           </motion.h1>
@@ -109,7 +109,7 @@ export default function ApproachPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base md:text-lg text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed"
           >
             A proven 5-step methodology designed to deliver measurable results and sustainable business transformation
           </motion.p>
@@ -131,7 +131,7 @@ export default function ApproachPage() {
               whileHover={{ y: -5, scale: 1.02 }}
               className="glass rounded-xl p-4 text-center group hover:shadow-xl transition-all duration-300"
             >
-              <div className="text-base md:text-lg font-bold text-secondary-900 dark:text-white mb-1">
+              <div className="text-xl md:text-2xl font-bold text-secondary-900 dark:text-white mb-1">
                 {benefit.metric}
               </div>
               <div className="text-xs text-secondary-600 dark:text-secondary-400 font-medium">
@@ -173,11 +173,11 @@ export default function ApproachPage() {
                       <span className="inline-flex items-center justify-center w-8 h-8 bg-primary/20 rounded-lg text-primary font-bold text-sm">
                         {step.step}
                       </span>
-                      <h3 className="text-lg md:text-xl font-bold text-secondary-900 dark:text-white">
+                      <h3 className="text-xl md:text-2xl font-bold text-secondary-900 dark:text-white">
                         {step.title}
                       </h3>
                     </div>
-                    <p className="text-xs md:text-sm text-secondary-700 dark:text-secondary-300 mb-4 leading-relaxed"
+                    <p className="text-sm md:text-base text-secondary-700 dark:text-secondary-300 mb-4 leading-relaxed">
                       {step.description}
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -205,7 +205,7 @@ export default function ApproachPage() {
           className="mb-16"
         >
           <div className="text-center mb-10">
-            <h2 className="text-xl md:text-2xl font-bold gradient-text mb-3">Our Core Principles</h2>
+            <h2 className="text-2xl md:text-3xl font-bold gradient-text mb-3">Our Core Principles</h2>
             <p className="text-sm md:text-base text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               The fundamental values that guide our methodology and ensure consistent excellence
             </p>
@@ -226,7 +226,7 @@ export default function ApproachPage() {
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
                       <principle.icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-base font-bold text-secondary-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2">
                       {principle.title}
                     </h3>
                     <p className="text-sm text-secondary-600 dark:text-secondary-400 leading-relaxed">
@@ -248,16 +248,16 @@ export default function ApproachPage() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600" />
           <div className="relative p-8 md:p-12 text-center text-white">
-            <h2 className="text-xl md:text-2xl font-bold mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
               Ready to Experience Our Proven Approach?
             </h2>
-            <p className="text-xs md:text-sm opacity-90 mb-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base opacity-90 mb-6 max-w-2xl mx-auto leading-relaxed">
               Let's discuss how our methodology can transform your business challenges into competitive advantages
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-lg text-xs"
+                className="group inline-flex items-center justify-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-lg text-sm"
               >
                 Start Your Project
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

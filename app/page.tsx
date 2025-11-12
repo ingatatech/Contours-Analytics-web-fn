@@ -3,6 +3,7 @@
 import { ParticleField } from '@/components/ui/ParticleField'
 import { motion,  AnimatePresence } from 'framer-motion'
 import { ArrowRight,  Star, TrendingUp, Database, Brain, Users, Globe, Award, CheckCircle, Eye, Sparkles, Zap, MousePointer2, Play, ChevronDown } from 'lucide-react'
+import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
 
@@ -302,7 +303,6 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
-  const [selectedService, setSelectedService] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
 
   // Generate random positions once on mount to avoid hydration mismatch
@@ -328,13 +328,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleServiceClick = (serviceKey: string) => {
-    setSelectedService(serviceKey)
-  }
 
-  const handleBackToServices = () => {
-    setSelectedService(null)
-  }
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -480,7 +474,7 @@ export default function Home() {
                 >
                   <a
                     href="/services"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
                   >
                     Explore Our Solutions
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -492,7 +486,7 @@ export default function Home() {
                 >
                   <a
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-cyan-500/50 text-white rounded-lg font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
+                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-cyan-500/50 text-white rounded-full  font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
                   >
                     Get Started Today
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -738,173 +732,30 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Interactive CTA Section */}
-        <section className="py-5 relative overflow-hidden">
-          {/* Floating orbs background */}
-          <motion.div
-            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary-500/20 to-primary-500/20 rounded-full blur-3xl"
-            animate={{
-              y: [0, 30, 0],
-              x: [-30, 0, -30]
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
-            animate={{
-              y: [0, -30, 0],
-              x: [30, 0, 30]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
 
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="relative rounded-3xl overflow-hidden"
+           {/* CTA Section */}
+      <section className="relative py-12 bg-blue-600 text-white">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
+        </div>
+        <div className="relative container mx-auto px-4 text-center max-w-7xl">
+          <h2 className="text-3xl font-bold mb-6">
+           Ready to Transform Your Business?
+          </h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto">
+           Unlock the power of data-driven decision-making and accelerate your growth with our proven analytics solutions.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="bg-white hover:bg-gray-100 text-blue-600 rounded-full inline-flex items-center px-8 py-3 font-medium transition-all duration-300 group"
             >
-              {/* Main gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-accent/5 to-secondary-900/50 dark:to-secondary-800" />
-
-              {/* Animated mesh gradient */}
-              <motion.div
-                animate={{
-                  backgroundPosition: ["0% 0%", "100% 100%"]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage: "radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.5) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.5) 0%, transparent 50%)",
-                  backgroundSize: "200% 200%"
-                }}
-              />
-
-              {/* Grid pattern overlay */}
-              <div className="absolute inset-0 opacity-5">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="cta-grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#0891b2" strokeWidth="0.5"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#cta-grid)" />
-                </svg>
-              </div>
-
-              {/* Glass border effect */}
-              <div className="absolute inset-0 rounded-3xl border border-white/10 dark:border-white/5" />
-
-              {/* Content */}
-              <div className="relative px-8 py-5 md:px-12 flex flex-col items-center justify-center min-h-96">
-                {/* Animated icon */}
-                  <motion.div
-                    animate={{ 
-                      rotate: 360,
-                      y: [0, -10, 0]
-                    }}
-                    transition={{ 
-                      rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                      y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-                    }}
-                    className="relative mb-8"
-                  >
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute -inset-4 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur-lg opacity-50"
-                    />
-                    <div className="relative w-20 h-20 bg-primary-500 rounded-full flex items-center justify-center shadow-2xl">
-                      <Zap className="w-10 h-10 text-white" />
-                    </div>
-                  </motion.div>                {/* Text content */}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="text-center max-w-2xl"
-                >
-                  <h2 className="text-4xl  lg:text-6xl font-bold text-secondary-900 dark:text-white mb-6">
-                    Ready to Transform Your Business?
-                  </h2>
-                  <p className="text-lg md:text-xl text-secondary-600 dark:text-secondary-300 mb-10">
-                    Unlock the power of data-driven decision-making and accelerate your growth with our proven analytics solutions.
-                  </p>
-                </motion.div>
-
-                {/* CTA Buttons */}
-                <motion.div
-                  initial={{ y: 30, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                  className="flex flex-col md:flex-row gap-6 items-center justify-center w-full"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.08, y: -4 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative group overflow-hidden px-10 py-4 rounded-xl font-semibold text-lg text-white shadow-2xl"
-                  >
-                    {/* Animated gradient background */}
-                    <motion.div
-                      animate={{
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute inset-0 bg-gradient-to-r from-primary to-primary opacity-100"
-                      style={{ backgroundSize: "200% 200%" }}
-                    />
-
-                    {/* Shine effect */}
-                    <motion.div
-                      animate={{
-                        x: ["-100%", "200%"]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 2,
-                        ease: "easeInOut"
-                      }}
-                      className="absolute inset-0 w-1/3 bg-white/20 skew-x-12"
-                    />
-
-                    <span className="relative flex items-center gap-2">
-                      Start Your Journey
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
-                        <ArrowRight className="w-5 h-5" />
-                      </motion.div>
-                    </span>
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.08, y: -4 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-10 py-4 rounded-xl font-semibold text-lg text-white border-2 border-primary-500/50 hover:border-primary-500 bg-primary-500/10 backdrop-blur-sm transition-all duration-300 hover:shadow-xl"
-                  >
-                    <span className="flex items-center gap-2">
-                      Schedule a Demo
-                      <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        className="w-5 h-5"
-                      >
-                        <ArrowRight className="w-5 h-5" />
-                      </motion.div>
-                    </span>
-                  </motion.button>
-                </motion.div>
-
-              </div>
-            </motion.div>
+             Contact Our Team
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-        </section>
+        </div>
+      </section>
       </div>
     </div>
   )

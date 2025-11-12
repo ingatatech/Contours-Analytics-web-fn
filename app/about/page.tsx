@@ -205,7 +205,7 @@ export default function AboutPage() {
                 href="#mission"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
                 Discover Our Story
                 <ArrowRight className="w-5 h-5" />
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full  font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Get in Touch
               </motion.a>

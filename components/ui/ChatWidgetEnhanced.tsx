@@ -173,9 +173,9 @@ export default function ChatWidgetEnhanced() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             className="mb-4 w-96 h-96 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
           >
-            <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white p-4 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-primary to-primary text-white p-4 flex justify-between items-center">
               <h3 className="font-bold text-lg">{translatedUI.title}</h3>
-              <button onClick={() => setIsOpen(false)} className="hover:bg-cyan-700 p-1 rounded-lg transition" aria-label="Close">
+              <button onClick={() => setIsOpen(false)} className="hover:bg-primary/90 p-1 rounded-lg transition" aria-label="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -188,7 +188,7 @@ export default function ChatWidgetEnhanced() {
               )}
               {messages.map(msg => (
                 <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs px-3 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'}`}>
+                  <div className={`max-w-xs px-3 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-primary text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'}`}>
                     <p className="text-sm">{msg.text}</p>
                   </div>
                 </motion.div>
@@ -198,8 +198,8 @@ export default function ChatWidgetEnhanced() {
 
             <div className="border-t border-slate-200 dark:border-slate-700 p-4 space-y-2">
               <div className="flex gap-2">
-                <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} placeholder={translatedUI.placeholder} className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none text-sm" />
-                <button onClick={handleSendMessage} className="px-3 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"><Send className="w-4 h-4" /></button>
+                <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} placeholder={translatedUI.placeholder} className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm" />
+                <button onClick={handleSendMessage} className="px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"><Send className="w-4 h-4" /></button>
               </div>
               <button onClick={startVoiceInput} disabled={isListening} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 text-sm">
                 <Mic className="w-4 h-4" />
@@ -210,7 +210,7 @@ export default function ChatWidgetEnhanced() {
         )}
       </AnimatePresence>
 
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="p-4 rounded-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Open chat">
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="p-4 rounded-full bg-gradient-to-r from-primary to-primary text-white shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Open chat">
         <MessageCircle className="w-6 h-6" />
       </motion.button>
     </div>

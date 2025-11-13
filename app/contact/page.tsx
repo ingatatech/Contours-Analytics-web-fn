@@ -246,7 +246,7 @@ export default function ContactPage() {
       <div className="py-10 relative overflow-hidden">
         {/* Background elements */}
         <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl"
+          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl"
           animate={{
             y: [0, 30, 0],
             x: [-30, 0, -30]
@@ -266,12 +266,12 @@ export default function ContactPage() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-6 opacity-80"
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-full mb-6 opacity-80"
             >
               <MessageSquare className="w-7 h-7 text-white" />
             </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
-              Get In <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Touch</span>
+              Get In <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Touch</span>
             </h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Choose your preferred way to reach us. We're here to help and look forward to connecting with you.

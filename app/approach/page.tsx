@@ -27,7 +27,7 @@ const approachSteps = [
     title: 'Analyze',
     description: 'Our experts apply advanced analytics and modeling techniques to extract meaningful insights.',
     icon: BarChart3,
-    gradient: 'from-purple-500 to-pink-500',
+    gradient: 'from-primary-500 to-primary-600',
     details: ['Statistical Analysis', 'Machine Learning Models', 'Pattern Recognition']
   },
   {
@@ -43,7 +43,7 @@ const approachSteps = [
     title: 'Implement',
     description: 'We assist in implementing recommendations and strategies to drive tangible business results.',
     icon: Rocket,
-    gradient: 'from-indigo-500 to-purple-500',
+    gradient: 'from-indigo-500 to-primary-500',
     details: ['Strategy Deployment', 'Change Management', 'Performance Tracking']
   },
 ]
@@ -59,7 +59,7 @@ const principles = [
     icon: Users,
     title: 'Client-Focused',
     description: 'Your success is our success, tailored solutions for each client.',
-    color: 'from-purple-500 to-pink-500'
+    color: 'from-primary-500 to-primary-600'
   },
   {
     icon: Award,
@@ -103,7 +103,7 @@ export default function ApproachPage() {
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
       {/* Hero Section - Approach with Data Analytics Focus */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-10">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
@@ -182,9 +182,9 @@ export default function ApproachPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                <span>Transform</span>
-                <span className="block">
+              <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
+                <span>Transform</span>{" "}
+                <span className="">
                   <motion.span
                     className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
@@ -219,7 +219,7 @@ export default function ApproachPage() {
                 href="#methodology"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Our Process
                 <ArrowRight className="w-5 h-5" />
@@ -228,7 +228,7 @@ export default function ApproachPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Schedule Consultation
               </motion.a>
@@ -257,7 +257,7 @@ export default function ApproachPage() {
 
    
       {/* Process Steps - Timeline Style */}
-      <section className="max-w-7xl mx-auto px-4 mb-32">
+      <section className="max-w-7xl mx-auto px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -275,7 +275,7 @@ export default function ApproachPage() {
 
         <div className="relative">
           {/* Vertical Timeline Line - Desktop */}
-          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500" />
+          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-primary-500 to-primary-600" />
 
           <div className="space-y-16">
             {approachSteps.map((step, idx) => (
@@ -352,7 +352,7 @@ export default function ApproachPage() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
-            Guided by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Core Principles</span>
+            Guided by <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">Core Principles</span>
           </h2>
           <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
             The fundamental values that ensure consistent excellence in everything we do
@@ -390,37 +390,29 @@ export default function ApproachPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 pb-32">
+      <section className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl"
+          className="relative bg-blue-600 overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
+ <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
+        </div>
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
               backgroundImage: `
-                linear-gradient(to right, white 1px, transparent 1px),
-                linear-gradient(to bottom, white 1px, transparent 1px)
+                linear-gradient(to right, white 2px, transparent 2px),
+                linear-gradient(to bottom, white 2px, transparent 2px)
               `,
               backgroundSize: '40px 40px'
             }} />
           </div>
           
-          <div className="relative p-12 md:p-16 text-center text-white">
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-block mb-6"
-            >
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                <Rocket className="w-10 h-10 text-white" />
-              </div>
-            </motion.div>
+          <div className="relative py-3 text-center text-white">
+         
             
             <h2 className="text-3xl  font-bold mb-4">
               Ready to Get Started?
@@ -432,14 +424,14 @@ export default function ApproachPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-2xl hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
+                className="group inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 Start Your Project
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-2xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
               >
                 Explore Services
               </Link>

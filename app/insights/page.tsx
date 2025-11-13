@@ -165,7 +165,7 @@ export default function InsightsPage() {
               <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
                 <span className="mb-2">Latest</span>{" "}
                 <motion.span
-                  className=" bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-transparent"
+                  className=" bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
@@ -196,7 +196,7 @@ export default function InsightsPage() {
                 href="#insights-grid"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
                 Read Our Articles
                 <ArrowRight className="w-5 h-5" />
@@ -205,7 +205,7 @@ export default function InsightsPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Contact for Consultation
               </motion.a>
@@ -233,7 +233,7 @@ export default function InsightsPage() {
       </section>
 
       {/* Content Section */}
-      <div className="pt-20 pb-20 bg-gray-50">
+      <div className="py-10 bg-gray-50">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -251,12 +251,12 @@ export default function InsightsPage() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-6 opacity-80"
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full mb-6 opacity-80"
             >
               <BookOpen className="w-7 h-7 text-white" />
             </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
-              Latest <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Insights</span>
+              Latest <span className="bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">Insights</span>
             </h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Explore our most popular insights and in-depth analysis
@@ -309,7 +309,7 @@ export default function InsightsPage() {
                  
                     </div>
                     
-                    <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary-500 transition-colors line-clamp-2">
                       {insight.title}
                     </h3>
                     
@@ -323,7 +323,7 @@ export default function InsightsPage() {
                         width: ["0%", "100%", "0%"]
                       }}
                       transition={{ duration: 3, repeat: Infinity }}
-                      className="h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full my-4"
+                      className="h-0.5 bg-gradient-to-r from-primary-500 to-accent-500  rounded-full my-4"
                     />
                     
                     <div className="flex items-center justify-between pt-4">
@@ -340,7 +340,7 @@ export default function InsightsPage() {
                       <motion.div
                         initial={{ x: -10, opacity: 0 }}
                         whileHover={{ x: 0, opacity: 1 }}
-                        className="inline-flex items-center text-primary font-bold text-sm"
+                        className="inline-flex items-center text-primary-500 font-bold text-sm"
                       >
                         Read <ArrowRight className="w-4 h-4 ml-1" />
                       </motion.div>
@@ -360,7 +360,7 @@ export default function InsightsPage() {
           transition={{ duration: 0.8, delay: 1.6 }}
           className="relative overflow-hidden rounded-3xl"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500" />
           <div className="relative p-8 md:p-12 text-center text-white">
             <h2 className="text-xl md:text-2xl font-bold mb-3">
               Subscribe to Our Newsletter

@@ -160,7 +160,7 @@ export default function ServicesPage() {
                
                 <span className="block">
                   <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -193,7 +193,7 @@ export default function ServicesPage() {
                 href="#services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-primary to-primary text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Services
                 <ArrowRight className="w-5 h-5" />
@@ -280,7 +280,7 @@ export default function ServicesPage() {
                     </p>
 
                     {/* Key Details */}
-                    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6">
+                    <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6">
                       <h4 className="font-bold text-gray-900 mb-4">
                        What We Deliver
                       </h4>
@@ -340,10 +340,10 @@ export default function ServicesPage() {
                                 <div className="flex flex-col items-center">
                                   <div className="relative group/avatar">
                                     {/* Glow Ring */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
                                     
                                     {/* Avatar Container */}
-                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-cyan-600 p-1 shadow-lg group-hover/avatar:scale-105 transition-transform duration-300">
+                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent p-1 shadow-lg group-hover/avatar:scale-105 transition-transform duration-300">
                                       <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-gray-200">
                                         <Image
                                           src={contact.image}
@@ -359,7 +359,7 @@ export default function ServicesPage() {
                                     </div>
 
                                     {/* Status Badge */}
-                                    <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-full p-2 shadow-lg">
+                                    <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary to-accent text-white rounded-full p-2 shadow-lg">
                                       <Award className="w-4 h-4" />
                                     </div>
                                   </div>
@@ -385,7 +385,7 @@ export default function ServicesPage() {
                                       initial={{ opacity: 0, height: 0 }}
                                       animate={{ opacity: 1, height: 'auto' }}
                                       exit={{ opacity: 0, height: 0 }}
-                                      className="bg-gradient-to-br from-gray-50 to-blue-50/50 rounded-xl p-3 space-y-2 border border-gray-100/50 mb-3"
+                                      className="bg-gradient-to-br from-gray-50 to-primary/5 rounded-xl p-3 space-y-2 border border-gray-100/50 mb-3"
                                     >
                                       {/* Email */}
                                       {contact.email && (

@@ -50,7 +50,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/sarah-chen.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Dr. Sarah Chen',
             title: 'Lead Analytics Consultant',
             phone: '+250 788 123 456',
@@ -58,7 +58,7 @@ export const servicesData: Service[] = [
             linkedin: 'https://linkedin.com/in/sarahchen'
           },
           {
-            image: '/contacts/james-wilson.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop/contacts/james-wilson.jpg',
             name: 'James Wilson',
             title: 'Senior Data Analyst',
             phone: '+250 788 123 457',
@@ -102,7 +102,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/emily-park.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Dr. Emily Park',
             title: 'Machine Learning Director',
             phone: '+250 788 123 459',
@@ -134,7 +134,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/robert-chang.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Robert Chang',
             title: 'Chief Actuary',
             phone: '+250 788 123 460',
@@ -156,7 +156,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/lisa-thompson.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Lisa Thompson',
             title: 'Pricing Actuary',
             phone: '+250 788 123 461',
@@ -178,7 +178,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/david-kim.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'David Kim',
             title: 'Valuation Specialist',
             phone: '+250 788 123 462',
@@ -200,7 +200,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/amanda-brooks.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Amanda Brooks',
             title: 'Pension Consultant',
             phone: '+250 788 123 463',
@@ -222,7 +222,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/thomas-müller.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Thomas Müller',
             title: 'Regulatory Compliance Director',
             phone: '+250 788 123 464',
@@ -254,7 +254,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/carlos-santos.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Carlos Santos',
             title: 'Data Architecture Lead',
             phone: '+250 788 123 465',
@@ -276,7 +276,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/priya-sharma.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Priya Sharma',
             title: 'BI Solutions Architect',
             phone: '+250 788 123 466',
@@ -298,7 +298,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/william-foster.jpg',
+             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'William Foster',
             title: 'Strategy Consultant',
             phone: '+250 788 123 467',
@@ -320,7 +320,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/sophia-martinez.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Sophia Martinez',
             title: 'Process Optimization Expert',
             phone: '+250 788 123 468',
@@ -352,7 +352,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/richard-evans.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Richard Evans',
             title: 'Senior Credit Analyst',
             phone: '+250 788 123 469',
@@ -374,7 +374,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/jennifer-lee.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Jennifer Lee',
             title: 'Private Ratings Specialist',
             phone: '+250 788 123 470',
@@ -396,7 +396,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/alexander-petrov.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Dr. Alexander Petrov',
             title: 'Credit Risk Modeler',
             phone: '+250 788 123 471',
@@ -418,7 +418,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/maria-garcia.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Maria Garcia',
             title: 'Scoring Systems Developer',
             phone: '+250 788 123 472',
@@ -440,7 +440,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/kevin-brown.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Kevin Brown',
             title: 'Portfolio Risk Analyst',
             phone: '+250 788 123 473',
@@ -462,7 +462,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/olivia-taylor.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Olivia Taylor',
             title: 'Rating Advisory Consultant',
             phone: '+250 788 123 474',
@@ -484,7 +484,7 @@ export const servicesData: Service[] = [
         ],
         keyContacts: [
           {
-            image: '/contacts/nathan-white.jpg',
+            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
             name: 'Nathan White',
             title: 'Regulatory Compliance Manager',
             phone: '+250 788 123 475',

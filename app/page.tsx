@@ -224,7 +224,7 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
             backgroundPosition: isHovered ? ["0% 50%", "100% 50%", "0% 50%"] : "0% 50%"
           }}
           transition={{ duration: 5, repeat: isHovered ? Infinity : 0, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-accent/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-primary-500/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
           style={{ backgroundSize: "200% 200%" }}
         />
         
@@ -269,11 +269,11 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               whileHover={{ x: 0, opacity: 1 }}
-              className="inline-flex items-center text-primary-500 font-bold text-sm hover:text-accent transition-colors gap-1"
+              className="inline-flex items-center text-primary-500 font-bold text-sm hover:text-primary-500 transition-colors gap-1"
             >
               Read More 
               <motion.div
-                animate={{ x: isHovered ? 5 : 0 }}
+                animate={{ x: isHovered ? 5 : 5 }}
                 transition={{ duration: 0.3 }}
               >
                 <ArrowRight className="w-4 h-4" />
@@ -683,7 +683,7 @@ export default function Home() {
                           backgroundPosition: ["0% 0%", "100% 100%"]
                         }}
                         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
                         style={{ backgroundSize: "200% 200%" }}
                       />
 

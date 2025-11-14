@@ -143,7 +143,7 @@ export default function Navigation() {
                       transition={{ duration: 0.2 }}
                       className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-secondary-900 rounded-2xl shadow-2xl border border-secondary-200 dark:border-secondary-700 py-2 overflow-hidden"
                     >
-                      {item.submenu.map((subItem, idx) => {
+                      {item.submenu.map((subItem) => {
                         const Icon = serviceIcons[subItem.name as keyof typeof serviceIcons]
                         return (
                           <Link
@@ -152,11 +152,7 @@ export default function Navigation() {
                             className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
                           >
                             <div className="flex items-start gap-3">
-                              {Icon && (
-                                <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                                  <Icon className="w-5 h-5 text-white" />
-                                </div>
-                              )}
+                           
                               <div className="flex-1 min-w-0">
                                 <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                                   {subItem.name}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 export function AnimatedCode() {
 {/* Animated Code-like Background */}
  return (
-        <div className="absolute inset-0 opacity-20 font-mono text-blue-500 text-xs overflow-hidden">
+        <div className="absolute inset-0 opacity-20 font-mono text-slate-300 text-xs overflow-hidden">
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}

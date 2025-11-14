@@ -91,11 +91,11 @@ export default function AboutPage() {
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
       {/* Hero Section - Advanced Data Science Focus */}
-      <section className="relative flex items-center justify-center overflow-hidden py-8">
+      <section className="relative flex items-center justify-center overflow-hidden py-8 ">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary-600 to-slate-800" />
           
           {/* Animated data grid lines */}
           <motion.svg 
@@ -144,6 +144,10 @@ export default function AboutPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
+          <motion.div className="absolute inset-0 opacity-20">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+    <div className="absolute bottom-32 right-20 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+  </motion.div>
 <AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl">
@@ -171,13 +175,13 @@ export default function AboutPage() {
               transition={{ delay: 0.3, duration: 0.8 }}
             >
               <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
-                <span className="mb-2">We Are a Leading</span>{" "}
+                <span className="mb-2">About</span>{" "}
                 <motion.span
                   className=" bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
-                  Provider of Advanced Analytics
+                  Contours Analytics
                 </motion.span>
               </h1>
             </motion.div>
@@ -189,7 +193,7 @@ export default function AboutPage() {
               transition={{ delay: 0.5, duration: 0.8 }}
             >
               <p className="text-xl text-white leading-relaxed max-w-6xl">
-                Transforming complex data into strategic insights that drive business growth and competitive advantage
+                We are a leading provider of comprehensive data analytics and actuarial services. With a team of highly skilled professionals and cutting-edge technology, we empower businesses to make informed decisions and mitigate risks effectively. Our integrated approach combines advanced statistical modeling, predictive analytics, and actuarial expertise to deliver actionable insights across various industries.
               </p>
             </motion.div>
 

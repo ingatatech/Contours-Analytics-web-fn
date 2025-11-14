@@ -229,7 +229,7 @@ export default function Home() {
           {/* Dynamic Background with Data Visualization Elements */}
           <div className="absolute inset-0">
             {/* Base gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary-600 to-slate-800" />
             
             {/* Animated data grid lines */}
             <motion.svg 
@@ -278,6 +278,10 @@ export default function Home() {
               transition={{ duration: 10, repeat: Infinity, delay: 1 }}
             />
           </div>
+                    <motion.div className="absolute inset-0 opacity-20">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+    <div className="absolute bottom-32 right-20 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+  </motion.div>
 <AnimatedCode/>
           {/* Content */}
           <div className="relative z-20 container mx-auto px-4 max-w-6xl py-6">
@@ -307,7 +311,7 @@ export default function Home() {
                 <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
                   <span className="mb-2">Transform Your Data</span>{" "}
                   <motion.span
-                    className="bg-gradient-to-r from-cyan-400 via-blue-400 to-primary-600 bg-clip-text text-transparent"
+                    className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-500 bg-clip-text text-transparent"
                     animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >

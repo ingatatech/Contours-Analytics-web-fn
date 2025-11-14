@@ -278,7 +278,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+              className="text-left mb-16"
             >
               {/* Badge */}
               <motion.div
@@ -314,7 +314,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-lg  text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed"
+                className="text-lg  text-slate-300 mb-8 max-w-6xl leading-relaxed"
               >
                 We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
               </motion.p>
@@ -324,7 +324,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto"
               >
                 {[
                   { label: "Advanced Analytics", desc: "Statistical modeling & predictive insights" },

@@ -154,7 +154,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-left mb-16"
           >
             {/* Badge */}
             <motion.div
@@ -191,7 +191,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-xl text-slate-300 leading-relaxed max-w-6xl">
                 Have questions about our analytics solutions? Our team is ready to discuss your specific needs and help you achieve your business goals.
               </p>
             </motion.div>
@@ -201,7 +201,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-10"
+              className="flex flex-col sm:flex-row gap-4 pt-10"
             >
               <motion.a
                 href="#contact-form"

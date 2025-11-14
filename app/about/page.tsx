@@ -151,7 +151,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-left mb-16"
           >
             {/* Badge */}
             <motion.div
@@ -188,7 +188,7 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-xl text-slate-300 leading-relaxed max-w-6xl">
                 Transforming complex data into strategic insights that drive business growth and competitive advantage
               </p>
             </motion.div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-10"
+              className="flex flex-col sm:flex-row gap-4 pt-10"
             >
               <motion.a
                 href="#mission"

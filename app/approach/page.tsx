@@ -155,7 +155,7 @@ export default function ApproachPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-left mb-16"
           >
             {/* Badge */}
             <motion.div
@@ -195,7 +195,7 @@ export default function ApproachPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mb-8"
             >
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-6xl">
                 Our five-step methodology combines industry best practices with cutting-edge analytics to deliver transformative business results.
               </p>
             </motion.div>
@@ -205,7 +205,7 @@ export default function ApproachPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex gap-4 justify-center pt-6"
+              className="flex gap-4 pt-6"
             >
               <motion.a
                 href="#methodology"

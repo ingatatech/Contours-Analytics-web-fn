@@ -186,7 +186,7 @@ export default function InsightsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <p className="text-xl text-slate-300 leading-relaxed max-w-6xl">
+              <p className="text-xl text-white leading-relaxed max-w-6xl">
                 Explore our latest research, case studies, and industry insights on advanced analytics, actuarial science, and data-driven decision making.
               </p>
             </motion.div>

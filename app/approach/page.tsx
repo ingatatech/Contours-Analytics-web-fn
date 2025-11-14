@@ -195,7 +195,7 @@ export default function ApproachPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mb-8"
             >
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-6xl">
+              <p className="text-lg md:text-xl text-white leading-relaxed max-w-6xl">
                 Our five-step methodology combines industry best practices with cutting-edge analytics to deliver transformative business results.
               </p>
             </motion.div>

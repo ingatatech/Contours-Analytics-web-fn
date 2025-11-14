@@ -321,7 +321,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-lg  text-slate-300 mb-8 max-w-6xl leading-relaxed"
+                className="text-lg  text-white mb-8 max-w-6xl leading-relaxed"
               >
                 We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
               </motion.p>

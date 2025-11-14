@@ -178,7 +178,7 @@ export default function ServicesPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mb-8"
             >
-              <p className="text-lg  text-slate-300 leading-relaxed max-w-6xl">
+              <p className="text-lg  text-white leading-relaxed max-w-6xl">
                {selectedService.longDescription}
               </p>
             </motion.div>

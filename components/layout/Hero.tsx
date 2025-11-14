@@ -41,7 +41,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl leading-relaxed"
+              className="text-xl sm:text-2xl text-slate-600 dark:text-white max-w-4xl leading-relaxed"
             >
 Empowering businesses with comprehensive data analytics, actuarial services, and business intelligence solutions that drive sustainable growth and success.
             </motion.p>

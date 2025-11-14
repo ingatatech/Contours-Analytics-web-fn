@@ -191,7 +191,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <p className="text-xl text-slate-300 leading-relaxed max-w-6xl">
+              <p className="text-xl text-white leading-relaxed max-w-6xl">
                 Have questions about our analytics solutions? Our team is ready to discuss your specific needs and help you achieve your business goals.
               </p>
             </motion.div>

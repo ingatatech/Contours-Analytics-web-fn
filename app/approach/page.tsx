@@ -200,7 +200,7 @@ export default function ApproachPage() {
               className="mb-8"
             >
               <p className="text-lg md:text-xl text-white leading-relaxed max-w-6xl">
-                Our five-step methodology combines industry best practices with cutting-edge analytics to deliver transformative business results.
+                Our five-step methodology blends industry-leading best practices with advanced analytical techniques to help organizations uncover hidden opportunities, solve complex challenges, and achieve meaningful, long-term business transformation.
               </p>
             </motion.div>
 
@@ -215,7 +215,7 @@ export default function ApproachPage() {
                 href="#methodology"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Our Process
                 <ArrowRight className="w-5 h-5" />
@@ -224,7 +224,7 @@ export default function ApproachPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Schedule Consultation
               </motion.a>
@@ -420,14 +420,14 @@ export default function ApproachPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
+                className="group inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 Start Your Project
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
               >
                 Explore Services
               </Link>

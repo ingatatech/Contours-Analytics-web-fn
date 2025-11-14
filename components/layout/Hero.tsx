@@ -60,7 +60,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
             >
               <Link
                 href="/services"
-                className="group inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+                className="group inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
               >
                 <span>Explore Services</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -73,7 +73,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-semibold text-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-3 rounded-xl font-semibold text-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300"
               >
                 <span>Contact Us</span>
               </Link>

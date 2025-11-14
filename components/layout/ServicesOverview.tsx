@@ -146,7 +146,7 @@ export default function ServicesOverview() {
           >
             <Link
               href="/services"
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300"
             >
               <span>View All Services</span>
               <ArrowRight className="w-5 h-5" />

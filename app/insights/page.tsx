@@ -191,7 +191,7 @@ export default function InsightsPage() {
               transition={{ delay: 0.5, duration: 0.8 }}
             >
               <p className="text-xl text-white leading-relaxed max-w-6xl">
-                Explore our latest research, case studies, and industry insights on advanced analytics, actuarial science, and data-driven decision making.
+                Explore our latest research, extensive case studies, and rich industry insights to understand how advanced analytics, actuarial science, and data-driven decision-making are being applied to solve complex challenges, optimize operations, and support strategic planning across various sectors.
               </p>
             </motion.div>
 
@@ -206,7 +206,7 @@ export default function InsightsPage() {
                 href="#insights-grid"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
                 Read Our Articles
                 <ArrowRight className="w-5 h-5" />
@@ -215,7 +215,7 @@ export default function InsightsPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Contact for Consultation
               </motion.a>

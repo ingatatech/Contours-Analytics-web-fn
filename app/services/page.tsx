@@ -165,7 +165,7 @@ export default function ServicesPage() {
                
                 <span className="">{" "}
                   <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent-500 to-white"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -198,7 +198,7 @@ export default function ServicesPage() {
                 href="#services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Services
                 <ArrowRight className="w-5 h-5" />
@@ -207,7 +207,7 @@ export default function ServicesPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-3 border border-blue-100 text-blue-100 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Get Consultation
               </motion.a>

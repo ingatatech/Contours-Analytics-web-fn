@@ -345,11 +345,11 @@ export default function Home() {
                   <motion.div
                     key={idx}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-500/40 transition-all"
+                    className="p-4 rounded-lg border-2 border-cyan-300/20 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-500/40 transition-all"
                   >
                     {/* <div className="text-3xl mb-2">{item.icon}</div> */}
                     <h3 className="font-semibold text-white mb-1">{item.label}</h3>
-                    <p className="text-sm text-slate-400">{item.desc}</p>
+                    <p className="text-sm text-slate-200">{item.desc}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -367,7 +367,7 @@ export default function Home() {
                 >
                   <a
                     href="/services"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
                   >
                     Explore Our Solutions
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -379,7 +379,7 @@ export default function Home() {
                 >
                   <a
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-cyan-500/50 text-white rounded-full  font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
+                    className="inline-flex items-center gap-2 px-8 py-3 border-2 border-cyan-500/50 text-white rounded-full  font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
                   >
                     Get Started Today
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -493,7 +493,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-500 to-primary-500 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-500 to-primary-500 text-white px-8 py-3 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 View All Insights <ArrowRight className="w-5 h-5" />
               </motion.button>

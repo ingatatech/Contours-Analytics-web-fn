@@ -196,7 +196,7 @@ export default function ContactPage() {
               transition={{ delay: 0.5, duration: 0.8 }}
             >
               <p className="text-xl text-white leading-relaxed max-w-6xl">
-                Have questions about our analytics solutions? Our team is ready to discuss your specific needs and help you achieve your business goals.
+                Have questions about our analytics solutions? Our team is here to learn more about your organization, discuss your specific analytical needs, and collaborate with you to design data-driven strategies that drive measurable business success.
               </p>
             </motion.div>
 
@@ -211,7 +211,7 @@ export default function ContactPage() {
                 href="#contact-form"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
                 Email Us
                 <ArrowRight className="w-5 h-5" />
@@ -220,7 +220,7 @@ export default function ContactPage() {
                 href="/services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Explore Our Services
               </motion.a>
@@ -487,7 +487,7 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="w-full inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                   >
                     {isSubmitting ? (
                       <>

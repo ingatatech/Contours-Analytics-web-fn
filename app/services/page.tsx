@@ -78,7 +78,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Services with Data Analytics Focus */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-10">
+      <section className="relative  flex items-center justify-center overflow-hidden py-10">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
@@ -133,7 +133,7 @@ export default function ServicesPage() {
         </div>
 <AnimatedCode/>
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

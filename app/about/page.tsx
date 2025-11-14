@@ -91,7 +91,7 @@ export default function AboutPage() {
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
       {/* Hero Section - Advanced Data Science Focus */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-10">
+      <section className="relative flex items-center justify-center overflow-hidden py-8">
         {/* Dynamic Background with Data Visualization Elements */}
         <div className="absolute inset-0">
           {/* Base gradient */}
@@ -146,7 +146,7 @@ export default function AboutPage() {
         </div>
 <AnimatedCode/>
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
+        <div className="relative z-20 container mx-auto px-4 max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

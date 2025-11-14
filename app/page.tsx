@@ -2,10 +2,12 @@
 
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { ParticleField } from '@/components/ui/ParticleField'
+import InsightModal from '@/components/ui/InsightModal'
 import { motion,  AnimatePresence } from 'framer-motion'
 import { ArrowRight,   Users,  Sparkles, } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
+
 
 
 
@@ -14,56 +16,59 @@ const insights = [
     id: 1,
     title: 'Leveraging Predictive Analytics for Business Growth',
     category: 'Analytics',
-    excerpt: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
+    content: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
     date: 'Nov 15, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    image: '📊'
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
   {
     id: 2,
     title: 'IFRS 17 Compliance: A Comprehensive Guide',
     category: 'Actuarial',
-    excerpt: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
+    content: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
     date: 'Nov 12, 2024',
     gradient: 'from-blue-500 to-cyan-500',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
+
   },
   {
     id: 3,
     title: 'Building a Data-Driven Organization',
     category: 'Business Intelligence',
-    excerpt: 'Transform your organization with a strategic approach to data management and analytics.',
+    content: 'Transform your organization with a strategic approach to data management and analytics.',
     date: 'Nov 10, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    image: '🎯'
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
   {
     id: 4,
     title: 'Credit Risk Assessment in Uncertain Times',
     category: 'Credit Rating',
-    excerpt: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
+    content: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
     date: 'Nov 8, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    image: '⭐'
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop'
   },
   {
     id: 5,
     title: 'AI-Powered Risk Management Solutions',
     category: 'Technology',
-    excerpt: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
+    content: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
     date: 'Nov 5, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    image: '🤖'
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
   {
     id: 6,
     title: 'ESG Reporting: Best Practices and Frameworks',
     category: 'Sustainability',
-    excerpt: 'A comprehensive guide to environmental, social, and governance reporting standards.',
+    content: 'A comprehensive guide to environmental, social, and governance reporting standards.',
     date: 'Nov 2, 2024',
     gradient: 'from-blue-500 to-cyan-500',
-    image: '🌱'
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   }
 ]
+
 
 const partners = [
   { name: 'CloudTech Solutions', category: 'Technology' },
@@ -186,6 +191,8 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
   const [isClient, setIsClient] = useState(false)
+  const [selectedInsight, setSelectedInsight] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Generate random positions once on mount to avoid hydration mismatch
   const [randomPositions] = useState(() =>
@@ -218,7 +225,7 @@ export default function Home() {
 
       <div className="relative z-10">
         {/* Hero Section - Data Science & Analytics Focused */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-20">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-4">
           {/* Dynamic Background with Data Visualization Elements */}
           <div className="absolute inset-0">
             {/* Base gradient */}
@@ -459,8 +466,17 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {insights.map((insight, index) => (
-                <InteractiveInsightCard key={insight.title} insight={insight} index={index} />
+              {insights.slice(0, 3).map((insight, index) => (
+                <motion.div
+                  key={insight.title}
+                  onClick={() => {
+                    setSelectedInsight(insight)
+                    setIsModalOpen(true)
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <InteractiveInsightCard insight={insight} index={index} />
+                </motion.div>
               ))}
             </div>
 
@@ -627,6 +643,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      {/* Insight Modal */}
+      <InsightModal 
+        insight={selectedInsight} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
       </div>
     </div>
   )

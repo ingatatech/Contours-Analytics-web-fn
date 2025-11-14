@@ -1,14 +1,15 @@
 'use client'
 
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Award, Globe, Lightbulb, Target, Heart, Zap, Shield, Users, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react'
+import { Mail, Phone, Linkedin, Award, Globe, Lightbulb, Target, Heart, Zap, Shield, Users, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react'
 import { useRef, useState, useEffect } from 'react'
 
 const values = [
   {
     icon: Lightbulb,
     title: 'Innovation',
-    description: 'Pioneering cutting-edge solutions that redefine industry standards',
+    bio: 'Pioneering cutting-edge solutions that redefine industry standards',
     color: 'from-primary-500 via-slate-700 to-slate-800'
   },
   {
@@ -31,37 +32,35 @@ const values = [
   }
 ]
 
-const stats = [
-  { label: 'Years of Excellence', value: '15+' },
-  { label: 'Global Clients', value: '500+' },
-  { label: 'Expert Team Members', value: '100+' },
-  { label: 'Success Rate', value: '98%' }
-]
+
 
 const team = [
   {
     name: 'Dr. Sarah Chen',
     role: 'Chief Executive Officer',
-    expertise: 'Data Science & Strategy',
-    experience: '20+ years',
-    description: 'Former McKinsey partner with expertise in analytics transformation',
-    gradient: 'from-primary-500 to-primary'
+    bio: 'Former McKinsey partner with expertise in analytics transformation',
+    gradient: 'from-primary-500 to-primary',
+    email: 'sarah.chen@contoursanalytics.com',
+    phone: '+1 (555) 123-4567',
+    linkedin: 'https://linkedin.com/in/sarahchen'
   },
   {
     name: 'Michael Rodriguez',
     role: 'Chief Technology Officer', 
-    expertise: 'AI & Machine Learning',
-    experience: '15+ years',
-    description: 'Ex-Google engineer specializing in large-scale data systems',
-    gradient: 'from-accent to-primary-500/50'
+    bio: 'Ex-Google engineer specializing in large-scale data systems',
+    gradient: 'from-accent-500 to-accent',
+    email: 'michael.rodriguez@contoursanalytics.com',
+    phone: '+1 (555) 234-5678',
+    linkedin: 'https://linkedin.com/in/mrodriguez'
   },
   {
     name: 'Dr. James Wilson',
     role: 'Chief Actuarial Officer',
-    expertise: 'Risk Management',
-    experience: '18+ years',
-    description: 'Fellow of the Institute of Actuaries with insurance expertise',
-    gradient: 'from-primary-500 to-primary'
+    bio: 'Fellow of the Institute of Actuaries with insurance expertise',
+    gradient: 'from-primary-500 to-primary',
+    email: 'james.wilson@contoursanalytics.com',
+    phone: '+1 (555) 345-6789',
+    linkedin: 'https://linkedin.com/in/jwilson'
   }
 ]
 
@@ -133,7 +132,7 @@ export default function AboutPage() {
             />
           ))}
 
-          {/* Glowing accent orbs */}
+          {/* Glowing accent-500 orbs */}
           <motion.div
             className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -145,7 +144,7 @@ export default function AboutPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
-
+<AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div
@@ -174,7 +173,7 @@ export default function AboutPage() {
               <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
                 <span className="mb-2">We Are a Leading</span>{" "}
                 <motion.span
-                  className=" bg-gradient-to-r from-primary-500 via-accent to-primary-500 bg-clip-text text-transparent"
+                  className=" bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
@@ -327,7 +326,7 @@ export default function AboutPage() {
                   opacity: [0.3, 0.6, 0.3]
                 }}
                 transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                className="absolute -inset-1 bg-accent rounded-3xl blur-2xl opacity-30"
+                className="absolute -inset-1 bg-accent-500 rounded-3xl blur-2xl opacity-30"
               />
               
               <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-10 border border-secondary-200/50 dark:border-secondary-800/50 h-full overflow-hidden group-hover:shadow-2xl transition-all duration-300">
@@ -337,7 +336,7 @@ export default function AboutPage() {
                       backgroundPosition: ["0% 0%", "100% 100%"]
                     }}
                     transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-accent opacity-0 group-hover:opacity-5 transition-opacity"
+                    className="absolute inset-0 bg-accent-500 opacity-0 group-hover:opacity-5 transition-opacity"
                     style={{ backgroundSize: "200% 200%" }}
                   />                <motion.div
                   animate={{
@@ -524,14 +523,14 @@ export default function AboutPage() {
                   className={`absolute -inset-2 bg-gradient-to-br ${member.gradient} rounded-3xl blur-2xl opacity-30`}
                 />
 
-                <div className="relative bg-white dark:bg-secondary-900 rounded-3xl overflow-hidden border border-secondary-200/50 dark:border-secondary-800/50 hover:shadow-2xl transition-all duration-300 group-hover:border-primary/50">
+                <div className="relative bg-white dark:bg-secondary-900 rounded-3xl overflow-hidden border border-secondary-200/50 dark:border-secondary-800/50 hover:shadow-2xl transition-all duration-300 group-hover:border-primary-500/50">
                   {/* Header with animated gradient */}
                   <motion.div
                     animate={{
                       backgroundPosition: ["0% 0%", "100% 100%"]
                     }}
                     transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className={`h-32 bg-gradient-to-br ${member.gradient} relative overflow-hidden`}
+                    className={`h-20 bg-gradient-to-br ${member.gradient} relative overflow-hidden`}
                     style={{ backgroundSize: "200% 200%" }}
                   >
                     <div className="absolute inset-0 bg-black/10" />
@@ -562,45 +561,56 @@ export default function AboutPage() {
                   </div>
 
                   {/* Content */}
-                  <div className="px-8 pb-8 pt-4">
-                    <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-1 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                  <div className="px-8 py-2">
+                    <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-1 group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-accent-500 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                       {member.name}
                     </h3>
                     <p className="text-primary-500 font-bold mb-4">{member.role}</p>
                     
-                    <div className="space-y-2 mb-4">
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="flex items-start gap-2"
-                      >
-                        <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-secondary-700 dark:text-secondary-300">
-                          <span className="font-medium">Expertise:</span> {member.expertise}
-                        </p>
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="flex items-start gap-2"
-                      >
-                        <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-secondary-700 dark:text-secondary-300">
-                          <span className="font-medium">Experience:</span> {member.experience}
-                        </p>
-                      </motion.div>
+                    {/* Contact Information */}
+                    <div className="space-y-3 mb-4 pb-4 border-b border-secondary-200 dark:border-secondary-700">
+                      <a href={`mailto:${member.email}`} className="flex items-center gap-3 text-secondary-600 dark:text-secondary-400 hover:text-primary-500 transition-colors group/link">
+                        <Mail className="w-4 h-4 group-hover/link:text-primary" />
+                        <span className="text-sm truncate">{member.email}</span>
+                      </a>
+                      <a href={`tel:${member.phone}`} className="flex items-center gap-3 text-secondary-600 dark:text-secondary-400 hover:text-primary-500 transition-colors group/link">
+                        <Phone className="w-4 h-4 group-hover/link:text-primary" />
+                        <span className="text-sm">{member.phone}</span>
+                      </a>
                     </div>
-
+                    
                     {/* Divider */}
                     <motion.div
                       animate={{
                         width: ["0%", "100%", "0%"]
                       }}
                       transition={{ duration: 3, repeat: Infinity }}
-                      className="h-0.5 bg-gradient-to-r from-primary-500 to-primary-500/50 rounded-full mb-4"
+                      className="h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full mb-4"
                     />
                     
-                    <p className="text-secondary-600 dark:text-secondary-400 text-sm leading-relaxed group-hover:text-secondary-700 dark:group-hover:text-secondary-300 transition-colors">
-                      {member.description}
+                    <p className="text-secondary-600 dark:text-secondary-400 text-sm leading-relaxed group-hover:text-secondary-700 dark:group-hover:text-secondary-300 transition-colors mb-4">
+                      {member.bio}
                     </p>
+
+                    {/* Social Links */}
+                    <div className="flex justify-center gap-3">
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 hover:bg-primary/20 text-primary-500 transition-all duration-300 hover:scale-110"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 hover:bg-accent/20 text-accent-500 transition-all duration-300 hover:scale-110"
+                        aria-label="Email"
+                      >
+                        <Mail className="w-5 h-5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>

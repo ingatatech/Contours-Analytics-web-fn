@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { servicesData } from '@/lib/servicesData'
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 
 export default function ServicesPage() {
   const searchParams = useSearchParams()
@@ -118,7 +119,7 @@ export default function ServicesPage() {
             />
           ))}
 
-          {/* Glowing accent orbs */}
+          {/* Glowing accent-500 orbs */}
           <motion.div
             className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -130,7 +131,7 @@ export default function ServicesPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
-
+<AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl py-20">
           <motion.div
@@ -158,9 +159,9 @@ export default function ServicesPage() {
             >
               <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
                
-                <span className="block">
+                <span className="">{" "}
                   <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >
@@ -193,7 +194,7 @@ export default function ServicesPage() {
                 href="#services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-primary to-primary text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
               >
                 Explore Services
                 <ArrowRight className="w-5 h-5" />
@@ -202,7 +203,7 @@ export default function ServicesPage() {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Get Consultation
               </motion.a>
@@ -340,10 +341,10 @@ export default function ServicesPage() {
                                 <div className="flex flex-col items-center">
                                   <div className="relative group/avatar">
                                     {/* Glow Ring */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
                                     
                                     {/* Avatar Container */}
-                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent p-1 shadow-lg group-hover/avatar:scale-105 transition-transform duration-300">
+                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 p-1 shadow-lg group-hover/avatar:scale-105 transition-transform duration-300">
                                       <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-gray-200">
                                         <Image
                                           src={contact.image}
@@ -359,7 +360,7 @@ export default function ServicesPage() {
                                     </div>
 
                                     {/* Status Badge */}
-                                    <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary to-accent text-white rounded-full p-2 shadow-lg">
+                                    <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-full p-2 shadow-lg">
                                       <Award className="w-4 h-4" />
                                     </div>
                                   </div>
@@ -436,7 +437,7 @@ export default function ServicesPage() {
                                 </button>
                               </div>
 
-                              {/* Bottom Accent Line */}
+                              {/* Bottom accent-500 Line */}
                               <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                             </div>
 
@@ -455,9 +456,9 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-12 bg-blue-600 text-white">
+      <section className="relative py-12 bg-primary-600 text-white">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-600/90 via-primary-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
         </div>
         <div className="relative container mx-auto px-4 text-center max-w-7xl">
           <h2 className="text-3xl font-bold mb-6">

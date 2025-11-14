@@ -1,8 +1,9 @@
 'use client'
 
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { ParticleField } from '@/components/ui/ParticleField'
 import { motion,  AnimatePresence } from 'framer-motion'
-import { ArrowRight,  Star, TrendingUp, Database, Brain, Users, Globe, Award, CheckCircle, Eye, Sparkles, Zap, MousePointer2, Play, ChevronDown } from 'lucide-react'
+import { ArrowRight,   Users,  Sparkles, } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
@@ -72,125 +73,6 @@ const partners = [
   { name: 'FinanceCore', category: 'Financial' },
   { name: 'DataStream', category: 'Integration' }
 ]
-
-
-
-
-function LiveKPIWidget({ label, targetValue, icon: Icon, gradient }: { label: string, targetValue: string, icon: any, gradient: string }) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [showRipple, setShowRipple] = useState(false)
-  
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ scale: 1.08, y: -8 }}
-      onHoverStart={() => {
-        setIsHovered(true)
-        setShowRipple(true)
-      }}
-      onHoverEnd={() => {
-        setIsHovered(false)
-        setTimeout(() => setShowRipple(false), 600)
-      }}
-      className="relative group cursor-pointer"
-    >
-      {/* Glow effect */}
-      <motion.div
-        animate={{
-          opacity: isHovered ? 1 : 0,
-          scale: isHovered ? 1 : 0.9
-        }}
-        transition={{ duration: 0.3 }}
-        className={`absolute -inset-1 bg-gradient-to-r ${gradient} rounded-2xl blur-xl opacity-50`}
-      />
-
-      <div className="relative rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 p-6 overflow-hidden group-hover:shadow-2xl">
-        {/* Animated gradient background */}
-        <motion.div
-          animate={{
-            backgroundPosition: isHovered ? ["0% 0%", "100% 100%"] : "0% 0%"
-          }}
-          transition={{ duration: 3, repeat: isHovered ? Infinity : 0, ease: "linear" }}
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5`}
-          style={{ backgroundSize: "200% 200%" }}
-        />
-
-        {/* Ripple effect */}
-        <AnimatePresence>
-          {showRipple && (
-            <motion.div
-              initial={{ scale: 0, opacity: 0.5 }}
-              animate={{ scale: 2.5, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className={`absolute inset-0 bg-gradient-to-r ${gradient} rounded-2xl`}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Content */}
-        <div className="relative">
-          {/* Icon */}
-          <motion.div
-            animate={{
-              scale: isHovered ? 1.2 : 1,
-              rotate: isHovered ? 360 : 0
-            }}
-            transition={{ duration: 0.6 }}
-            className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${gradient} rounded-xl mb-4 shadow-lg group-hover:shadow-xl transition-all`}
-          >
-            <Icon className="w-7 h-7 text-white" />
-          </motion.div>
-
-          {/* Value */}
-          <motion.div 
-            animate={{ 
-              scale: isHovered ? 1.08 : 1,
-              opacity: isHovered ? 1 : 0.9
-            }}
-            className="relative text-3xl md:text-4xl font-bold bg-gradient-to-r from-secondary-900 dark:from-white to-secondary-700 dark:to-secondary-200 bg-clip-text text-transparent mb-2"
-          >
-            {targetValue}
-          </motion.div>
-
-          {/* Label */}
-          <div className="relative text-sm font-semibold text-secondary-700 dark:text-secondary-300 mb-4">
-            {label}
-          </div>
-
-          {/* Trend indicator */}
-          <motion.div
-            animate={{
-              width: isHovered ? "100%" : "0%"
-            }}
-            transition={{ duration: 0.5 }}
-            className={`h-1 bg-gradient-to-r ${gradient} rounded-full`}
-          />
-        </div>
-
-        {/* Floating elements */}
-        <motion.div
-          animate={{
-            y: [0, -10, 0],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ duration: 3, repeat: Infinity }}
-          className={`absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r ${gradient} rounded-full blur-sm`}
-        />
-        <motion.div
-          animate={{
-            y: [0, 10, 0],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-          className={`absolute -bottom-2 -left-2 w-4 h-4 bg-gradient-to-r ${gradient} rounded-full blur-sm`}
-        />
-      </div>
-    </motion.div>
-  )
-}
 
 function InteractiveInsightCard({ insight, index }: { insight: any, index: number }) {
   const [isHovered, setIsHovered] = useState(false)
@@ -389,7 +271,7 @@ export default function Home() {
               transition={{ duration: 10, repeat: Infinity, delay: 1 }}
             />
           </div>
-
+<AnimatedCode/>
           {/* Content */}
           <div className="relative z-20 container mx-auto px-4 max-w-6xl py-6">
             <motion.div
@@ -445,16 +327,16 @@ export default function Home() {
                 className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto"
               >
                 {[
-                  { icon: "📊", label: "Advanced Analytics", desc: "Statistical modeling & predictive insights" },
-                  { icon: "🔐", label: "Risk Mitigation", desc: "Actuarial expertise across industries" },
-                  { icon: "⚡", label: "Actionable Intelligence", desc: "Data-driven decisions for growth" },
+                  { label: "Advanced Analytics", desc: "Statistical modeling & predictive insights" },
+                  { label: "Risk Mitigation", desc: "Actuarial expertise across industries" },
+                  { label: "Actionable Intelligence", desc: "Data-driven decisions for growth" },
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
                     whileHover={{ scale: 1.05, y: -5 }}
                     className="p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-500/40 transition-all"
                   >
-                    <div className="text-3xl mb-2">{item.icon}</div>
+                    {/* <div className="text-3xl mb-2">{item.icon}</div> */}
                     <h3 className="font-semibold text-white mb-1">{item.label}</h3>
                     <p className="text-sm text-slate-400">{item.desc}</p>
                   </motion.div>
@@ -494,18 +376,7 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              {/* Live KPI Widgets */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.1 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl mx-auto"
-              >
-                <LiveKPIWidget label="Projects Completed" targetValue="500+" icon={TrendingUp} gradient="from-cyan-600 to-blue-500" />
-                <LiveKPIWidget label="Client Satisfaction" targetValue="99%" icon={Star} gradient="from-emerald-600 to-teal-500" />
-                <LiveKPIWidget label="Data Points Analyzed" targetValue="1B+" icon={Database} gradient="from-purple-600 to-pink-500" />
-                <LiveKPIWidget label="Years Experience" targetValue="15+" icon={Award} gradient="from-orange-600 to-red-500" />
-              </motion.div>
+          
             </motion.div>
           </div>
 
@@ -734,9 +605,9 @@ export default function Home() {
 
 
            {/* CTA Section */}
-      <section className="relative py-12 bg-blue-600 text-white">
+      <section className="relative py-12 bg-primary-500 text-white">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/90 via-blue-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-600/90 via-primary-600/60 to-white/95" style={{ mixBlendMode: "multiply" }} />
         </div>
         <div className="relative container mx-auto px-4 text-center max-w-7xl">
           <h2 className="text-3xl font-bold mb-6">

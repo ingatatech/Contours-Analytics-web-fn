@@ -1,5 +1,6 @@
 'use client'
 
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Target, Database, BarChart3, Eye, Rocket, CheckCircle, ArrowRight, Users, Clock, Award, Zap, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
@@ -69,12 +70,6 @@ const principles = [
   }
 ]
 
-const benefits = [
-  { metric: '40%', label: 'Faster Implementation', icon: Zap },
-  { metric: '95%', label: 'Project Success Rate', icon: CheckCircle },
-  { metric: '60%', label: 'Cost Reduction', icon: TrendingUp },
-  { metric: '24/7', label: 'Support Available', icon: Clock }
-]
 
 export default function ApproachPage() {
   const containerRef = useRef(null)
@@ -96,9 +91,6 @@ export default function ApproachPage() {
     target: containerRef,
     offset: ["start start", "end end"]
   })
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8])
 
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
@@ -156,7 +148,7 @@ export default function ApproachPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
-
+<AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, Clock, Users, MessageSquare, ArrowRight } from 'lucide-react'
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 
 
 const contactMethods = [
@@ -134,7 +135,7 @@ export default function ContactPage() {
             />
           ))}
 
-          {/* Glowing accent orbs */}
+          {/* Glowing accent-500 orbs */}
           <motion.div
             className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -146,7 +147,7 @@ export default function ContactPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
-
+<AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div
@@ -175,7 +176,7 @@ export default function ContactPage() {
               <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
                 <span className="mb-2">Let's Transform</span>{" "}
                 <motion.span
-                  className=" bg-gradient-to-r from-primary-500 via-accent to-primary-500 bg-clip-text text-transparent"
+                  className=" bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent"
                   animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
                   transition={{ duration: 8, repeat: Infinity }}
                 >
@@ -266,12 +267,12 @@ export default function ContactPage() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-accent rounded-full mb-6 opacity-80"
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full mb-6 opacity-80"
             >
               <MessageSquare className="w-7 h-7 text-white" />
             </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white mb-4">
-              Get In <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Touch</span>
+              Get In <span className="bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">Touch</span>
             </h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Choose your preferred way to reach us. We're here to help and look forward to connecting with you.
@@ -332,7 +333,7 @@ export default function ContactPage() {
                       <method.icon className="w-6 h-6 text-white" />
                     </motion.div>
 
-                    <h3 className="font-bold text-secondary-900 dark:text-white mb-2 text-lg group-hover:text-primary transition-colors">
+                    <h3 className="font-bold text-secondary-900 dark:text-white mb-2 text-lg group-hover:text-primary-500 transition-colors">
                       {method.title}
                     </h3>
                     <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-3">
@@ -408,7 +409,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                         placeholder="John Doe"
                       />
                     </div>
@@ -422,7 +423,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -438,7 +439,7 @@ export default function ContactPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                         placeholder="Your Company"
                       />
                     </div>
@@ -450,7 +451,7 @@ export default function ContactPage() {
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                       >
                         <option value="">Select a service</option>
                         <option value="data-analytics">Data Analytics</option>
@@ -472,7 +473,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-secondary-700 border border-secondary-200 dark:border-secondary-600 text-secondary-900 dark:text-white placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none"
                       placeholder="Tell us about your project and how we can help..."
                     />
                   </div>

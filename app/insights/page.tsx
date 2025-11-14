@@ -1,5 +1,6 @@
 'use client'
 
+import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, ArrowRight, TrendingUp, Users, BookOpen, Download, Share2, Eye } from 'lucide-react'
 import { useState, useEffect } from 'react'
@@ -136,7 +137,7 @@ export default function InsightsPage() {
             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
           />
         </div>
-
+<AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl py-10">
           <motion.div

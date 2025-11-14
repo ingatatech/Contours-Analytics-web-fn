@@ -14,7 +14,6 @@ export interface SubService {
   id: string
   name: string
   description: string
-  details: string[]
   keyContacts: Contact[]
 }
 
@@ -41,13 +40,7 @@ export const servicesData: Service[] = [
         id: 'descriptive-analytics',
         name: 'Descriptive Analytics',
         description: 'We analyze historical data to summarize performance trends, key metrics, and business patterns. This helps clients understand what has happened in their operations and identify areas of strength and improvement.',
-        details: [
-          'Historical data analysis and trend identification',
-          'Performance metrics and KPI tracking',
-          'Business pattern recognition',
-          'Operational insights and reporting',
-          'Data visualization and dashboards'
-        ],
+    
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -71,13 +64,7 @@ export const servicesData: Service[] = [
         id: 'diagnostic-analytics',
         name: 'Diagnostic Analytics',
         description: 'We go beyond surface-level data by uncovering the why behind business outcomes. Our diagnostic models identify root causes of performance issues, enabling organizations to take informed corrective actions.',
-        details: [
-          'Root cause analysis and problem identification',
-          'Correlation and causation analysis',
-          'Performance issue diagnosis',
-          'Business intelligence insights',
-          'Actionable recommendations'
-        ],
+   
         keyContacts: [
           {
             image: '/contacts/michael-rodriguez.jpg',
@@ -93,13 +80,7 @@ export const servicesData: Service[] = [
         id: 'predictive-analytics',
         name: 'Predictive Analytics',
         description: 'Using statistical modeling and machine learning, we forecast future trends, customer behaviors, and business risks. Predictive analytics helps clients anticipate change and prepare proactive strategies.',
-        details: [
-          'Machine learning model development',
-          'Future trend forecasting',
-          'Customer behavior prediction',
-          'Risk assessment and mitigation',
-          'Scenario planning and simulation'
-        ],
+     
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -125,13 +106,7 @@ export const servicesData: Service[] = [
         id: 'risk-modeling',
         name: 'Risk Modeling & Assessment',
         description: 'We develop sophisticated risk models that quantify exposure and assess the financial impact of uncertainty. Our models support decision-making in insurance, finance, and corporate planning.',
-        details: [
-          'Quantitative risk assessment',
-          'Financial impact modeling',
-          'Exposure analysis',
-          'Scenario testing and stress analysis',
-          'Risk mitigation strategies'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -147,13 +122,7 @@ export const servicesData: Service[] = [
         id: 'pricing-development',
         name: 'Pricing & Product Development',
         description: 'We assist in designing, pricing, and evaluating insurance and financial products. Our actuarial models balance profitability with competitiveness, ensuring sustainable product performance.',
-        details: [
-          'Product design and development',
-          'Competitive pricing strategies',
-          'Profitability analysis',
-          'Market positioning',
-          'Performance monitoring'
-        ],
+      
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -169,13 +138,7 @@ export const servicesData: Service[] = [
         id: 'reserving-valuation',
         name: 'Reserving & Valuation',
         description: 'We calculate technical reserves and liabilities that comply with industry regulations and accounting standards. Our valuations provide transparency and confidence for financial reporting and audits.',
-        details: [
-          'Technical reserve calculations',
-          'Liability assessments',
-          'Regulatory compliance',
-          'Financial reporting support',
-          'Audit preparation'
-        ],
+   
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -191,13 +154,7 @@ export const servicesData: Service[] = [
         id: 'pension-benefits',
         name: 'Pension & Employee Benefits Consulting',
         description: 'We deliver actuarial valuations for pension schemes and employee benefits. Our services include funding strategy design, compliance reporting, and long-term plan sustainability assessments.',
-        details: [
-          'Pension scheme valuations',
-          'Funding strategy design',
-          'Compliance reporting',
-          'Sustainability assessments',
-          'Employee benefit optimization'
-        ],
+    
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -213,13 +170,7 @@ export const servicesData: Service[] = [
         id: 'regulatory-compliance',
         name: 'Regulatory Compliance & IFRS 17 Support',
         description: 'We help clients meet actuarial and accounting requirements under international standards such as IFRS 17, Solvency II, and other regulatory frameworks. Our experts ensure accuracy, transparency, and compliance.',
-        details: [
-          'IFRS 17 implementation',
-          'Solvency II compliance',
-          'Regulatory reporting',
-          'Audit support',
-          'Framework alignment'
-        ],
+      
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -245,13 +196,7 @@ export const servicesData: Service[] = [
         id: 'data-architecture',
         name: 'Data Architecture & Integration',
         description: 'We design and implement data systems that unify multiple data sources into cohesive, accessible structures. This ensures that businesses have a single, reliable source of truth.',
-        details: [
-          'Data system design and implementation',
-          'Multi-source data integration',
-          'Single source of truth creation',
-          'Data quality management',
-          'Scalable infrastructure'
-        ],
+      
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -267,13 +212,7 @@ export const servicesData: Service[] = [
         id: 'bi-implementation',
         name: 'Business Intelligence Implementation',
         description: 'We develop BI solutions that translate complex data into actionable insights. Our BI systems enable real-time performance monitoring, KPI tracking, and executive reporting.',
-        details: [
-          'BI solution development',
-          'Real-time monitoring systems',
-          'KPI tracking dashboards',
-          'Executive reporting',
-          'Self-service analytics'
-        ],
+    
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -289,13 +228,7 @@ export const servicesData: Service[] = [
         id: 'data-strategy',
         name: 'Data Strategy Development',
         description: 'We partner with clients to define clear data strategies that align with business goals. Our approach includes data maturity assessments, roadmap creation, and governance planning.',
-        details: [
-          'Data maturity assessments',
-          'Strategic roadmap creation',
-          'Governance framework design',
-          'Goal alignment',
-          'Change management'
-        ],
+    
         keyContacts: [
           {
              image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -311,13 +244,7 @@ export const servicesData: Service[] = [
         id: 'automation-optimization',
         name: 'Automation & Process Optimization',
         description: 'We leverage analytics and automation to streamline workflows, eliminate inefficiencies, and enhance productivity. Our solutions reduce manual effort and increase operational accuracy.',
-        details: [
-          'Workflow automation',
-          'Process optimization',
-          'Efficiency improvement',
-          'Manual effort reduction',
-          'Accuracy enhancement'
-        ],
+ 
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -343,13 +270,6 @@ export const servicesData: Service[] = [
         id: 'public-ratings',
         name: 'Public Credit Ratings',
         description: 'We provide publicly available ratings that enhance investor confidence, improve market transparency, and support access to diversified capital markets. Our public ratings enable fair comparison of issuers, debt instruments, and counterparties.',
-        details: [
-          'Publicly available credit ratings',
-          'Investor confidence enhancement',
-          'Market transparency',
-          'Issuer comparisons',
-          'Capital market access support'
-        ],
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -365,13 +285,7 @@ export const servicesData: Service[] = [
         id: 'private-ratings',
         name: 'Private Credit Ratings',
         description: 'We deliver confidential ratings for issuers, lenders, and investors seeking in-depth analysis without public disclosure. Services include entity-level and loan-level ratings, private placement evaluations, and secure data room access.',
-        details: [
-          'Confidential credit ratings',
-          'Entity-level assessments',
-          'Loan-level evaluations',
-          'Private placement analysis',
-          'Secure data room access'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -387,13 +301,7 @@ export const servicesData: Service[] = [
         id: 'credit-risk-modeling',
         name: 'Credit Risk Modeling',
         description: 'We build quantitative models to estimate Probability of Default (PD), Loss Given Default (LGD), and Exposure at Default (EAD). These models integrate financial ratios, historical data, and macroeconomic indicators to provide precise risk quantification.',
-        details: [
-          'PD, LGD, and EAD modeling',
-          'Financial ratio analysis',
-          'Historical data integration',
-          'Macroeconomic indicators',
-          'Risk quantification'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -409,13 +317,7 @@ export const servicesData: Service[] = [
         id: 'credit-scoring',
         name: 'Credit Scoring Systems',
         description: 'Our credit scoring frameworks blend statistical modeling with AI and machine learning to classify borrowers and portfolios by risk profile. We tailor models to align with each client\'s data environment and regulatory context.',
-        details: [
-          'AI-powered scoring systems',
-          'Statistical modeling',
-          'Risk profile classification',
-          'Custom model development',
-          'Regulatory alignment'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -431,13 +333,7 @@ export const servicesData: Service[] = [
         id: 'portfolio-analytics',
         name: 'Portfolio Risk Analytics',
         description: 'We evaluate portfolio-level risk and concentration through stress testing, scenario analysis, and Monte Carlo simulations, ensuring clients maintain balanced, compliant, and profitable portfolios.',
-        details: [
-          'Portfolio risk evaluation',
-          'Stress testing',
-          'Scenario analysis',
-          'Monte Carlo simulations',
-          'Concentration analysis'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -453,13 +349,7 @@ export const servicesData: Service[] = [
         id: 'rating-advisory',
         name: 'Credit Rating Advisory',
         description: 'We support clients in preparing for external rating agency evaluations through readiness reviews, benchmarking, and financial optimization strategies. Our advisory services strengthen market perception and rating outcomes.',
-        details: [
-          'Rating readiness reviews',
-          'Benchmarking analysis',
-          'Financial optimization',
-          'Market perception enhancement',
-          'Rating improvement strategies'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
@@ -475,13 +365,7 @@ export const servicesData: Service[] = [
         id: 'regulatory-support',
         name: 'Regulatory & Compliance Support',
         description: 'We ensure all credit models and processes adhere to international standards such as Basel III, IFRS 9, and Solvency II. Our consultants align credit risk frameworks with evolving regulatory expectations and best practices.',
-        details: [
-          'Basel III compliance',
-          'IFRS 9 implementation',
-          'Solvency II adherence',
-          'Regulatory framework alignment',
-          'Best practice integration'
-        ],
+
         keyContacts: [
           {
             image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',

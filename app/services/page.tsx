@@ -180,10 +180,10 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="mb-8"
+              className="mb-4"
             >
               <p className="text-lg  text-white leading-relaxed max-w-6xl">
-               {selectedService.longDescription}
+                Unlock the full potential of your business with our comprehensive suite of data analytics and consulting services. We combine cutting-edge technology, industry expertise, and innovative methodologies to deliver transformative solutions that drive measurable business value. Our team of seasoned professionals works closely with you to understand your unique challenges and develop tailored strategies that align with your organizational goals. From advanced analytics and risk management to actuarial consulting and strategic planning, we empower you to make data-driven decisions with confidence and clarity.
               </p>
             </motion.div>
 
@@ -192,7 +192,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex gap-4 pt-6"
+              className="flex gap-4 pt-3"
             >
               <motion.a
                 href="#services"
@@ -222,14 +222,8 @@ export default function ServicesPage() {
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-xs text-slate-400">Discover our solutions</span>
-            <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-6 h-10 border border-blue-500/30 rounded-full flex justify-center items-center"
-            >
-              <div className="w-1 h-2 bg-blue-500 rounded-full" />
-            </motion.div>
+            <span className="text-xs text-slate-200">Discover our solutions</span>
+          
           </div>
         </motion.div>
       </section>
@@ -267,6 +261,23 @@ export default function ServicesPage() {
 
             {/* Right Content Area */}
             <div className="lg:col-span-3 space-y-8">
+              {/* Service Overview Section - First */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-2xl shadow-lg p-8"
+              >
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                  <div className="w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full" />
+                  {selectedService.name}
+                </h2>
+                <p className="text-base text-gray-700 leading-relaxed">
+                  {selectedService.longDescription}
+                </p>
+              </motion.div>
+
+              {/* Sub Services Details */}
               {selectedSubService && (
                 <motion.div
                   key={selectedSubService.id}
@@ -284,26 +295,7 @@ export default function ServicesPage() {
                      {selectedSubService.description}
                     </p>
 
-                    {/* Key Details */}
-                    <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6">
-                      <h4 className="font-bold text-gray-900 mb-4">
-                       What We Deliver
-                      </h4>
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {selectedSubService.details.map((detail, idx) => (
-                          <li key={idx} className="flex items-start gap-3">
-                            <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center mt-1 shrink-0">
-                              <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                            <span className="text-gray-700">
-                             {detail}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  
                   </div>
 
                   {/* Key Contacts */}

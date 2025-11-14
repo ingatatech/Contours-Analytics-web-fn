@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { servicesData } from '@/lib/servicesData'
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
+import AnimatedBackground from '@/components/ui/AnimatedBackground'
 
 export default function ServicesPage() {
   const searchParams = useSearchParams()
@@ -80,62 +81,8 @@ export default function ServicesPage() {
       {/* Hero Section - Services with Data Analytics Focus */}
       <section className="relative  flex items-center justify-center overflow-hidden py-10">
         {/* Dynamic Background with Data Visualization Elements */}
-        <div className="absolute inset-0">
-          {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary-600 to-slate-800" />
-          
-          {/* Animated data grid lines */}
-          <motion.svg 
-            className="absolute inset-0 w-full h-full opacity-10"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <pattern id="grid-services" width="50" height="50" patternUnits="userSpaceOnUse">
-                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-blue-400"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid-services)" />
-          </motion.svg>
-
-          {/* Floating Data Points Animation */}
-          {isClient && randomPositions.map((pos, i) => (
-            <motion.div
-              key={`data-point-${i}`}
-              className="absolute w-2 h-2 bg-blue-400 rounded-full"
-              style={{
-                left: `${pos.left}%`,
-                top: `${pos.top}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 0.8, 0.3],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: pos.duration,
-                repeat: Infinity,
-                delay: pos.delay,
-              }}
-            />
-          ))}
-
-          {/* Glowing accent-500 orbs */}
-          <motion.div
-            className="absolute top-20 right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-40 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          />
-        </div>
-                  <motion.div className="absolute inset-0 opacity-20">
-    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-    <div className="absolute bottom-32 right-20 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
-  </motion.div>
-<AnimatedCode/>
+          <AnimatedBackground />
+  <AnimatedCode/>
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 max-w-6xl">
           <motion.div

@@ -224,113 +224,113 @@ export default function Home() {
       <ParticleField />
 
       <div className="relative z-10">
-        {/* Hero Section - Data Science & Analytics Focused */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-4">
-          {/* Dynamic Background with Data Visualization Elements */}
+        {/* Hero Section - Modern Analytics Design */}
+        <section className="relative py-7 flex items-center justify-center overflow-hidden">
+          {/* Modern Gradient Background */}
           <div className="absolute inset-0">
-            {/* Base gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary-600 to-slate-800" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
             
-            {/* Animated data grid lines */}
-            <motion.svg 
-              className="absolute inset-0 w-full h-full opacity-10"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                  <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-400"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid)" />
-            </motion.svg>
-
-            {/* Floating Data Points Animation */}
-            {isClient && randomPositions.map((pos, i) => (
+            {/* Animated Gradient Orbs */}
+            <motion.div
+              className="absolute top-1/4 -left-48 w-96 h-96 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-full blur-3xl"
+              animate={{
+                x: [0, 100, 0],
+                y: [0, -50, 0],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute bottom-1/4 -right-48 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"
+              animate={{
+                x: [0, -100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+            />
+            
+            {/* Grid Pattern */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 3px, transparent 1px),
+                                 linear-gradient(90deg, rgba(59, 130, 246, 0.1) 3px, transparent 1px)`,
+                backgroundSize: '50px 50px'
+              }} />
+            </div>
+            
+            {/* Floating Data Points */}
+            {isClient && randomPositions.slice(0, 8).map((pos, i) => (
               <motion.div
                 key={`data-point-${i}`}
                 className="absolute w-2 h-2 bg-cyan-400 rounded-full"
                 style={{
                   left: `${pos.left}%`,
                   top: `${pos.top}%`,
+                  boxShadow: '0 0 20px rgba(34, 211, 238, 0.6)'
                 }}
                 animate={{
-                  y: [0, -30, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                  scale: [1, 1.5, 1],
+                  y: [0, -80, 0],
+                  opacity: [0.2, 1, 0.2],
+                  scale: [1, 1.5, 1]
                 }}
                 transition={{
-                  duration: pos.duration,
+                  duration: 8 + pos.duration,
                   repeat: Infinity,
-                  delay: pos.delay,
+                  delay: pos.delay
                 }}
               />
             ))}
-
-            {/* Glowing accent orbs */}
-            <motion.div
-              className="absolute top-20 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 8, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute bottom-40 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"
-              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-            />
           </div>
-                    <motion.div className="absolute inset-0 opacity-20">
-    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-    <div className="absolute bottom-32 right-20 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
-  </motion.div>
 <AnimatedCode/>
-          {/* Content */}
-          <div className="relative z-20 container mx-auto px-4 max-w-6xl py-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-left mb-16"
-            >
-              {/* Badge */}
+          {/* Content Container */}
+          <div className="relative z-20 container mx-auto px-4 max-w-6xl">
+            <div className=" items-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-sm"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="space-y-8"
               >
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-cyan-300">Advanced Analytics & Data Science</span>
-              </motion.div>
+                {/* Trust Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 backdrop-blur-sm"
+                >
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-2 h-2 bg-cyan-400 rounded-full"
+                  />
+                  <span className="text-sm font-semibold text-cyan-300">Advanced Analytics & Data Science</span>
+                </motion.div>
 
-              {/* Main Heading */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
-                  <span className="mb-2">Transform Your Data</span>{" "}
-                  <motion.span
-                    className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-500 bg-clip-text text-transparent"
-                    animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-                    transition={{ duration: 8, repeat: Infinity }}
+                {/* Main Headline */}
+                <div>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-4xl font-bold leading-tight mb-6"
                   >
-                    Into Competitive Advantage
-                  </motion.span>
-                </h1>
-              </motion.div>
-
-              {/* Subheading */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-lg  text-white mb-8 max-w-6xl leading-relaxed"
-              >
-                We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
-              </motion.p>
-
-              {/* Key Values */}
+                    <span className="text-white">Transform Your Data</span> {" "}
+                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                      Into Competitive Advantage
+                    </span>
+                  </motion.h1>
+                  
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-xl text-slate-300 leading-relaxed max-w-6xl"
+                  >
+                   We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
+                  </motion.p>
+                </div>
+     {/* Key Values */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -353,63 +353,55 @@ export default function Home() {
                   </motion.div>
                 ))}
               </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4 justify-start items-start"
-              >
+                {/* CTA Buttons */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="flex flex-col sm:flex-row gap-4"
                 >
-                  <a
+                  <motion.a
                     href="/services"
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg  hover:shadow-xl  transition-all flex items-center justify-center gap-2"
                   >
-                    Explore Our Solutions
+                    Explore Solutions
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <a
+                  </motion.a>
+                  
+                  <motion.a
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-8 py-3 border-2 border-cyan-500/50 text-white rounded-full  font-semibold hover:border-cyan-500 hover:bg-cyan-500/10 transition-all duration-300 group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center justify-center gap-2"
                   >
                     Get Started Today
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </motion.a>
                 </motion.div>
+
+               
               </motion.div>
 
-          
-            </motion.div>
+         
+            </div>
           </div>
 
           {/* Scroll Indicator */}
           <motion.div
             className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            animate={{ y: [0, 12, 0] }}
+            animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <div className="flex flex-col items-center gap-2">
-              <span className="text-sm text-slate-400">Scroll to explore</span>
-              <motion.div
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-6 h-10 border-2 border-cyan-500/50 rounded-full flex justify-center"
-              >
+              <span className="text-xs text-slate-400">Scroll to explore</span>
+              <div className="w-6 h-10 border-2 border-blue-500/30 rounded-full flex justify-center p-2">
                 <motion.div
-                  animate={{ y: [0, 8, 0] }}
+                  animate={{ y: [0, 12, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-1 h-2 bg-cyan-400 rounded-full mt-2"
+                  className="w-1.5 h-1.5 bg-blue-500 rounded-full"
                 />
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </section>

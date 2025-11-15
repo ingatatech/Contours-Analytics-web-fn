@@ -89,7 +89,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-left mb-16"
+            className="text-left"
           >
             {/* Badge */}
             <motion.div
@@ -127,52 +127,16 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="mb-4"
+              className=""
             >
               <p className="text-lg  text-white leading-relaxed max-w-6xl">
-                Unlock the full potential of your business with our comprehensive suite of data analytics and consulting services. We combine cutting-edge technology, industry expertise, and innovative methodologies to deliver transformative solutions that drive measurable business value. Our team of seasoned professionals works closely with you to understand your unique challenges and develop tailored strategies that align with your organizational goals. From advanced analytics and risk management to actuarial consulting and strategic planning, we empower you to make data-driven decisions with confidence and clarity.
+                Unlock the full potential of your business with our comprehensive suite of data analytics and consulting services. We combine cutting-edge technology, industry expertise, and innovative methodologies to deliver transformative solutions that drive measurable business value. From advanced analytics and risk management to actuarial consulting and strategic planning, we empower you to make data-driven decisions with confidence and clarity.
               </p>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex gap-4 pt-3"
-            >
-              <motion.a
-                href="#services"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center gap-2"
-              >
-                Explore Services
-                <ArrowRight className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="/contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-blue-100 text-blue-100 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
-              >
-                Get Consultation
-              </motion.a>
-            </motion.div>
+         
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-xs text-slate-200">Discover our solutions</span>
-          
-          </div>
-        </motion.div>
       </section>
 
       {/* Main Content */}

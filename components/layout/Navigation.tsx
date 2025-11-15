@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Moon, Sun, BarChart3, Shield, Database, TrendingUp } from 'lucide-react'
+import { Menu, X, ChevronDown, Moon, Sun, BarChart3, Shield, Database, TrendingUp, Plus, Minus } from 'lucide-react'
 
 const serviceIcons = {
   'Data Analytics': BarChart3,
@@ -15,7 +15,22 @@ const serviceIcons = {
 
 const navigationItems = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
+  {
+    name: 'Who we are',
+    href: '#',
+    submenu: [
+      { 
+        name: 'About', 
+        href: '/about',
+        description: 'Learn about our company and mission'
+      },
+      { 
+        name: 'Leadership', 
+        href: '/leadership',
+        description: 'Meet our leadership team'
+      },
+    ]
+  },
   { name: 'Approach', href: '/approach' },
   {
     name: 'Services',
@@ -53,6 +68,7 @@ export default function Navigation() {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
   const [isDark, setIsDark] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [mobileWhoWeAreOpen, setMobileWhoWeAreOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -125,6 +141,7 @@ export default function Navigation() {
               >
                 <Link
                   href={item.href}
+                  onClick={(e) => item.submenu && e.preventDefault()}
                   className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
                 >
                   <span>{item.name}</span>
@@ -144,7 +161,6 @@ export default function Navigation() {
                       className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-secondary-900 rounded-2xl shadow-2xl border border-secondary-200 dark:border-secondary-700 py-2 overflow-hidden"
                     >
                       {item.submenu.map((subItem) => {
-                        const Icon = serviceIcons[subItem.name as keyof typeof serviceIcons]
                         return (
                           <Link
                             key={subItem.name}
@@ -227,34 +243,70 @@ export default function Navigation() {
             <div className="px-4 py-6 space-y-2">
               {navigationItems.map((item) => (
                 <div key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                    onClick={() => !item.submenu && setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                  {item.submenu && (
-                    <div className="ml-4 mt-2 space-y-2">
-                      {item.submenu.map((subItem) => {
-                        const Icon = serviceIcons[subItem.name as keyof typeof serviceIcons]
-                        return (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            className="flex items-center gap-3 px-3 py-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                            onClick={() => setIsOpen(false)}
+                  {item.name === 'Who we are' ? (
+                    <>
+                      <button
+                        onClick={() => setMobileWhoWeAreOpen(!mobileWhoWeAreOpen)}
+                        className="w-full flex items-center justify-between p-3 text-left hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors font-medium text-secondary-700 dark:text-secondary-300"
+                      >
+                        <span>{item.name}</span>
+                        {mobileWhoWeAreOpen ? (
+                          <Minus className="h-5 w-5 text-secondary-500" />
+                        ) : (
+                          <Plus className="h-5 w-5 text-secondary-500" />
+                        )}
+                      </button>
+                      <AnimatePresence>
+                        {mobileWhoWeAreOpen && item.submenu && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
                           >
-                            {Icon && (
-                              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                                <Icon className="w-4 h-4 text-white" />
-                              </div>
-                            )}
-                            <span>{subItem.name}</span>
-                          </Link>
-                        )
-                      })}
-                    </div>
+                            <div className="pl-4 pt-2 pb-2 space-y-1">
+                              {item.submenu.map((subItem) => (
+                                <Link
+                                  key={subItem.name}
+                                  href={subItem.href}
+                                  className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {subItem.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href={item.href}
+                        className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                        onClick={() => !item.submenu && setIsOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                      {item.submenu && item.name !== 'Who we are' && (
+                        <div className="ml-4 mt-2 space-y-2">
+                          {item.submenu.map((subItem) => {
+                            return (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                className="flex items-center gap-3 px-3 py-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                                onClick={() => setIsOpen(false)}
+                              >
+                               
+                                <span>{subItem.name}</span>
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               ))}

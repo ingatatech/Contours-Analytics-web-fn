@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/app/ClientLayout";
-import { InteractiveCursor } from "@/components/ui/InteractiveCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -95,7 +94,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <ClientLayout>
-          <InteractiveCursor />
           {children}
         </ClientLayout>
       </body>

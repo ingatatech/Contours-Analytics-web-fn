@@ -1,573 +1,407 @@
 'use client'
+import {  Target, TrendingUp, Shield, CheckCircle, Lightbulb, ArrowRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion";
+import {  useState } from "react";
+import Link from "next/link";
 
-import AnimatedBackground from '@/components/ui/AnimatedBackground'
-import { AnimatedCode } from '@/components/ui/AnimatedCode'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { Mail, Phone, Linkedin, Award, Globe, Lightbulb, Target, Heart, Zap, Shield, Users, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react'
-import { useRef, useState, useEffect } from 'react'
+const tabs = [
+  { id: 'mission', label: 'Our Mission', icon: Target },
+  { id: 'vision', label: 'Our Vision', icon: TrendingUp },
+  { id: 'values', label: 'Our Values', icon: Shield },
+  { id: 'approach', label: 'Our Approach', icon: Lightbulb }
+];
 
-const values = [
-  {
-    icon: Lightbulb,
-    title: 'Innovation',
-    bio: 'Pioneering cutting-edge solutions that redefine industry standards',
-    color: 'from-primary-500 via-slate-700 to-slate-800'
+const tabContent = {
+  mission: {
+    title: "Empowering Businesses Through Analytics",
+    content:
+      "Our mission is to empower businesses with actionable insights and innovative analytics and actuarial solutions that drive sustainable growth, informed decision-making, and long-term success.",
+    highlights: [
+      "Actionable Insights",
+      "Innovative Analytics Solutions",
+      "Actuarial Excellence",
+      "Driving Sustainable Growth"
+    ]
   },
-  {
-    icon: Shield,
-    title: 'Integrity',
-    description: 'Maintaining the highest ethical standards in all our engagements',
-    color: 'from-primary-500 via-slate-700 to-slate-800'
+
+  vision: {
+    title: "Redefining Industry Standards in Analytics",
+    content:
+      "Our vision is to pioneer cutting-edge analytics and actuarial solutions that redefine industry standards, enabling organizations worldwide to unlock deeper insights and achieve lasting prosperity.",
+    highlights: [
+      "Pioneering Analytics Leadership",
+      "Redefining Industry Standards",
+      "Global Impact",
+      "Driving Long-Term Prosperity"
+    ]
   },
-  {
-    icon: Target,
-    title: 'Excellence',
-    description: 'Delivering exceptional results that exceed client expectations',
-    color: 'from-primary-500 via-slate-700 to-slate-800'
+
+  approach: {
+    title: "Our Five-Step Analytics Methodology",
+    content:
+      "We combine deep industry expertise, advanced analytics, and modern actuarial techniques to deliver data-driven solutions. Our methodology ensures clarity, accuracy, and results at every stage of the engagement process.",
+    highlights: [
+      "Understand → Collect → Analyze → Visualize → Implement",
+      "Data-Driven Decision Making",
+      "Industry-Specific Expertise",
+      "Proven and Scalable Methods"
+    ]
   },
-  {
-    icon: Heart,
-    title: 'Collaboration',
-    description: 'Building lasting partnerships through trust and transparency',
-    color: 'from-primary-500 via-slate-700 to-slate-800'
+
+  values: {
+    title: "Integrity, Accuracy, and Excellence",
+    content:
+      "Our values shape how we work—ensuring precision in analysis, ethical responsibility in recommendations, and long-term value for our clients through trustworthy and impactful insights.",
+    highlights: [
+      "Analytical Accuracy",
+      "Ethical Responsibility",
+      "Client-Focused Delivery",
+      "Excellence in Every Engagement"
+    ]
   }
-]
+};
 
-
-
-const team = [
+const coreValues = [
   {
-    name: 'Dr. Sarah Chen',
-    role: 'Chief Executive Officer',
-    bio: 'Former McKinsey partner with expertise in analytics transformation',
-    gradient: 'from-primary-500 to-primary',
-    email: 'sarah.chen@contoursanalytics.com',
-    phone: '+1 (555) 123-4567',
-    linkedin: 'https://linkedin.com/in/sarahchen'
+    icon: "🛡️",
+    title: "Integrity",
+    description: "We uphold the highest ethical standards, ensuring honesty and fairness in all our actions."
   },
   {
-    name: 'Michael Rodriguez',
-    role: 'Chief Technology Officer', 
-    bio: 'Ex-Google engineer specializing in large-scale data systems',
-    gradient: 'from-accent-500 to-accent',
-    email: 'michael.rodriguez@contoursanalytics.com',
-    phone: '+1 (555) 234-5678',
-    linkedin: 'https://linkedin.com/in/mrodriguez'
+    icon: "🤝",
+    title: "Respect",
+    description: "We value diversity, treat everyone with dignity, and foster an inclusive environment."
   },
   {
-    name: 'Dr. James Wilson',
-    role: 'Chief Actuarial Officer',
-    bio: 'Fellow of the Institute of Actuaries with insurance expertise',
-    gradient: 'from-primary-500 to-primary',
-    email: 'james.wilson@contoursanalytics.com',
-    phone: '+1 (555) 345-6789',
-    linkedin: 'https://linkedin.com/in/jwilson'
+    icon: "📌",
+    title: "Accountability",
+    description: "We take responsibility for our actions, decisions, and their impact on our stakeholders."
+  },
+  {
+    icon: "👥",
+    title: "Team Work",
+    description: "We believe in collaboration, leveraging collective strengths to achieve shared success."
+  },
+  {
+    icon: "🏆",
+    title: "Excellence",
+    description: "We strive for superior performance and continuous improvement in everything we do."
+  },
+  {
+    icon: "🌱",
+    title: "Sustainability",
+    description: "We are committed to practices that support long-term growth and positive social impact."
   }
-]
+];
 
 export default function AboutPage() {
-  const containerRef = useRef(null)
-  const [isClient, setIsClient] = useState(false)
-  const [randomPositions] = useState(() =>
-    [...Array(12)].map(() => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 4 + Math.random() * 2,
-      delay: Math.random() * 2,
-    }))
-  )
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8])
-
+   const [activeTab, setActiveTab] = useState('mission');
+ 
   return (
-    <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
-      {/* Hero Section - Advanced Data Science Focus */}
-      <section className="relative flex items-center justify-center overflow-hidden py-8 ">
-             <AnimatedBackground />
-     <AnimatedCode/>
-        {/* Content */}
-        <div className="relative z-20 container mx-auto px-4 max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-left mb-16"
-          >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
-            >
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-blue-300">Data-Driven Enterprise Solutions</span>
-            </motion.div>
+<>
 
-            {/* Main Heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              <h1 className="text-4xl  font-bold text-white mb-6 leading-tight">
-                <span className="mb-2">About</span>{" "}
-                <motion.span
-                  className=" bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 bg-clip-text text-transparent"
-                  animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                >
-                  Contours Analytics
-                </motion.span>
-              </h1>
-            </motion.div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
+  <section className="relative py-10 flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+  {/* Background Blobs */}
+  <motion.div className="absolute inset-0 opacity-20">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+    <div className="absolute bottom-32 right-20 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+  </motion.div>
 
-            {/* Description */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              <p className="text-xl text-white leading-relaxed max-w-6xl">
-                We are a leading provider of comprehensive data analytics and actuarial services. With a team of highly skilled professionals and cutting-edge technology, we empower businesses to make informed decisions and mitigate risks effectively. Our integrated approach combines advanced statistical modeling, predictive analytics, and actuarial expertise to deliver actionable insights across various industries.
-              </p>
-            </motion.div>
+  {/* Floating Particles (like homepage) */}
+  <div className="absolute inset-0">
+    {[...Array(15)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [-15, 15],
+          opacity: [0.3, 1, 0.3],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))}
+  </div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 pt-10"
-            >
-              <motion.a
-                href="#mission"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r  from-primary-500 to-primary-500 text-white rounded-full  font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
-              >
-                Discover Our Story
-                <ArrowRight className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="/contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3  border-2 border-blue-300 text-blue-300 rounded-full  font-semibold hover:bg-blue-500/10 transition-all"
-              >
-                Get in Touch
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
+  {/* Content */}
+  <div className="relative z-10 container px-3  text-left max-w-6xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="max-w-6xl mx-auto"
+    >
+      {/* Tagline */}
+      <motion.div 
+        className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/20 text-white rounded-full text-sm font-medium mb-8"
+      >
+        Our Journey of Excellence
+      </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-xs text-slate-400">Learn about our journey</span>
-            <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-6 h-10 border border-blue-500/30 rounded-full flex justify-center items-center"
-            >
-              <div className="w-1 h-2 bg-blue-500 rounded-full" />
-            </motion.div>
-          </div>
-        </motion.div>
-      </section>
+      {/* Title */}
+      <motion.h1 
+        className="text-4xl md:text-4xl lg:text-4xl font-bold text-white mb-3 leading-tight"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 1 }}
+      >
+        About{" "}
+        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+          Contours Analytics
+        </span>
+      </motion.h1>
 
+      {/* Description */}
+      <motion.p 
+        className="text-xl text-gray-300 mb-5 max-w-6xl mx-auto leading-relaxed"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+      >
+ We are a leading provider of comprehensive data analytics and actuarial services. With a team of highly skilled professionals and cutting-edge technology, we empower businesses to make informed decisions and mitigate risks effectively. Our integrated approach combines advanced statistical modeling, predictive analytics, and actuarial expertise to deliver actionable insights across various industries.
+      </motion.p>
 
-      {/* Mission & Vision - Side by Side Cards */}
-      <section className="py-10 relative overflow-hidden">
-        {/* Background elements */}
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
-          animate={{
-            y: [0, 30, 0],
-            x: [-30, 0, -30]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
-          animate={{
-            y: [0, -30, 0],
-            x: [30, 0, 30]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* CTA */}
+      <motion.div 
+        className="flex flex-col sm:flex-row gap-6 justify-start"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 1 }}
+      >
+        <Link href="#foundation" className="inline-flex items-center bg-primary-500 text-white px-10 py-3 rounded-full font-medium hover:bg-white hover:text-primary-500 transition-all duration-300 group">
+          Explore Our Journey
+          <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
+        </Link>
+        <Link href="/leadership" className="inline-flex items-center border-2 border-white/30 text-white px-10 py-3 rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 group">
+          Meet the Leadership
+          <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
+        </Link>
+      </motion.div>
+    </motion.div>
+  </div>
 
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -50, rotateY: -20 }}
-              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="relative group cursor-pointer"
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              {/* Glow effect */}
-              <motion.div
-                animate={{
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -inset-1 bg-primary-500 rounded-3xl blur-2xl opacity-30"
-              />
-              
-              <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-10 border border-secondary-200/50 dark:border-secondary-800/50 h-full overflow-hidden group-hover:shadow-2xl transition-all duration-300">
-                {/* Animated background */}
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"]
-                    }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-5 transition-opacity"
-                    style={{ backgroundSize: "200% 200%" }}
-                  />                <motion.div
-                  animate={{
-                    rotate: 360,
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ 
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 3, repeat: Infinity }
-                  }}
-                    className="relative w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-primary-500/30 group-hover:shadow-xl"
-                >
-                  <Target className="w-8 h-8 text-white" />
-                </motion.div>
-
-                <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-4">Our Mission</h2>
-                <p className="text-lg text-secondary-600 dark:text-secondary-300 leading-relaxed relative">
-                  To empower businesses with actionable insights and innovative solutions, driving sustainable growth and success in an ever-evolving digital landscape through data-driven excellence.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50, rotateY: 20 }}
-              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="relative group cursor-pointer"
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              {/* Glow effect */}
-              <motion.div
-                animate={{
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                className="absolute -inset-1 bg-accent-500 rounded-3xl blur-2xl opacity-30"
-              />
-              
-              <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-10 border border-secondary-200/50 dark:border-secondary-800/50 h-full overflow-hidden group-hover:shadow-2xl transition-all duration-300">
-                {/* Animated background */}
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"]
-                    }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-accent-500 opacity-0 group-hover:opacity-5 transition-opacity"
-                    style={{ backgroundSize: "200% 200%" }}
-                  />                <motion.div
-                  animate={{
-                    rotate: -360,
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ 
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 3, repeat: Infinity, delay: 0.5 }
-                  }}
-                    className="relative w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-primary-500/30 group-hover:shadow-xl"
-                >
-                  <Zap className="w-8 h-8 text-white" />
-                </motion.div>
-
-                <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-4">Our Vision</h2>
-                <p className="text-lg text-secondary-600 dark:text-secondary-300 leading-relaxed relative">
-                  To pioneer innovative solutions that redefine industry standards, leveraging cutting-edge technology and unparalleled expertise to empower businesses worldwide.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values - Horizontal Cards */}
-      <section className="py-10 relative overflow-hidden">
-        {/* Grid pattern background */}
-        <div className="absolute inset-0 opacity-5">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="values-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#3b82f6" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#values-grid)" />
-          </svg>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary-500 to-primary-500/50 rounded-full mb-6 opacity-80"
-            >
-              <Lightbulb className="w-7 h-7 text-white" />
-            </motion.div>
-
-            <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
-              Core Values That <span className="bg-gradient-to-r from-primary-500 to-primary-500/50 bg-clip-text text-transparent">Drive Us</span>
-            </h2>
-            <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
-              The principles that guide everything we do and define who we are
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.04, y: -8 }}
-                className="group cursor-pointer relative"
-              >
-                {/* Glow effect */}
-                <motion.div
-                  animate={{
-                    opacity: [0, 0.5, 0]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className={`absolute -inset-1 bg-gradient-to-r ${value.color} rounded-2xl blur-lg opacity-20`}
-                />
-
-                <div className="relative bg-white dark:bg-secondary-900 rounded-2xl p-8 border border-secondary-200/50 dark:border-secondary-800/50 hover:shadow-2xl transition-all duration-300 overflow-hidden group-hover:border-primary/50">
-                  {/* Animated background */}
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"]
-                    }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-5 transition-opacity`}
-                    style={{ backgroundSize: "200% 200%" }}
-                  />
-
-                  <div className="relative flex items-start gap-6">
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, 0]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className={`flex-shrink-0 w-14 h-14 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all`}
-                    >
-                      <value.icon className="w-7 h-7 text-white" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-primary-500/50 group-hover:bg-clip-text transition-all">
-                        {value.title}
-                      </h3>
-                      <p className="text-secondary-600 dark:text-secondary-400">
-                        {value.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership Team */}
-      <section className="py-10 relative overflow-hidden">
-        {/* Animated background elements */}
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-primary-500/50/20 rounded-full blur-3xl"
-          animate={{
-            y: [0, 30, 0],
-            x: [-30, 0, -30]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-primary-500/50/20 rounded-full blur-3xl"
-          animate={{
-            y: [0, -30, 0],
-            x: [30, 0, 30]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mb-6 opacity-80"
-            >
-              <Users className="w-7 h-7 text-white" />
-            </motion.div>
-
-            <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
-              Meet Our <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Leadership</span>
-            </h2>
-            <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
-              Decades of combined expertise in data science, actuarial science, and business strategy
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 30, rotateY: -20 }}
-                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -12, scale: 1.04 }}
-                className="group cursor-pointer relative"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* Glow effect */}
-                <motion.div
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className={`absolute -inset-2 bg-gradient-to-br ${member.gradient} rounded-3xl blur-2xl opacity-30`}
-                />
-
-                <div className="relative bg-white dark:bg-secondary-900 rounded-3xl overflow-hidden border border-secondary-200/50 dark:border-secondary-800/50 hover:shadow-2xl transition-all duration-300 group-hover:border-primary-500/50">
-                  {/* Header with animated gradient */}
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"]
-                    }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className={`h-20 bg-gradient-to-br ${member.gradient} relative overflow-hidden`}
-                    style={{ backgroundSize: "200% 200%" }}
-                  >
-                    <div className="absolute inset-0 bg-black/10" />
-                    
-                    {/* Floating orbs */}
-                    <motion.div
-                      animate={{
-                        y: [0, -20, 0],
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute top-2 right-2 w-8 h-8 bg-white/20 rounded-full blur-xl"
-                    />
-                  </motion.div>
-                  
-                  {/* Avatar overlapping header */}
-                  <div className="px-8 -mt-16 relative z-10">
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.05, 1],
-                        rotate: [0, 2, 0]
-                      }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                      className={`w-28 h-28 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-white text-3xl font-bold shadow-2xl border-4 border-white dark:border-secondary-900 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </motion.div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="px-8 py-2">
-                    <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-1 group-hover:bg-gradient-to-r group-hover:from-primary-500 group-hover:to-accent-500 group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                      {member.name}
-                    </h3>
-                    <p className="text-primary-500 font-bold mb-4">{member.role}</p>
-                    
-                    {/* Contact Information */}
-                    <div className="space-y-3 mb-4 pb-4 border-b border-secondary-200 dark:border-secondary-700">
-                      <a href={`mailto:${member.email}`} className="flex items-center gap-3 text-secondary-600 dark:text-secondary-400 hover:text-primary-500 transition-colors group/link">
-                        <Mail className="w-4 h-4 group-hover/link:text-primary" />
-                        <span className="text-sm truncate">{member.email}</span>
-                      </a>
-                      <a href={`tel:${member.phone}`} className="flex items-center gap-3 text-secondary-600 dark:text-secondary-400 hover:text-primary-500 transition-colors group/link">
-                        <Phone className="w-4 h-4 group-hover/link:text-primary" />
-                        <span className="text-sm">{member.phone}</span>
-                      </a>
-                    </div>
-                    
-                    {/* Divider */}
-                    <motion.div
-                      animate={{
-                        width: ["0%", "100%", "0%"]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full mb-4"
-                    />
-                    
-                    <p className="text-secondary-600 dark:text-secondary-400 text-sm leading-relaxed group-hover:text-secondary-700 dark:group-hover:text-secondary-300 transition-colors mb-4">
-                      {member.bio}
-                    </p>
-
-                    {/* Social Links */}
-                    <div className="flex justify-center gap-3">
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 hover:bg-primary/20 text-primary-500 transition-all duration-300 hover:scale-110"
-                        aria-label="LinkedIn"
-                      >
-                        <Linkedin className="w-5 h-5" />
-                      </a>
-                      <a
-                        href={`mailto:${member.email}`}
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 hover:bg-accent/20 text-accent-500 transition-all duration-300 hover:scale-110"
-                        aria-label="Email"
-                      >
-                        <Mail className="w-5 h-5" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+  {/* Scroll Indicator */}
+  <motion.div
+    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+    animate={{ y: [0, 10, 0] }}
+    transition={{ duration: 2, repeat: Infinity }}
+  >
+    <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+      <motion.div
+        className="w-1 h-3 bg-white rounded-full mt-2"
+        animate={{ y: [0, 12, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      />
     </div>
+  </motion.div>
+</section>
+
+
+      {/* Interactive Foundation Section */}
+      <section id="foundation" className="py-5 bg-white relative">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl  font-bold text-gray-800 mb-4">Our Foundation</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-left">
+              Built on strong principles that guide every decision and action we take in serving our clients
+            </p>
+          </motion.div>
+
+          {/* Interactive Tabs */}
+          <div className="max-w-6xl mx-auto mb-16">
+            <div className="flex flex-wrap justify-center mb-8">
+              {tabs.map((tab) => (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center px-6 py-3 mx-2 mb-2 rounded-full font-semibold transition-all duration-300 ${
+                    activeTab === tab.id
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <tab.icon className="w-5 h-5 mr-2" />
+                  {tab.label}
+                </motion.button>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8  text-center max-w-5xl mx-auto"
+              >
+                <h3 className="text-3xl font-bold text-gray-800 mb-4">
+                {tabContent[activeTab as keyof typeof tabContent].title}
+                </h3>
+                <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                {tabContent[activeTab as keyof typeof tabContent].content}
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {tabContent[activeTab as keyof typeof tabContent].highlights.map((highlight, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-white rounded-xl p-4 shadow-md"
+                    >
+                      <CheckCircle className="w-6 h-6 text-green-500 mx-auto mb-2" />
+                      <div className="text-sm font-medium text-gray-700">{highlight}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Core Values Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl font-bold text-gray-800 mb-4">Core Values</h3>
+            <p className="text-lg text-gray-600">The principles that drive our excellence and guide our relationships</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+            {coreValues.map((value, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 text-center"
+              >
+                <motion.div 
+                  className="text-4xl mb-4" 
+                  whileHover={{ rotateY: 360, scale: 1.2 }} 
+                  transition={{ duration: 0.6 }}
+                >
+                  {value.icon}
+                </motion.div>
+                <h4 className="text-xl font-bold text-gray-800 mb-2">{value.title}</h4>
+                <p className="text-gray-600 text-sm leading-relaxed text-left max-w-3xl mx-auto">{value.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+{/* Why Choose Contours Analytics Section */}
+<section className="py-10 bg-gray-50">
+  <div className="container mx-auto px-4">
+    <div className="max-w-4xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-16"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+          Why Choose Contours Analytics?
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed text-left max-w-3xl mx-auto">
+          We combine advanced analytics, actuarial expertise, and innovative methodologies
+          to deliver insights that help organizations make informed, strategic, and
+          future-ready decisions.
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[
+          "Strong track record in delivering data-driven and actuarial insights",
+          "Team of highly skilled data scientists, actuaries, and analytics professionals",
+          "Customized analytics solutions tailored to each client’s business needs",
+          "Expertise across risk modeling, forecasting, actuarial valuation, and BI reporting",
+          "Commitment to accuracy, transparency, and ethical analytical practices",
+          "Use of modern tools, advanced statistical models, and cutting-edge technologies",
+          "Client-centric approach focused on long-term value creation",
+          "Deep industry knowledge combined with real-world problem-solving experience"
+        ].map((point, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="flex items-start space-x-3 p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300"
+          >
+            <CheckCircle className="h-6 w-6 text-blue-600 flex-shrink-0 mt-0.5" />
+            <p className="text-gray-700 leading-relaxed">{point}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+     {/* CTA Section */}
+<section className="relative py-10 bg-primary">
+  {/* Background image with gradient overlay */}
+  <div className="absolute inset-0 z-0">
+    <div
+      className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/60 to-white/95"
+      style={{ mixBlendMode: "multiply" }}
+    />
+  </div>
+
+  <div className="relative container mx-auto px-4 text-center">
+    <div className="max-w-3xl mx-auto">
+      <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6 text-balance">
+        Ready to Unlock the Power of Data?
+      </h2>
+
+      <p className="text-xl text-white mb-8 text-pretty leading-relaxed">
+        Let’s explore how Contours Analytics can help you transform complex data into actionable insights, strengthen decision-making, and drive measurable business impact.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact-us"
+          className="bg-primary-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-600 transition-all duration-200 hover:shadow-lg hover:scale-105"
+        >
+          Contact Us Today
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {/* Bottom wave */}
+  <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+    <svg
+      viewBox="0 0 1920 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-10 md:h-14"
+    >
+      <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+    </svg>
+  </div>
+</section>
+
+    </div>
+</>
   )
 }

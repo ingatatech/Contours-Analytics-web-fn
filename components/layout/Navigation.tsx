@@ -22,12 +22,10 @@ const navigationItems = [
       { 
         name: 'About', 
         href: '/about',
-        description: 'Learn about our company and mission'
       },
       { 
         name: 'Leadership', 
         href: '/leadership',
-        description: 'Meet our leadership team'
       },
     ]
   },
@@ -158,7 +156,7 @@ export default function Navigation() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-secondary-900 rounded-2xl shadow-2xl border border-secondary-200 dark:border-secondary-700 py-2 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 w-32 bg-white dark:bg-secondary-900 rounded-xl shadow-2xl  dark:border-secondary-700 py-2 overflow-hidden"
                     >
                       {item.submenu.map((subItem) => {
                         return (
@@ -173,9 +171,7 @@ export default function Navigation() {
                                 <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                                   {subItem.name}
                                 </div>
-                                <div className="text-xs text-secondary-600 dark:text-secondary-400 mt-0.5">
-                                  {subItem.description}
-                                </div>
+                            
                               </div>
                             </div>
                           </Link>

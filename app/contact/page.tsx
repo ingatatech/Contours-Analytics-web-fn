@@ -104,7 +104,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-left mb-16"
+            className="text-left mb-5"
           >
             {/* Badge */}
             <motion.div
@@ -151,7 +151,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 pt-10"
+              className="flex flex-col sm:flex-row gap-4 py-3"
             >
               <motion.a
                 href="#contact-form"

@@ -8,7 +8,7 @@ interface Insight {
   title: string
   content: string
   category: any
-  date: string
+  createdAt: string
   image: string
 }
 
@@ -72,7 +72,7 @@ export default function InsightModal({ insight, isOpen, onClose }: InsightModalP
                   <div className="flex items-center space-x-1">
                     <Calendar className="h-4 w-4" />
                     <span>
-                      {new Date(insight.date).toLocaleDateString("en-US", {
+                      {new Date(insight.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",

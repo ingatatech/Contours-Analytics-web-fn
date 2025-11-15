@@ -25,7 +25,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-secondary-950 to-secondary-950 text-white overflow-hidden">
+    <footer className="relative bg-primary-500 text-white overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-3xl" />
@@ -46,7 +46,7 @@ export default function Footer() {
                 transition={{ duration: 0.6 }}
               >
                 <Link href="/" className="flex items-center mb-6 group">
-                  <div className="relative p-2 bg-gradient-to-br from-primary to-accent rounded-lg group-hover:shadow-lg group-hover:shadow-primary/50 transition-all">
+                  <div className="relative p-2 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg group-hover:shadow-lg group-hover:shadow-primary-500/50 transition-all">
                     <Image
                       src="/logo.jpeg"
                       alt="Contours Analytics"
@@ -57,7 +57,7 @@ export default function Footer() {
                   </div>
                 </Link>
                 
-                <p className="text-slate-400 mb-8 leading-relaxed">
+                <p className="text-white mb-8 leading-relaxed">
                   Empowering businesses with comprehensive data analytics, actuarial services, 
                   and business intelligence solutions that drive sustainable growth and success.
                 </p>
@@ -81,7 +81,7 @@ export default function Footer() {
                     <motion.div whileHover={{ x: 5 }}>
                       <Link
                         href={link.href}
-                        className="text-slate-400 hover:text-primary-500 transition-colors duration-200 flex items-center gap-2 group"
+                        className="text-white hover:text-white-500 transition-colors duration-200 flex items-center gap-2 group"
                       >
                         <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         {link.name}
@@ -98,28 +98,28 @@ export default function Footer() {
 
                   <motion.div
                     whileHover={{ x: 5 }}
-                    className="flex items-center space-x-3 text-slate-400 hover:text-primary transition-colors group cursor-pointer"
+                    className="flex items-center space-x-3 text-white hover:text-white-500 transition-colors group cursor-pointer"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Mail className="w-5 h-5 text-primary" />
+                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                      <Mail className="w-5 h-5 text-white-500" />
                     </div>
                     <span>info@contoursanalytics.com</span>
                   </motion.div>
                   <motion.div
                     whileHover={{ x: 5 }}
-                    className="flex items-center space-x-3 text-slate-400 hover:text-primary transition-colors group cursor-pointer"
+                    className="flex items-center space-x-3 text-white hover:text-white-200 transition-colors group cursor-pointer"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Phone className="w-5 h-5 text-primary" />
+                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <Phone className="w-5 h-5 text-white" />
                     </div>
                     <span>+1 (555) 123-4567</span>
                   </motion.div>
                   <motion.div
                     whileHover={{ x: 5 }}
-                    className="flex items-center space-x-3 text-slate-400 hover:text-primary transition-colors group cursor-pointer"
+                    className="flex items-center space-x-3 text-white hover:text-white-500 transition-colors group cursor-pointer"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <MapPin className="w-5 h-5 text-primary" />
+                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                      <MapPin className="w-5 h-5 white" />
                     </div>
                     <span>New York, NY 10001</span>
                   </motion.div>
@@ -134,11 +134,11 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="border-t border-slate-800 py-4"
+          className="border-t border-slate-100 py-2"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-slate-500 text-sm">
-              © 2024 Contours Analytics. All rights reserved. | Made with <span className="text-primary">♦</span> for Data Excellence
+            <p className="text-white text-sm">
+              © 2024 Contours Analytics. All rights reserved. | Made with <span className="text-white">♦</span> for Data Excellence
             </p>
             
             {/* Social Links */}
@@ -149,7 +149,7 @@ export default function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary border border-slate-700 hover:border-primary hover:shadow-lg hover:shadow-primary/30 transition-all duration-200"
+                  className="w-10 h-10 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-lg flex items-center justify-center text-white hover:text-white-500 border border-slate-200 hover:border-primary-500 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-200"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>

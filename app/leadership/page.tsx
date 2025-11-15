@@ -137,7 +137,7 @@ export default function LeadershipPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 1 }}
               >
-                <Link href="#team" className="inline-flex items-center bg-primary text-white px-10 py-3 rounded-full font-medium hover:bg-white hover:text-primary transition-all duration-300 group">
+                <Link href="#team" className="inline-flex items-center bg-primary-500 text-white px-10 py-3 rounded-full font-medium hover:bg-white hover:text-primary-500 transition-all duration-300 group">
                   Meet the Leadership
                   <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
                 </Link>
@@ -328,7 +328,7 @@ export default function LeadershipPage() {
             </div>
 
             {/* Bottom Accent Line */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </div>
 
           {/* Floating Shadow Effect */}
@@ -381,10 +381,10 @@ export default function LeadershipPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="relative py-10 bg-primary">
+        <section className="relative py-10 bg-primary-500">
           <div className="absolute inset-0 z-0">
             <div
-              className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/60 to-white/95"
+              className="absolute inset-0 bg-gradient-to-b from-primary-500/90 via-primary-500/60 to-white/95"
               style={{ mixBlendMode: "multiply" }}
             />
           </div>
@@ -399,7 +399,7 @@ export default function LeadershipPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/contact-us"
-                  className="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-200 hover:shadow-lg hover:scale-105"
+                  className="bg-white text-primary-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-200 hover:shadow-lg hover:scale-105"
                 >
                   Contact Us Today
                 </a>

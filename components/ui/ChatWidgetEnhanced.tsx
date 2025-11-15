@@ -2,13 +2,20 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, Send, X, Mic } from 'lucide-react'
+import { MessageCircle, Send, X, Mic, Loader } from 'lucide-react'
 
 interface Message {
   id: string
   text: string
   sender: 'user' | 'bot'
   timestamp: Date
+}
+
+interface ConversationData {
+  id: string
+  title: string
+  userId?: string
+  createdAt: string
 }
 
 const UI_STRINGS = {
@@ -27,6 +34,9 @@ export default function ChatWidgetEnhanced() {
   const [inputValue, setInputValue] = useState('')
   const [isListening, setIsListening] = useState(false)
   const [translatedUI, setTranslatedUI] = useState(UI_STRINGS.en)
+  const [isLoading, setIsLoading] = useState(false)
+  const [conversationId, setConversationId] = useState<string | null>(null)
+  const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004')
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const recognitionRef = useRef<any>(null)
@@ -50,7 +60,42 @@ export default function ChatWidgetEnhanced() {
       recognitionRef.current.continuous = false
       recognitionRef.current.interimResults = false
     }
+    
+    // Create a new conversation when widget is first opened
+    if (isOpen && !conversationId) {
+      initializeConversation()
+    }
   }, [])
+
+  // Initialize conversation with backend
+  const initializeConversation = async () => {
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/chat/conversations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: `Chat - ${new Date().toLocaleDateString()}`,
+          userId: undefined, // Optional: add user ID if you track users
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setConversationId(data.data.id)
+      } else {
+        console.error('Failed to create conversation')
+      }
+    } catch (error) {
+      console.error('Error initializing conversation:', error)
+    }
+  }
+
+  // Create conversation when widget opens
+  useEffect(() => {
+    if (isOpen && !conversationId) {
+      initializeConversation()
+    }
+  }, [isOpen])
 
   // Update UI strings when language changes
   useEffect(() => {
@@ -82,7 +127,14 @@ export default function ChatWidgetEnhanced() {
   }
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return
+    // Make sure conversation is initialized
+    if (!conversationId) {
+      alert('Initializing chat, please try again...')
+      await initializeConversation()
+      return
+    }
+
+    if (!inputValue.trim() || isLoading) return
     
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -94,71 +146,58 @@ export default function ChatWidgetEnhanced() {
     setMessages(prev => [...prev, userMessage])
     const userText = inputValue
     setInputValue('')
+    setIsLoading(true)
     
-    // Log to analytics
     try {
-      fetch('/api/analytics/log-query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          userMessage: userText,
-          language,
-          botResponse: 'pending',
-          method: 'chat',
-        }),
-      }).catch(() => {})
-    } catch {}
-    
-    // Generate bot response
-    const responses: Record<string, string> = {
-      services: 'We offer data analytics, actuarial services, business intelligence, and credit rating solutions.',
-      pricing: 'Please contact us for customized pricing at contact@contoursanalytics.com',
-      contact: 'You can reach us through the contact page or email info@contoursanalytics.com',
-      team: 'Our team consists of experienced data scientists, actuaries, and business analysts.',
-      hello: 'Hi! I\'m Contours Analytics Assistant. How can I help?',
-    }
-    
-    let botResponseText = 'Thank you for your message. How else can I help?'
-    for (const [key, response] of Object.entries(responses)) {
-      if (userText.toLowerCase().includes(key)) {
-        botResponseText = response
-        break
-      }
-    }
-    
-    // Translate if needed
-    if (language !== 'en') {
-      try {
-        const res = await fetch('/api/translate', {
+      // Send message to backend
+      const response = await fetch(
+        `${apiBaseUrl}/api/chat/conversations/${conversationId}/message`,
+        {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: botResponseText, targetLanguage: language }),
-        })
-        const data = await res.json()
-        botResponseText = data.translatedText || botResponseText
-      } catch (error) {
-        console.error('Translation error:', error)
+          body: JSON.stringify({ message: userText }),
+        }
+      ) 
+
+      if (response.ok) {
+        const data = await response.json()
+        const assistantMessage: Message = {
+          id: data.data.assistantMessage.id,
+          text: data.data.assistantMessage.content,
+          sender: 'bot',
+          timestamp: new Date(),
+        }
+        
+        setMessages(prev => [...prev, assistantMessage])
+        
+        // Text-to-speech if available
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(assistantMessage.text)
+          utterance.lang = `${language}-${language === 'pt' ? 'BR' : language.toUpperCase()}`
+          speechSynthesis.speak(utterance)
+        }
+      } else {
+        const errorData = await response.json()
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `Error: ${errorData.message || 'Failed to get response'}`,
+          sender: 'bot',
+          timestamp: new Date(),
+        }
+        setMessages(prev => [...prev, errorMessage])
       }
-    }
-    
-    const botMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      text: botResponseText,
-      sender: 'bot',
-      timestamp: new Date(),
-    }
-    
-    setTimeout(() => {
-      setMessages(prev => [...prev, botMessage])
-      
-      // Text-to-speech
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(botResponseText)
-        utterance.lang = `${language}-${language === 'pt' ? 'BR' : language.toUpperCase()}`
-        speechSynthesis.speak(utterance)
+    } catch (error) {
+      console.error('Error sending message:', error)
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Sorry, I encountered an error. Please try again.',
+        sender: 'bot',
+        timestamp: new Date(),
       }
-    }, 500)
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (!mounted) return null
@@ -198,10 +237,28 @@ export default function ChatWidgetEnhanced() {
 
             <div className="border-t border-slate-200 dark:border-slate-700 p-4 space-y-2">
               <div className="flex gap-2">
-                <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} placeholder={translatedUI.placeholder} className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm" />
-                <button onClick={handleSendMessage} className="px-3 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary/90 transition-colors"><Send className="w-4 h-4" /></button>
+                <input 
+                  type="text" 
+                  value={inputValue} 
+                  onChange={(e) => setInputValue(e.target.value)} 
+                  onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()} 
+                  placeholder={translatedUI.placeholder} 
+                  disabled={isLoading}
+                  className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm disabled:opacity-50" 
+                />
+                <button 
+                  onClick={handleSendMessage} 
+                  disabled={isLoading || !inputValue.trim()}
+                  className="px-3 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                </button>
               </div>
-              <button onClick={startVoiceInput} disabled={isListening} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 text-sm">
+              <button 
+                onClick={startVoiceInput} 
+                disabled={isListening || isLoading} 
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 text-sm"
+              >
                 <Mic className="w-4 h-4" />
                 {isListening ? translatedUI.listening : translatedUI.voice}
               </button>

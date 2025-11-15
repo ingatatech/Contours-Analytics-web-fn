@@ -203,39 +203,39 @@ export default function ChatWidgetEnhanced() {
   if (!mounted) return null
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 p-2 sm:p-0">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="mb-4 w-96 h-96 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
+            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 sm:relative sm:mb-4 w-[calc(100vw-2rem)] sm:w-96 h-[60vh] sm:h-96 max-h-[600px] bg-white dark:bg-slate-900 rounded-lg sm:rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
           >
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-4 flex justify-between items-center">
-              <h3 className="font-bold text-lg">{translatedUI.title}</h3>
-              <button onClick={() => setIsOpen(false)} className="hover:bg-primary-500/90 p-1 rounded-lg transition" aria-label="Close">
-                <X className="w-5 h-5" />
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-4 py-3 sm:p-4 flex justify-between items-center flex-shrink-0">
+              <h3 className="font-bold text-base sm:text-lg truncate pr-2">{translatedUI.title}</h3>
+              <button onClick={() => setIsOpen(false)} className="hover:bg-primary-500/90 p-1.5 sm:p-1 rounded-lg transition flex-shrink-0" aria-label="Close">
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
               {messages.length === 0 && (
-                <div className="text-center text-slate-500 dark:text-slate-400 py-8">
-                  <p>Start a conversation</p>
+                <div className="text-center text-slate-500 dark:text-slate-400 py-4 sm:py-8">
+                  <p className="text-sm sm:text-base">Start a conversation</p>
                 </div>
               )}
               {messages.map(msg => (
                 <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs px-3 py-2 rounded-lg ${msg.sender === 'user' ? 'bg-primary-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'}`}>
-                    <p className="text-sm">{msg.text}</p>
+                  <div className={`max-w-[85%] sm:max-w-xs px-3 py-2 rounded-lg text-xs sm:text-sm break-words ${msg.sender === 'user' ? 'bg-primary-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'}`}>
+                    <p>{msg.text}</p>
                   </div>
                 </motion.div>
               ))}
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="border-t border-slate-200 dark:border-slate-700 p-4 space-y-2">
+            <div className="border-t border-slate-200 dark:border-slate-700 px-3 sm:px-4 py-2 sm:py-4 space-y-2 flex-shrink-0">
               <div className="flex gap-2">
                 <input 
                   type="text" 
@@ -244,22 +244,22 @@ export default function ChatWidgetEnhanced() {
                   onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()} 
                   placeholder={translatedUI.placeholder} 
                   disabled={isLoading}
-                  className="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm disabled:opacity-50" 
+                  className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-xs sm:text-sm disabled:opacity-50" 
                 />
                 <button 
                   onClick={handleSendMessage} 
                   disabled={isLoading || !inputValue.trim()}
-                  className="px-3 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-primary-500 text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
                 >
-                  {isLoading ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  {isLoading ? <Loader className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" /> : <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                 </button>
               </div>
               <button 
                 onClick={startVoiceInput} 
                 disabled={isListening || isLoading} 
-                className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 text-sm"
+                className="w-full flex items-center justify-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 text-xs sm:text-sm"
               >
-                <Mic className="w-4 h-4" />
+                <Mic className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 {isListening ? translatedUI.listening : translatedUI.voice}
               </button>
             </div>
@@ -267,8 +267,14 @@ export default function ChatWidgetEnhanced() {
         )}
       </AnimatePresence>
 
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="p-4 rounded-full bg-gradient-to-r from-primary-500 to-primary-500 text-white shadow-lg hover:shadow-xl transition-all duration-200" aria-label="Open chat">
-        <MessageCircle className="w-6 h-6" />
+      <motion.button 
+        whileHover={{ scale: 1.1 }} 
+        whileTap={{ scale: 0.95 }} 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="fixed bottom-4 right-4 sm:relative sm:bottom-0 sm:right-0 p-3 sm:p-4 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 flex-shrink-0" 
+        aria-label="Open chat"
+      >
+        <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
       </motion.button>
     </div>
   )

@@ -148,16 +148,16 @@ export default function ContactPage() {
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
+              transition={{ duration: 1 }}
               className="flex flex-col sm:flex-row gap-4 py-3"
             >
               <motion.a
                 href="#contact-form"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
               >
                 Email Us
                 <ArrowRight className="w-5 h-5" />
@@ -166,7 +166,7 @@ export default function ContactPage() {
                 href="/services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-lg font-semibold hover:bg-blue-500/10 transition-all"
+                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
               >
                 Explore Our Services
               </motion.a>
@@ -235,7 +235,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8 mb-16"
+            className="grid md:grid-cols-3 gap-8 mb-8"
           >
             {contactMethods.map((method, index) => (
               <motion.a
@@ -452,7 +452,19 @@ export default function ContactPage() {
             </div>
           </motion.div>
         </div>
+          {/* Bottom wave */}
+  <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+    <svg
+      viewBox="0 0 1920 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-10 md:h-14"
+    >
+      <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+    </svg>
+  </div>
       </div>
+      
     </div>
   )
 }

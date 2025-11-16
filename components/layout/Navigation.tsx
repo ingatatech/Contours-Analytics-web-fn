@@ -101,7 +101,7 @@ export default function Navigation() {
                       className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
                     >
                       <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                        About
+                        About Us
                       </div>
                     </Link>
                     <Link
@@ -195,10 +195,10 @@ export default function Navigation() {
             </Link>
 
             <Link
-              href="/contact"
+              href="/contact-us"
               className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
             >
-              <span>Contact</span>
+              <span>Contact Us</span>
             </Link>
           </div>
 
@@ -263,7 +263,7 @@ export default function Navigation() {
                           className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
                           onClick={() => setIsOpen(false)}
                         >
-                          About
+                          About Us
                         </Link>
                         <Link
                           href="/leadership"
@@ -351,11 +351,11 @@ export default function Navigation() {
               </Link>
 
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                Contact
+                Contact Us
               </Link>
             </div>
           </motion.div>

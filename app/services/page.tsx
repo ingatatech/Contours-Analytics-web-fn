@@ -14,21 +14,11 @@ export default function ServicesPage() {
   const searchParams = useSearchParams()
   const [selectedServiceId, setSelectedServiceId] = useState<string>('')
   const [selectedSubServiceId, setSelectedSubServiceId] = useState<string | null>(null)
-  const [expandedContacts, setExpandedContacts] = useState<Set<string>>(new Set())
   const [mounted, setMounted] = useState(false)
-  const [isClient, setIsClient] = useState(false)
-  const [randomPositions] = useState(() =>
-    [...Array(12)].map(() => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 4 + Math.random() * 2,
-      delay: Math.random() * 2,
-    }))
-  )
+ 
 
   useEffect(() => {
     setMounted(true)
-    setIsClient(true)
     // Get service from URL params
     const service = searchParams?.get('service')
     if (service && servicesData.find(s => s.id === service)) {
@@ -66,16 +56,7 @@ export default function ServicesPage() {
     )
   }
 
-  const toggleContactExpanded = (contactId: string) => {
-    const newExpanded = new Set(expandedContacts)
-    if (newExpanded.has(contactId)) {
-      newExpanded.delete(contactId)
-    } else {
-      newExpanded.add(contactId)
-    }
-    setExpandedContacts(newExpanded)
-  }
-
+ 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Services with Data Analytics Focus */}
@@ -156,7 +137,7 @@ export default function ServicesPage() {
                       onClick={() => setSelectedSubServiceId(subSvc.id)}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
                         selectedSubServiceId === subSvc.id
-                          ? 'bg-blue-600 text-white shadow-md'
+                          ? 'bg-primary-600 text-white shadow-md'
                           : 'text-gray-700 hover:bg-gray-100'
                       }`}
                       whileHover={{ x: 4 }}
@@ -217,7 +198,6 @@ export default function ServicesPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {selectedSubService.keyContacts.map((contact, idx) => {
                         const contactId = `${selectedSubService.id}-${idx}`
-                        const isExpanded = expandedContacts.has(contactId)
 
                         return (
                           <motion.div
@@ -288,7 +268,7 @@ export default function ServicesPage() {
 
                                 {/* Contact Section */}
                                 <AnimatePresence>
-                                  {isExpanded && (
+                           
                                     <motion.div
                                       initial={{ opacity: 0, height: 0 }}
                                       animate={{ opacity: 1, height: 'auto' }}
@@ -319,29 +299,10 @@ export default function ServicesPage() {
                                         </a>
                                       )}
                                     </motion.div>
-                                  )}
+                                
                                 </AnimatePresence>
 
-                                {/* Expand Toggle Button */}
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    toggleContactExpanded(contactId)
-                                  }}
-                                  className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium text-sm transition-colors"
-                                >
-                                  {isExpanded ? (
-                                    <>
-                                      <ChevronUp className="w-4 h-4" />
-                                     Hide Contact
-                                    </>
-                                  ) : (
-                                    <>
-                                      <ChevronDown className="w-4 h-4" />
-                                     Show Contact
-                                    </>
-                                  )}
-                                </button>
+                               
                               </div>
 
                               {/* Bottom accent-500 Line */}
@@ -376,7 +337,7 @@ export default function ServicesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="bg-white hover:bg-gray-100 text-blue-600 rounded-full inline-flex items-center px-8 py-3 font-medium transition-all duration-300 group"
             >
              Contact Our Team

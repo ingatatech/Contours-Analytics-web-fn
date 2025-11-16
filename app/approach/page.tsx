@@ -96,7 +96,7 @@ export default function ApproachPage() {
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-secondary-950">
       {/* Hero Section - Approach with Data Analytics Focus */}
-      <section className="relative  flex items-center justify-center overflow-hidden py-3">
+      <section className="relative  flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-3">
            <AnimatedBackground />
    <AnimatedCode/>
         {/* Content */}
@@ -205,7 +205,7 @@ export default function ApproachPage() {
 
    
       {/* Process Steps - Compact Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-5">
+      <section id="methodology" className="max-w-7xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -360,7 +360,7 @@ export default function ApproachPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 Start Your Project

@@ -72,7 +72,7 @@ Empowering businesses with comprehensive data analytics, actuarial services, and
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="inline-flex items-center space-x-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-3 rounded-xl font-semibold text-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300"
               >
                 <span>Contact Us</span>

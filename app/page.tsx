@@ -1,16 +1,13 @@
 'use client'
 
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
-import { ParticleField } from '@/components/ui/ParticleField'
 import InsightModal from '@/components/ui/InsightModal'
-import { motion,  AnimatePresence } from 'framer-motion'
-import { ArrowRight,   Users,  Sparkles, } from 'lucide-react'
+import { motion,  } from 'framer-motion'
+import { ArrowRight,   Users,  Sparkles, Calendar, } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
-
-
-
+import Image from 'next/image'
 
 const insights = [
   {
@@ -18,7 +15,7 @@ const insights = [
     title: 'Leveraging Predictive Analytics for Business Growth',
     category: 'Analytics',
     content: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
-    date: 'Nov 15, 2024',
+    createdAt: 'Nov 15, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
@@ -27,7 +24,7 @@ const insights = [
     title: 'IFRS 17 Compliance: A Comprehensive Guide',
     category: 'Actuarial',
     content: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
-    date: 'Nov 12, 2024',
+    createdAt: 'Nov 12, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
 
@@ -37,7 +34,7 @@ const insights = [
     title: 'Building a Data-Driven Organization',
     category: 'Business Intelligence',
     content: 'Transform your organization with a strategic approach to data management and analytics.',
-    date: 'Nov 10, 2024',
+    createdAt: 'Nov 10, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
@@ -46,7 +43,7 @@ const insights = [
     title: 'Credit Risk Assessment in Uncertain Times',
     category: 'Credit Rating',
     content: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
-    date: 'Nov 8, 2024',
+    createdAt: 'Nov 8, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop'
   },
@@ -55,7 +52,7 @@ const insights = [
     title: 'AI-Powered Risk Management Solutions',
     category: 'Technology',
     content: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
-    date: 'Nov 5, 2024',
+    createdAt: 'Nov 5, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   },
@@ -64,12 +61,11 @@ const insights = [
     title: 'ESG Reporting: Best Practices and Frameworks',
     category: 'Sustainability',
     content: 'A comprehensive guide to environmental, social, and governance reporting standards.',
-    date: 'Nov 2, 2024',
+    createdAt: 'Nov 2, 2024',
     gradient: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
   }
 ]
-
 
 const partners = [
   { name: 'CloudTech Solutions', category: 'Technology' },
@@ -89,101 +85,46 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      whileHover={{ y: -16, scale: 1.04 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="group cursor-pointer"
-      style={{ transformStyle: "preserve-3d" }}
+  
     >
-      {/* Glow effect */}
-      <motion.div
-        animate={{
-          opacity: isHovered ? 1 : 0,
-          scale: isHovered ? 1 : 0.9
-        }}
-        transition={{ duration: 0.3 }}
-        className={`absolute -inset-2 bg-gradient-to-r ${insight.gradient} rounded-2xl blur-xl opacity-40 -z-10`}
-      />
-
-      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 shadow-lg hover:shadow-2xl">
-        {/* Animated background gradient */}
-        <motion.div
-          animate={{
-            backgroundPosition: isHovered ? ["0% 50%", "100% 50%", "0% 50%"] : "0% 50%"
-          }}
-          transition={{ duration: 5, repeat: isHovered ? Infinity : 0, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-primary-500/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
-          style={{ backgroundSize: "200% 200%" }}
-        />
-        
-        {/* Header */}
-        <div className="relative p-6 pb-4">
-          <div className="flex items-center justify-between mb-4">
-            {/* Category badge */}
-            <motion.span 
-              whileHover={{ scale: 1.12 }}
-              className={`inline-block px-4 py-1.5 bg-gradient-to-r ${insight.gradient} text-white text-xs font-bold rounded-full shadow-lg`}
-            >
-              {insight.category}
-            </motion.span>
-
-          
+      <article className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+        <div className="relative">
+          <Image
+            src={insight.image || "/placeholder.svg"}
+            alt={insight.title}
+            width={400}
+            height={250}
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute top-3 left-3 flex space-x-2">
+            <span className="px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800">
+              {insight?.category ?? ""}
+            </span>
           </div>
-          
-          {/* Title */}
-          <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
+        </div>
+
+        <div className="p-6">
+          <div className="flex items-center space-x-2 text-xs text-gray-500 mb-3">
+            <Calendar className="h-4 w-4" />
+            <span>{new Date(insight.createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}</span>
+          </div>
+
+          <h3 className="text-lg font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors cursor-pointer">
             {insight.title}
           </h3>
-
-          {/* Divider */}
-          <motion.div
-            animate={{
-              width: isHovered ? "100%" : "0%"
-            }}
-            transition={{ duration: 0.5 }}
-            className={`h-0.5 bg-gradient-to-r ${insight.gradient} rounded-full`}
-          />
-        </div>
-
-        {/* Footer */}
-        <div className="relative px-6 py-4 border-t border-secondary-100/50 dark:border-secondary-700/50 bg-secondary-50/30 dark:bg-secondary-800/30">
-          <div className="flex items-center justify-between">
-            <motion.span 
-              animate={{ opacity: isHovered ? 0.7 : 1 }}
-              className="text-xs font-medium text-secondary-600 dark:text-secondary-400"
-            >
-              {insight.date}
-            </motion.span>
-            <motion.div
-              initial={{ x: -10, opacity: 0 }}
-              whileHover={{ x: 0, opacity: 1 }}
-              className="inline-flex items-center text-primary-500 font-bold text-sm hover:text-primary-500 transition-colors gap-1"
-            >
-              Read More 
-              <motion.div
-                animate={{ x: isHovered ? 5 : 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ArrowRight className="w-4 h-4" />
-              </motion.div>
-            </motion.div>
+          
+          <div className="flex items-center justify-end">
+            <button className="text-blue-600 hover:text-blue-700 font-medium transition-colors flex items-center space-x-1 group">
+              <span>Read more</span>
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
         </div>
-
-        {/* Shine effect on hover */}
-        <motion.div
-          animate={{
-            x: isHovered ? ["0%", "150%"] : "-100%"
-          }}
-          transition={{
-            duration: 2,
-            repeat: isHovered ? Infinity : 0,
-            repeatDelay: 3,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 opacity-0 group-hover:opacity-100 pointer-events-none"
-        />
-      </div>
+      </article>
     </motion.div>
   )
 }
@@ -227,7 +168,7 @@ export default function Home() {
         {/* Hero Section - Modern Analytics Design */}
         <section className="relative py-7 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
         <AnimatedBackground />
-{/* <AnimatedCode/> */}
+<AnimatedCode/>
           {/* Content Container */}
           <div className="relative z-20 container mx-auto px-4 max-w-6xl">
             <div className=" items-center">
@@ -239,9 +180,9 @@ export default function Home() {
               >
                 {/* Trust Badge */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+         initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
                   className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 backdrop-blur-sm"
                 >
                   <motion.div
@@ -255,9 +196,9 @@ export default function Home() {
                 {/* Main Headline */}
                 <div>
                   <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
+         initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
                     className="text-4xl font-bold leading-tight mb-6"
                   >
                     <span className="text-white">Transform Your Data</span> {" "}
@@ -277,9 +218,9 @@ export default function Home() {
                 </div>
      {/* Key Values */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
+                     initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
                 className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto"
               >
                 {[
@@ -300,13 +241,13 @@ export default function Home() {
               </motion.div>
                 {/* CTA Buttons */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                     initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
                   className="flex flex-col sm:flex-row gap-4"
                 >
                   <motion.a
-                    href="/services"
+                    href="#services"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="group px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full font-semibold shadow-lg  hover:shadow-xl  transition-all flex items-center justify-center gap-2"
@@ -316,7 +257,7 @@ export default function Home() {
                   </motion.a>
                   
                   <motion.a
-                    href="/contact"
+                    href="/contact-us"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-full font-semibold hover:bg-white/10 transition-all flex items-center justify-center gap-2"
@@ -351,6 +292,142 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* Services Section */}
+        <section id="services" className="py-10 relative overflow-hidden bg-secondary-50 dark:bg-secondary-900">
+          {/* Animated background elements */}
+          <motion.div
+            className="absolute inset-0 opacity-5"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{
+              backgroundImage: "radial-gradient(circle at 80% 20%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 20% 80%, #0891b2 0%, transparent 50%)",
+              backgroundSize: "100% 100%"
+            }}
+          />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-8"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="inline-flex items-center justify-center w-14 h-14 bg-blue-500 rounded-full mb-6 opacity-80 shadow-lg"
+              >
+                <Sparkles className="w-7 h-7 text-white" />
+              </motion.div>
+              
+              <motion.h2 
+                className="text-4xl font-bold mb-4"
+                style={{
+                  backgroundImage: "linear-gradient(90deg, #0891b2, #3b82f6, #8b5cf6)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text"
+                }}
+              >
+                Our Core Services
+              </motion.h2>
+              <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-2xl mx-auto">
+                Comprehensive solutions tailored to your unique business needs
+              </p>
+            </motion.div>
+
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {[
+                {
+                  title: 'Data Analytics',
+                  description: 'Transform raw data into strategic insights',
+                  gradient: 'from-blue-500 to-cyan-500',
+                  link: '/services?service=data-analytics'
+                },
+                {
+                  title: 'Actuarial Services',
+                  description: 'Quantitative expertise and risk assessment',
+                  gradient: 'from-emerald-500 to-teal-500',
+                  link: '/services?service=actuarial'
+                },
+                {
+                  title: 'Business Intelligence',
+                  description: 'Data-driven ecosystems and BI solutions',
+                  gradient: 'from-primary-500 to-primary-600',
+                  link: '/services?service=business-intelligence'
+                },
+                {
+                  title: 'Credit Rating',
+                  description: 'Comprehensive credit evaluation services',
+                  gradient: 'from-orange-500 to-red-500',
+                  link: '/services?service=credit-rating'
+                }
+              ].map((service, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
+                  className="group"
+                >
+                  <Link href={service.link}>
+                    <div className="relative h-full cursor-pointer">
+                      {/* Background Gradient Blur */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
+                      
+                      {/* Card Content */}
+                      <div className="relative bg-white dark:bg-secondary-800 rounded-2xl p-6 border border-secondary-200 dark:border-secondary-700 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                    
+
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
+                          {service.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-4 flex-grow">
+                          {service.description}
+                        </p>
+
+                        {/* CTA Link */}
+                        <motion.div
+                          animate={{ x: [0, 3, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="inline-flex items-center text-blue-600 dark:text-cyan-400 font-semibold text-sm group-hover:gap-2 transition-all"
+                        >
+                          Learn More
+                          <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        </motion.div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* View All Services CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex justify-center"
+            >
+              <Link href="/services">
+                <motion.button
+                  whileHover={{ scale: 1.05, x: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-xl font-semibold text-base shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  Explore All Services <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Insights Highlights */}
         <section className="py-10 relative overflow-hidden">
@@ -406,7 +483,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               {insights.slice(0, 3).map((insight, index) => (
                 <motion.div
                   key={insight.title}
@@ -458,7 +535,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-8"
             >
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
@@ -561,6 +638,8 @@ export default function Home() {
         </section>
 
 
+
+
            {/* CTA Section */}
       <section className="relative py-12 bg-primary-500 text-white">
         <div className="absolute inset-0 z-0">
@@ -575,7 +654,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="bg-white hover:bg-gray-100 text-blue-600 rounded-full inline-flex items-center px-8 py-3 font-medium transition-all duration-300 group"
             >
              Contact Our Team

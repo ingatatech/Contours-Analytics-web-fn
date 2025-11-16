@@ -248,7 +248,7 @@ export default function InsightsPage() {
                 <ArrowRight className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="/contact"
+                href="/contact-us"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"

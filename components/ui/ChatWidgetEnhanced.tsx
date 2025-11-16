@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, Send, X, Mic, Loader } from 'lucide-react'
+import CustomAlert from './CustomAlert'
 
 interface Message {
   id: string
@@ -37,9 +38,25 @@ export default function ChatWidgetEnhanced() {
   const [isLoading, setIsLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(null)
   const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004')
+  const [alertConfig, setAlertConfig] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'info' as 'error' | 'success' | 'info' | 'warning',
+  })
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const recognitionRef = useRef<any>(null)
+
+  // Helper function to show custom alert
+  const showAlert = (message: string, title: string = '', type: 'error' | 'success' | 'info' | 'warning' = 'info') => {
+    setAlertConfig({
+      isOpen: true,
+      title,
+      message,
+      type,
+    })
+  }
 
   // Initialize on client side only
   useEffect(() => {
@@ -110,7 +127,7 @@ export default function ChatWidgetEnhanced() {
 
   const startVoiceInput = () => {
     if (!recognitionRef.current) {
-      alert(translatedUI.voiceError)
+      showAlert(translatedUI.voiceError, 'Voice Input', 'warning')
       return
     }
     
@@ -129,7 +146,7 @@ export default function ChatWidgetEnhanced() {
   const handleSendMessage = async () => {
     // Make sure conversation is initialized
     if (!conversationId) {
-      alert('Initializing chat, please try again...')
+      showAlert('Please wait while we initialize the chat...', 'Initializing Chat', 'info')
       await initializeConversation()
       return
     }
@@ -276,6 +293,14 @@ export default function ChatWidgetEnhanced() {
       >
         <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
       </motion.button>
+
+      <CustomAlert
+        isOpen={alertConfig.isOpen}
+        onClose={() => setAlertConfig({ ...alertConfig, isOpen: false })}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+      />
     </div>
   )
 }

@@ -210,7 +210,7 @@ export default function ChatWidgetEnhanced() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 sm:relative sm:mb-4 w-[calc(100vw-2rem)] sm:w-96 h-[60vh] sm:h-96 max-h-[600px] bg-white dark:bg-slate-900 rounded-lg sm:rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
+            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 lg:w-[28rem] h-[60vh] sm:h-96 max-h-[600px] max-w-md bg-white dark:bg-slate-900 rounded-lg sm:rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden"
           >
             <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-4 py-3 sm:p-4 flex justify-between items-center flex-shrink-0">
               <h3 className="font-bold text-base sm:text-lg truncate pr-2">{translatedUI.title}</h3>

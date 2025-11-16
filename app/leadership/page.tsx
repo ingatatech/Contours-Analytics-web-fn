@@ -212,7 +212,7 @@ export default function LeadershipPage() {
       transition={{ duration: 0.3 }}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
     >
-      {leaders.map((leader, index) => (
+      {leaders.slice(0,2).map((leader, index) => (
         <motion.div
           key={leader.id}
           initial={{ opacity: 0, scale: 0.9 }}

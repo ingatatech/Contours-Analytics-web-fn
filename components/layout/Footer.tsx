@@ -74,7 +74,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-lg font-semibold mb-6 bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">Company</h3>
+              <h3 className="text-lg font-semibold mb-6 bg-gradient-to-r from-slate-100 to-white bg-clip-text text-transparent">Company</h3>
               <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
@@ -94,7 +94,7 @@ export default function Footer() {
 
             {/* Contact Info */}
                 <div className="space-y-4">
-              <h3 className="text-lg font-semibold mb-6 bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">Contacts</h3>
+              <h3 className="text-lg font-semibold mb-6 bg-gradient-to-r from-slate-100 to-white bg-clip-text text-transparent">Contacts</h3>
 
                   <motion.div
                     whileHover={{ x: 5 }}

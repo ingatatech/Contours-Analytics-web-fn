@@ -222,20 +222,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
-      <ParticleField />
 
       <div className="relative z-10">
         {/* Hero Section - Modern Analytics Design */}
-        <section className="relative py-7 flex items-center justify-center overflow-hidden">
+        <section className="relative py-7 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
         <AnimatedBackground />
-<AnimatedCode/>
+{/* <AnimatedCode/> */}
           {/* Content Container */}
           <div className="relative z-20 container mx-auto px-4 max-w-6xl">
             <div className=" items-center">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
                 className="space-y-8"
               >
                 {/* Trust Badge */}
@@ -310,7 +309,7 @@ export default function Home() {
                     href="/services"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold shadow-lg  hover:shadow-xl  transition-all flex items-center justify-center gap-2"
+                    className="group px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full font-semibold shadow-lg  hover:shadow-xl  transition-all flex items-center justify-center gap-2"
                   >
                     Explore Solutions
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -320,7 +319,7 @@ export default function Home() {
                     href="/contact"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                    className="px-8 py-3 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-full font-semibold hover:bg-white/10 transition-all flex items-center justify-center gap-2"
                   >
                     Get Started Today
                   </motion.a>
@@ -478,7 +477,7 @@ export default function Home() {
                   backgroundClip: "text"
                 }}
               >
-                Trusted by Industry Leaders
+                Trusted by Partners
               </motion.h2>
               <p className="text-lg text-secondary-600 dark:text-secondary-300 max-w-2xl mx-auto">
                 Strategic partnerships that amplify our capabilities and deliver exceptional value
@@ -499,7 +498,7 @@ export default function Home() {
                 }}
                 className="flex gap-6 w-max"
               >
-                {[...partners, ...partners, ...partners].map((partner, index) => (
+                {[ ...partners].map((partner, index) => (
                   <motion.div
                     key={`${partner.name}-${index}`}
                     whileHover={{ y: -8, scale: 1.08 }}
@@ -511,7 +510,7 @@ export default function Home() {
                         animate={{
                           backgroundPosition: ["0% 0%", "100% 100%"]
                         }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 5, repeat: 0, ease: "linear" }}
                         className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
                         style={{ backgroundSize: "200% 200%" }}
                       />
@@ -584,6 +583,17 @@ export default function Home() {
             </Link>
           </div>
         </div>
+          {/* Bottom wave */}
+  <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+    <svg
+      viewBox="0 0 1920 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-10 md:h-14"
+    >
+      <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+    </svg>
+  </div>
       </section>
       
       {/* Insight Modal */}

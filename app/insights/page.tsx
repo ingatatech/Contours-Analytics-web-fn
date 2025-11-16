@@ -180,7 +180,7 @@ export default function InsightsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Insights with Data Analytics Focus */}
-      <section className="relative flex items-center justify-center overflow-hidden py-8">
+      <section className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-8">
              <AnimatedBackground />
      <AnimatedCode/>
         {/* Content */}

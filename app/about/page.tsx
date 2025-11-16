@@ -358,18 +358,26 @@ export default function AboutPage() {
 </section>
 
      {/* CTA Section */}
-<section className="relative py-10 bg-primary">
+<section className="relative py-10 bg-primary-500">
   {/* Background image with gradient overlay */}
   <div className="absolute inset-0 z-0">
     <div
-      className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/60 to-white/95"
+      className="absolute inset-0 bg-gradient-to-b from-primary-500/90 via-primary-500/60 to-white/95"
       style={{ mixBlendMode: "multiply" }}
     />
   </div>
 
-  <div className="relative container mx-auto px-4 text-center">
-    <div className="max-w-3xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6 text-balance">
+  <div className="relative  container mx-auto px-4 text-center">
+
+      {/* Background image with gradient overlay */}
+          <div className="absolute inset-0 z-0">
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-primary-500/90 via-primary-500/60 to-white/95"
+              style={{ mixBlendMode: "multiply" }}
+            />
+          </div>
+    <div className="relative max-w-3xl mx-auto">
+      <h2 className="text-3xl  font-bold text-white mb-6 text-balance">
         Ready to Unlock the Power of Data?
       </h2>
 

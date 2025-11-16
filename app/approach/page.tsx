@@ -204,8 +204,8 @@ export default function ApproachPage() {
       </section>
 
    
-      {/* Process Steps - Timeline Style */}
-      <section className="max-w-7xl mx-auto px-4 py-10">
+      {/* Process Steps - Compact Grid */}
+      <section className="max-w-7xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +213,7 @@ export default function ApproachPage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl  font-bold text-secondary-900 dark:text-white mb-4">
+          <h2 className="text-4xl font-bold text-secondary-900 dark:text-white mb-4">
             Our <span className="bg-gradient-to-r from-blue-600 to-primary-500 bg-clip-text text-transparent">5-Step Process</span>
           </h2>
           <p className="text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
@@ -221,77 +221,66 @@ export default function ApproachPage() {
           </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Vertical Timeline Line - Desktop */}
-          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-primary-500 to-primary-600" />
-
-          <div className="space-y-16">
-            {approachSteps.map((step, idx) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative flex flex-col lg:flex-row gap-8 items-center ${
-                  idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                }`}
-              >
-                {/* Content Card */}
-                <div className="flex-1 w-full lg:w-auto">
-                  <div className="relative group">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} rounded-3xl blur opacity-20 group-hover:opacity-30 transition-opacity`} />
-                    <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-8 border border-secondary-200 dark:border-secondary-800 hover:shadow-2xl transition-all duration-300">
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${step.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                          <step.icon className="w-8 h-8 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className={`inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br ${step.gradient} rounded-lg text-white font-bold text-sm`}>
-                              {step.step}
-                            </span>
-                            <h3 className="text-2xl font-bold text-secondary-900 dark:text-white">
-                              {step.title}
-                            </h3>
-                          </div>
-                          <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed">
-                            {step.description}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 gap-3 mt-6 pt-6 border-t border-secondary-200 dark:border-secondary-800">
-                        {step.details.map((detail, detailIdx) => (
-                          <div key={detailIdx} className="flex items-center gap-3 group/item">
-                            <CheckCircle className={`w-5 h-5 text-blue-500 flex-shrink-0`} />
-                            <span className="text-sm text-secondary-700 dark:text-secondary-300 group-hover/item:text-secondary-900 dark:group-hover/item:text-white transition-colors">
-                              {detail}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
+        {/* 2-Column Grid Layout */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {approachSteps.map((step, idx) => (
+            <motion.div
+              key={step.step}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="group"
+            >
+              <div className="relative h-full">
+                {/* Background Gradient Blur */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${step.gradient} rounded-2xl blur opacity-15 group-hover:opacity-25 transition-opacity duration-300`} />
+                
+                {/* Card Content */}
+                <div className="relative bg-white dark:bg-secondary-900 rounded-2xl p-6 border border-secondary-200 dark:border-secondary-800 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                  {/* Header with Icon and Number */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`flex-shrink-0 w-12 h-12 bg-gradient-to-br ${step.gradient} rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                      <step.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className={`inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br ${step.gradient} rounded-full text-white font-bold text-sm`}>
+                      {step.step}
                     </div>
                   </div>
-                </div>
 
-                {/* Center Icon - Desktop only */}
-                <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-white dark:bg-secondary-900 border-4 border-secondary-200 dark:border-secondary-800 rounded-full items-center justify-center shadow-xl z-10">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${step.gradient} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
-                    {step.step}
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
+                    {step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-4 flex-grow">
+                    {step.description}
+                  </p>
+
+                  {/* Details List */}
+                  <div className="space-y-2 pt-4 border-t border-secondary-100 dark:border-secondary-800">
+                    {step.details.map((detail, detailIdx) => (
+                      <div key={detailIdx} className="flex items-start gap-2">
+                        <div className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-gradient-to-r ${step.gradient}`} />
+                        <span className="text-xs text-secondary-600 dark:text-secondary-400 leading-snug">
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          ))}
 
-                {/* Spacer for alternating layout */}
-                <div className="flex-1 hidden lg:block" />
-              </motion.div>
-            ))}
-          </div>
+        
         </div>
       </section>
 
       {/* Core Principles */}
-      <section className="max-w-7xl mx-auto px-4 mb-32">
+      <section className="max-w-7xl mx-auto px-4 py-5">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -320,7 +309,7 @@ export default function ApproachPage() {
             >
               <div className="relative h-full">
                 <div className={`absolute inset-0 bg-gradient-to-br ${principle.color} rounded-3xl blur opacity-20 group-hover:opacity-30 transition-opacity`} />
-                <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-8 border border-secondary-200 dark:border-secondary-800 hover:shadow-2xl transition-all duration-300 h-full">
+                <div className="relative bg-white dark:bg-secondary-900 rounded-3xl p-4 border border-secondary-200 dark:border-secondary-800 hover:shadow-2xl transition-all duration-300 h-full">
                   <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${principle.color} rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     <principle.icon className="w-8 h-8 text-white" />
                   </div>

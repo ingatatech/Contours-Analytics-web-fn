@@ -79,7 +79,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Services with Data Analytics Focus */}
-      <section className="relative  flex items-center justify-center overflow-hidden py-10">
+      <section className="relative  flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-10">
         {/* Dynamic Background with Data Visualization Elements */}
           <AnimatedBackground />
   <AnimatedCode/>
@@ -96,7 +96,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 mb-8 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
             >
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
               <span className="text-sm font-medium text-blue-300">Comprehensive Solutions</span>
@@ -112,7 +112,7 @@ export default function ServicesPage() {
                
                 <span className="">{" "}
                   <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent-500 to-white"
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white"
                     animate={{ backgroundPosition: ["0%", "200%"] }}
                     transition={{ duration: 8, repeat: Infinity }}
                   >

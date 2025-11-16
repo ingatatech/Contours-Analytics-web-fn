@@ -421,7 +421,7 @@ export default function LeadershipPage() {
               xmlns="http://www.w3.org/2000/svg"
               className="w-full h-10 md:h-14"
             >
-              <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#305ca7" />
+              <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
             </svg>
           </div>
         </section>

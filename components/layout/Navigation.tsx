@@ -4,61 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Moon, Sun, BarChart3, Shield, Database, TrendingUp, Plus, Minus } from 'lucide-react'
+import { Menu, X, ChevronDown, Plus, Minus } from 'lucide-react'
 
-const serviceIcons = {
-  'Data Analytics': BarChart3,
-  'Actuarial Services': Shield,
-  'Business Intelligence': Database,
-  'Credit Rating': TrendingUp
-}
-
-const navigationItems = [
-  { name: 'Home', href: '/' },
-  {
-    name: 'Who we are',
-    href: '#',
-    submenu: [
-      { 
-        name: 'About', 
-        href: '/about',
-      },
-      { 
-        name: 'Leadership', 
-        href: '/leadership',
-      },
-    ]
-  },
-  { name: 'Approach', href: '/approach' },
-  {
-    name: 'Services',
-    href: '/services',
-    submenu: [
-      { 
-        name: 'Data Analytics', 
-        href: '/services?service=data-analytics',
-        description: 'Transform data into strategic insights'
-      },
-      { 
-        name: 'Actuarial Services', 
-        href: '/services?service=actuarial',
-        description: 'Quantitative expertise and risk assessment'
-      },
-      { 
-        name: 'Business Intelligence', 
-        href: '/services?service=business-intelligence',
-        description: 'Data-driven ecosystems and BI solutions'
-      },
-      { 
-        name: 'Credit Rating', 
-        href: '/services?service=credit-rating',
-        description: 'Comprehensive credit evaluation services'
-      },
-    ]
-  },
-  { name: 'Insights', href: '/insights' },
-  { name: 'Contact', href: '/contact' },
-]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -78,16 +25,6 @@ export default function Navigation() {
     }
   }, [])
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDark
-    setIsDark(newDarkMode)
-    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light')
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -130,100 +67,154 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <div
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => item.submenu && setActiveSubmenu(item.name)}
-                onMouseLeave={() => setActiveSubmenu(null)}
-              >
-                <Link
-                  href={item.href}
-                  onClick={(e) => item.submenu && e.preventDefault()}
-                  className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
-                >
-                  <span>{item.name}</span>
-                  {item.submenu && (
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeSubmenu === item.name ? 'rotate-180' : ''}`} />
-                  )}
-                </Link>
-
-                {/* Enhanced Submenu with Icons */}
-                <AnimatePresence>
-                  {item.submenu && activeSubmenu === item.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-32 bg-white dark:bg-secondary-900 rounded-xl shadow-2xl  dark:border-secondary-700 py-2 overflow-hidden"
-                    >
-                      {item.submenu.map((subItem) => {
-                        return (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
-                          >
-                            <div className="flex items-start gap-3">
-                           
-                              <div className="flex-1 min-w-0">
-                                <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                                  {subItem.name}
-                                </div>
-                            
-                              </div>
-                            </div>
-                          </Link>
-                        )
-                      })}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-
-            {/* Dark Mode Toggle */}
-            {mounted && (
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleDarkMode}
-                className="p-2 rounded-lg text-secondary-600 dark:text-secondary-400 hover:text-secondary-900 dark:hover:text-secondary-100 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
-                aria-label="Toggle dark mode"
-              >
-                {isDark ? (
-                  <Sun className="w-5 h-5 text-yellow-500" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </motion.button>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center space-x-2">
-            {mounted && (
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleDarkMode}
-                className="p-2 rounded-lg text-secondary-600 dark:text-secondary-400 hover:text-secondary-900 dark:hover:text-secondary-100 hover:bg-secondary-100 dark:hover:bg-secondary-800"
-                aria-label="Toggle dark mode"
-              >
-                {isDark ? (
-                  <Sun className="w-5 h-5 text-yellow-500" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </motion.button>
-            )}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-secondary-600 dark:text-secondary-400 hover:text-secondary-900 dark:hover:text-secondary-100 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+            <Link
+              href="/"
+              className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.button>
+              <span>Home</span>
+            </Link>
+
+            {/* Who we are Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveSubmenu('Who we are')}
+              onMouseLeave={() => setActiveSubmenu(null)}
+            >
+              <button
+                className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+              >
+                <span>Who we are</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeSubmenu === 'Who we are' ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {activeSubmenu === 'Who we are' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-32 bg-white dark:bg-secondary-900 rounded-xl shadow-2xl dark:border-secondary-700 py-2 overflow-hidden"
+                  >
+                    <Link
+                      href="/about"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        About
+                      </div>
+                    </Link>
+                    <Link
+                      href="/leadership"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Leadership
+                      </div>
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link
+              href="/approach"
+              className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+            >
+              <span>Approach</span>
+            </Link>
+
+            {/* Services Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveSubmenu('Services')}
+              onMouseLeave={() => setActiveSubmenu(null)}
+            >
+              <button
+                className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+              >
+                <span>Services</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeSubmenu === 'Services' ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {activeSubmenu === 'Services' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-secondary-900 rounded-xl shadow-2xl dark:border-secondary-700 py-2 overflow-hidden"
+                  >
+                    <Link
+                      href="/services?service=data-analytics"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Data Analytics
+                      </div>
+                    
+                    </Link>
+                    <Link
+                      href="/services?service=actuarial"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Actuarial Services
+                      </div>
+                      
+                    </Link>
+                    <Link
+                      href="/services?service=business-intelligence"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Business Intelligence
+                      </div>
+                    
+                    </Link>
+                    <Link
+                      href="/services?service=credit-rating"
+                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                    >
+                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Credit Rating
+                      </div>
+                     
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link
+              href="/insights"
+              className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+            >
+              <span>Insights</span>
+            </Link>
+
+            <Link
+              href="/contact"
+              className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+            >
+              <span>Contact</span>
+            </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-secondary-700 dark:text-secondary-300 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Open menu</span>
+            {isOpen ? (
+              <X className="block h-6 w-6" />
+            ) : (
+              <Menu className="block h-6 w-6" />
+            )}
+          </button>
         </div>
       </div>
 
@@ -237,75 +228,135 @@ export default function Navigation() {
             className="lg:hidden bg-white dark:bg-secondary-900 border-t border-secondary-200 dark:border-secondary-700"
           >
             <div className="px-4 py-6 space-y-2">
-              {navigationItems.map((item) => (
-                <div key={item.name}>
-                  {item.name === 'Who we are' ? (
-                    <>
-                      <button
-                        onClick={() => setMobileWhoWeAreOpen(!mobileWhoWeAreOpen)}
-                        className="w-full flex items-center justify-between p-3 text-left hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors font-medium text-secondary-700 dark:text-secondary-300"
-                      >
-                        <span>{item.name}</span>
-                        {mobileWhoWeAreOpen ? (
-                          <Minus className="h-5 w-5 text-secondary-500" />
-                        ) : (
-                          <Plus className="h-5 w-5 text-secondary-500" />
-                        )}
-                      </button>
-                      <AnimatePresence>
-                        {mobileWhoWeAreOpen && item.submenu && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pl-4 pt-2 pb-2 space-y-1">
-                              {item.submenu.map((subItem) => (
-                                <Link
-                                  key={subItem.name}
-                                  href={subItem.href}
-                                  className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {subItem.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
+              <Link
+                href="/"
+                className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
+
+              {/* Who we are Mobile */}
+              <div>
+                <button
+                  onClick={() => setMobileWhoWeAreOpen(!mobileWhoWeAreOpen)}
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors font-medium text-secondary-700 dark:text-secondary-300"
+                >
+                  <span>Who we are</span>
+                  {mobileWhoWeAreOpen ? (
+                    <Minus className="h-5 w-5 text-secondary-500" />
                   ) : (
-                    <>
-                      <Link
-                        href={item.href}
-                        className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                        onClick={() => !item.submenu && setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                      {item.submenu && item.name !== 'Who we are' && (
-                        <div className="ml-4 mt-2 space-y-2">
-                          {item.submenu.map((subItem) => {
-                            return (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="flex items-center gap-3 px-3 py-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                                onClick={() => setIsOpen(false)}
-                              >
-                               
-                                <span>{subItem.name}</span>
-                              </Link>
-                            )
-                          })}
-                        </div>
-                      )}
-                    </>
+                    <Plus className="h-5 w-5 text-secondary-500" />
                   )}
-                </div>
-              ))}
+                </button>
+                <AnimatePresence>
+                  {mobileWhoWeAreOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 pt-2 pb-2 space-y-1">
+                        <Link
+                          href="/about"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          About
+                        </Link>
+                        <Link
+                          href="/leadership"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Leadership
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link
+                href="/approach"
+                className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Approach
+              </Link>
+
+              {/* Services Mobile */}
+              <div>
+                <button
+                  onClick={() => setActiveSubmenu(activeSubmenu === 'Services' ? null : 'Services')}
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors font-medium text-secondary-700 dark:text-secondary-300"
+                >
+                  <span>Services</span>
+                  {activeSubmenu === 'Services' ? (
+                    <Minus className="h-5 w-5 text-secondary-500" />
+                  ) : (
+                    <Plus className="h-5 w-5 text-secondary-500" />
+                  )}
+                </button>
+                <AnimatePresence>
+                  {activeSubmenu === 'Services' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 pt-2 pb-2 space-y-1">
+                        <Link
+                          href="/services?service=data-analytics"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Data Analytics
+                        </Link>
+                        <Link
+                          href="/services?service=actuarial"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Actuarial Services
+                        </Link>
+                        <Link
+                          href="/services?service=business-intelligence"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Business Intelligence
+                        </Link>
+                        <Link
+                          href="/services?service=credit-rating"
+                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Credit Rating
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <Link
+                href="/insights"
+                className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Insights
+              </Link>
+
+              <Link
+                href="/contact"
+                className="block px-3 py-2 text-base font-medium text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
+              </Link>
             </div>
           </motion.div>
         )}

@@ -204,13 +204,13 @@ export const subscribeNewsletter = async (email: string) => {
 
 // Leaders API functions
 export const fetchLeaders = async (queryParams?: string) => {
-  const url = queryParams ? `/leaders?${queryParams}` : "/leaders";
+  const url = queryParams ? `/team?${queryParams}` : "/team";
   const response = await api.get(url);
   return response.data;
 };
 
 export const fetchLeaderById = async (id: string) => {
-  const response = await api.get(`/leaders/${id}`);
+  const response = await api.get(`/team/${id}`);
   return response.data;
 };
 

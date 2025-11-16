@@ -3,7 +3,7 @@
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import InsightModal from '@/components/ui/InsightModal'
 import { motion,  } from 'framer-motion'
-import { ArrowRight,   Users,  Sparkles, Calendar, } from 'lucide-react'
+import { ArrowRight, Users, Sparkles, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
@@ -135,6 +135,8 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false)
   const [selectedInsight, setSelectedInsight] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [partnerScroll, setPartnerScroll] = useState(0)
+  const partnerScrollRef = useRef<HTMLDivElement>(null)
 
   // Generate random positions once on mount to avoid hydration mismatch
   const [randomPositions] = useState(() =>
@@ -158,6 +160,18 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handlePartnerScroll = (direction: 'left' | 'right') => {
+    if (partnerScrollRef.current) {
+      const scrollAmount = 280 // card width (224px) + gap (56px)
+      const newScroll = direction === 'left' 
+        ? Math.max(0, partnerScroll - scrollAmount)
+        : partnerScroll + scrollAmount
+      
+      partnerScrollRef.current.style.transform = `translateX(-${newScroll}px)`
+      setPartnerScroll(newScroll)
+    }
+  }
 
 
 
@@ -562,20 +576,30 @@ export default function Home() {
             </motion.div>
 
             <div className="relative">
+              {/* Left Navigation Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handlePartnerScroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+                disabled={partnerScroll === 0}
+              >
+                <ChevronLeft className="w-6 h-6 text-primary-500 group-hover:text-primary-600 transition-colors" />
+              </motion.button>
+
               {/* Gradient fade effects */}
               <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-secondary-50 dark:from-secondary-900 to-transparent z-10 pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary-50 dark:from-secondary-900 to-transparent z-10 pointer-events-none" />
 
-              <motion.div
-                animate={{ x: [0, -100 * partners.length] }}
-                transition={{
-                  duration: 30,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className="flex gap-6 w-max"
-              >
-                {[ ...partners].map((partner, index) => (
+              {/* Partners Container */}
+              <div className="overflow-hidden">
+                <motion.div
+                  ref={partnerScrollRef}
+                  className="flex gap-6 w-max"
+                  initial={{ x: 0 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                >
+                  {[...partners].map((partner, index) => (
                   <motion.div
                     key={`${partner.name}-${index}`}
                     whileHover={{ y: -8, scale: 1.08 }}
@@ -631,7 +655,18 @@ export default function Home() {
                     </div>
                   </motion.div>
                 ))}
-              </motion.div>
+                </motion.div>
+              </div>
+
+              {/* Right Navigation Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handlePartnerScroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              >
+                <ChevronRight className="w-6 h-6 text-primary-500 group-hover:text-primary-600 transition-colors" />
+              </motion.button>
             </div>
 
           </div>

@@ -37,7 +37,7 @@ export default function ChatWidgetEnhanced() {
   const [translatedUI, setTranslatedUI] = useState(UI_STRINGS.en)
   const [isLoading, setIsLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(null)
-  const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004')
+  const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004/api')
   const [alertConfig, setAlertConfig] = useState({
     isOpen: false,
     title: '',
@@ -87,7 +87,7 @@ export default function ChatWidgetEnhanced() {
   // Initialize conversation with backend
   const initializeConversation = async () => {
     try {
-      const response = await fetch(`${apiBaseUrl}/api/chat/conversations`, {
+      const response = await fetch(`${apiBaseUrl}/chat/conversations`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -168,7 +168,7 @@ export default function ChatWidgetEnhanced() {
     try {
       // Send message to backend
       const response = await fetch(
-        `${apiBaseUrl}/api/chat/conversations/${conversationId}/message`,
+        `${apiBaseUrl}/chat/conversations/${conversationId}/message`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -205,18 +205,17 @@ export default function Home() {
       `}</style>
     <div className="min-h-screen bg-white overflow-hidden">
 
-      <div className="relative z-10">
         {/* Hero Section - Modern Analytics Design */}
         <section className="relative py-7 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
         <AnimatedBackground />
 <AnimatedCode/>
           {/* Content Container */}
-          <div className="relative z-20 container mx-auto px-4 max-w-6xl">
+          <div className="relative z-10 container mx-auto px-4 max-w-6xl">
             <div className=" items-center">
               <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+              transition={{delay: 0.4, duration: 1 }}
                 className="space-y-8"
               >
                 {/* Trust Badge */}
@@ -733,7 +732,7 @@ export default function Home() {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
-      </div>
+     
     </div>
     </>
   )

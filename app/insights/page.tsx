@@ -9,6 +9,7 @@ import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import Image
  from 'next/image'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
+import { subscribeNewsletter } from '@/lib/api'
 interface Insight {
   id: string
   title: string
@@ -231,31 +232,6 @@ export default function InsightsPage() {
               </p>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 py-5"
-            >
-              <motion.a
-                href="#insights-grid"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all inline-flex items-center justify-center gap-2"
-              >
-                Read Our Articles
-                <ArrowRight className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="/contact-us"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-blue-400/50 text-blue-300 rounded-full font-semibold hover:bg-blue-500/10 transition-all"
-              >
-                Contact for Consultation
-              </motion.a>
-            </motion.div>
           </motion.div>
         </div>
 
@@ -273,7 +249,7 @@ export default function InsightsPage() {
       </section>
 
        {/* Filters and Search */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -481,16 +457,78 @@ export default function InsightsPage() {
               )}
             </div>
           )}
+          
         </div>
-      </section>
-
-      
+      </section> 
+            {/* Newsletter Signup */}
+      <section id="subscribe" className="relative py-8 bg-gradient-to-r from-blue-600 to-cyan-600">
+        <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-primary-500/90 via-primary-500/60 to-white/95"
+            style={{ mixBlendMode: "multiply" }}
+          />
+        </div>
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Stay Updated with Our Latest Insights</h2>
+            <p className="text-blue-100 mb-8 text-lg">
+              Get the latest insights, industry trends, and expert analysis delivered directly to your inbox.
+            </p>
+            <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button
+                onClick={async () => {
+                  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    setSubscribeMsg("Please enter a valid email")
+                    return
+                  }
+                  try {
+                    setSubmitting(true)
+                    setSubscribeMsg(null)
+                    await subscribeNewsletter(email)
+                    setSubscribeMsg("Subscribed successfully!")
+                    setEmail("")
+                  } catch (e) {
+                    setSubscribeMsg("Subscription failed. Please try again.")
+                  } finally {
+                    setSubmitting(false)
+                  }
+                }}
+                disabled={submitting}
+                className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors whitespace-nowrap disabled:opacity-60"
+              >
+                {submitting ? "Subscribing..." : "Subscribe Now"}
+              </button>
+            </div>
+            {subscribeMsg && (
+              <p className={`mt-3 ${subscribeMsg.includes('successfully') ? 'text-green-100' : 'text-red-100'}`}>
+                {subscribeMsg}
+              </p>
+            )}
+            <p className="text-gray-800 text-sm mt-4">
+              Join 2,500+ professionals who trust our insights. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+        <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+          <svg viewBox="0 0 1920 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-10 md:h-14">
+            <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+          </svg>
+        </div>
+      </section>     
       {/* Insight Modal */}
       <InsightModal 
         insight={selectedInsight} 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
+      
     </div>
   )
 }

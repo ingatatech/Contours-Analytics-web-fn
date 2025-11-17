@@ -110,9 +110,7 @@ export default function ServicesPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className=""
             >
-              <p className="text-lg  text-white leading-relaxed max-w-6xl">
-                Unlock the full potential of your business with our comprehensive suite of data analytics and consulting services. We combine cutting-edge technology, industry expertise, and innovative methodologies to deliver transformative solutions that drive measurable business value. From advanced analytics and risk management to actuarial consulting and strategic planning, we empower you to make data-driven decisions with confidence and clarity.
-              </p>
+              <p className="text-lg  text-white leading-relaxed max-w-6xl">{selectedService.description}</p>
             </motion.div>
 
          
@@ -153,21 +151,7 @@ export default function ServicesPage() {
 
             {/* Right Content Area */}
             <div className="lg:col-span-3 space-y-8">
-              {/* Service Overview Section - First */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white rounded-2xl shadow-lg p-8"
-              >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <div className="w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full" />
-                  {selectedService.name}
-                </h2>
-                <p className="text-base text-gray-700 leading-relaxed">
-                  {selectedService.longDescription}
-                </p>
-              </motion.div>
+           
 
               {/* Sub Services Details */}
               {selectedSubService && (
@@ -345,6 +329,17 @@ export default function ServicesPage() {
             </Link>
           </div>
         </div>
+                  {/* Bottom wave */}
+  <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+    <svg
+      viewBox="0 0 1920 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-10 md:h-14"
+    >
+      <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+    </svg>
+  </div>
       </section>
     </div>
   )

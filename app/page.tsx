@@ -73,6 +73,9 @@ const partners = [
   { name: 'SecureNet', category: 'Security' },
   { name: 'InsightAI', category: 'AI/ML' },
   { name: 'FinanceCore', category: 'Financial' },
+  { name: 'DataStream', category: 'Integration' },
+  { name: 'CloudTech Solutions', category: 'Technology' },
+  { name: 'DataViz Pro', category: 'Analytics' },
   { name: 'DataStream', category: 'Integration' }
 ]
 

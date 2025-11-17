@@ -23,7 +23,6 @@ export interface Service {
   icon: any
   gradient: string
   description: string
-  longDescription: string
   subServices: SubService[]
 }
 
@@ -33,8 +32,7 @@ export const servicesData: Service[] = [
     name: 'Data Analytics',
     icon: BarChart3,
     gradient: 'from-blue-500 to-cyan-500',
-    description: 'Transform raw data into strategic insights that guide business growth',
-    longDescription: 'Contours Analytics empowers organizations to harness the full potential of their data. Our analytics services transform raw information into strategic insights that guide business growth, efficiency, and innovation.',
+    description: 'Contours Analytics empowers organizations to harness the full potential of their data. Our analytics services transform raw information into strategic insights that guide business growth, efficiency, and innovation.',
     subServices: [
       {
         id: 'descriptive-analytics',
@@ -99,8 +97,7 @@ export const servicesData: Service[] = [
     name: 'Actuarial Services',
     icon: Shield,
     gradient: 'from-emerald-500 to-teal-500',
-    description: 'Quantitative expertise combined with deep industry knowledge',
-    longDescription: 'Our actuarial professionals combine quantitative expertise with deep industry knowledge to help clients assess risk, design financial strategies, and maintain long-term stability.',
+    description: 'Our actuarial professionals combine quantitative expertise with deep industry knowledge to help clients assess risk, design financial strategies, and maintain long-term stability.',
     subServices: [
       {
         id: 'risk-modeling',
@@ -189,8 +186,7 @@ export const servicesData: Service[] = [
     name: 'Business Intelligence & Data Strategy',
     icon: Database,
     gradient: 'from-purple-500 to-pink-500',
-    description: 'Build scalable, data-driven ecosystems for informed decision-making',
-    longDescription: 'We help organizations build scalable, data-driven ecosystems that support informed decision-making, operational efficiency, and strategic transformation.',
+    description: 'We help organizations build scalable, data-driven ecosystems that support informed decision-making, operational efficiency, and strategic transformation.',
     subServices: [
       {
         id: 'data-architecture',
@@ -263,8 +259,7 @@ export const servicesData: Service[] = [
     name: 'Credit Rating',
     icon: TrendingUp,
     gradient: 'from-orange-500 to-red-500',
-    description: 'Comprehensive credit evaluation and risk assessment services',
-    longDescription: 'Contours Analytics provides comprehensive Credit Rating and Risk Assessment services that help organizations, financial institutions, and investors evaluate creditworthiness, manage exposure, and make informed financial decisions.',
+    description: 'Contours Analytics provides comprehensive Credit Rating and Risk Assessment services that help organizations, financial institutions, and investors evaluate creditworthiness, manage exposure, and make informed financial decisions.',
     subServices: [
       {
         id: 'public-ratings',

@@ -8,13 +8,11 @@ import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, ArrowRight, Send } fr
 const footerLinks = {
 
   company: [
-    { name: 'Who We Are', href: '/who-we-are' },
-    { name: 'Our Approach', href: '/our-approach' },
-    { name: 'Careers', href: '/careers' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Our Approach', href: '/approach' },
+    { name: 'Services', href: '/services' },
     { name: 'Insights', href: '/insights' },
   ],
-
-
 }
 
 const socialLinks = [
@@ -112,7 +110,7 @@ export default function Footer() {
                     <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Phone className="w-5 h-5 text-white" />
                     </div>
-                    <span>+1 (555) 123-4567</span>
+                    <span>+(250) 786 600 190</span>
                   </motion.div>
                   <motion.div
                     whileHover={{ x: 5 }}
@@ -121,7 +119,7 @@ export default function Footer() {
                     <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
                       <MapPin className="w-5 h-5 white" />
                     </div>
-                    <span>New York, NY 10001</span>
+                    <span>Kimironko , Trumph House 3rd Floor</span>
                   </motion.div>
                 </div>
           </div>

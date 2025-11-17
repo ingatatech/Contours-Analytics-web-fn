@@ -2,7 +2,7 @@
 
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { Target, Database, BarChart3, Eye, Rocket, CheckCircle, ArrowRight, Users, Clock, Award, Zap, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import { useRef, useState, useEffect } from 'react'
@@ -222,7 +222,7 @@ export default function ApproachPage() {
         </motion.div>
 
         {/* 2-Column Grid Layout */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {approachSteps.map((step, idx) => (
             <motion.div
               key={step.step}
@@ -260,7 +260,7 @@ export default function ApproachPage() {
                   </p>
 
                   {/* Details List */}
-                  <div className="space-y-2 pt-4 border-t border-secondary-100 dark:border-secondary-800">
+                  <div className="space-y-2 pt-2 border-t border-secondary-100 dark:border-secondary-800">
                     {step.details.map((detail, detailIdx) => (
                       <div key={detailIdx} className="flex items-start gap-2">
                         <div className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-gradient-to-r ${step.gradient}`} />
@@ -358,7 +358,7 @@ export default function ApproachPage() {
               Let's discuss how our proven methodology can transform your business challenges into competitive advantages
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-7">
               <Link
                 href="/contact-us"
                 className="group inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:scale-105 transition-all duration-300 shadow-xl"
@@ -374,6 +374,17 @@ export default function ApproachPage() {
               </Link>
             </div>
           </div>
+                    {/* Bottom wave */}
+  <div className="absolute left-0 right-0 bottom-0 z-20 pointer-events-none -mb-3">
+    <svg
+      viewBox="0 0 1920 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-10 md:h-14"
+    >
+      <path d="M0,40 Q480,80 960,40 T1920,40 V80 H0 Z" fill="#038bca" />
+    </svg>
+  </div>
         </motion.div>
       </section>
     </div>

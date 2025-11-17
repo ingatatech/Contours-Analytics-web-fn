@@ -2,8 +2,8 @@
 
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import { motion } from 'framer-motion'
-import InsightModal from '@/components/ui/InsightModal'
 import { Calendar, ArrowRight,  BookOpen,  Filter, ChevronDown, Search } from 'lucide-react'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import Image
@@ -75,8 +75,6 @@ const insights: Insight[] = [
 
 export default function InsightsPage() {
   const [isClient, setIsClient] = useState(false)
-  const [selectedInsight, setSelectedInsight] = useState<any>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
     const [showFilters, setShowFilters] = useState(false)
   // const [insights, setInsights] = useState<Insight[]>([])
   const [loading, setLoading] = useState(false)
@@ -88,15 +86,6 @@ export default function InsightsPage() {
   const [categoryFilter, setcategoryFilter] = useState("All categories")
   const [searchTerm, setSearchTerm] = useState("")
 
-  const handleInsightClick = (insight: Insight) => {
-    setSelectedInsight(insight)
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    setSelectedInsight(null)
-  }
 
    const filteredInsights = insights.filter((insight) => {
     const matchesSearch =
@@ -385,6 +374,7 @@ export default function InsightsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredInsights.map((insight) => {
                 return (
+                    <Link href={`/insights/detail?id=${insight.id}`}>
                   <article
                     key={insight.id}
                     className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group"
@@ -415,13 +405,12 @@ export default function InsightsPage() {
                       </div>
 
                       <h3 className="text-lg font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors cursor-pointer">
-                        <button onClick={() => handleInsightClick(insight)} className="text-left w-full">
+                        <button  className="text-left w-full">
                           {insight.title}
                         </button>
                       </h3>
                       <div className="flex items-center justify-end">
                         <button
-                          onClick={() => handleInsightClick(insight)}
                           className="text-blue-600 hover:text-blue-700 font-medium transition-colors flex items-center space-x-1 group"
                         >
                           <span>Read more</span>
@@ -430,6 +419,7 @@ export default function InsightsPage() {
                       </div>
                     </div>
                   </article>
+                  </Link>
                 )
               })}
             </div>
@@ -522,12 +512,7 @@ export default function InsightsPage() {
           </svg>
         </div>
       </section>     
-      {/* Insight Modal */}
-      <InsightModal 
-        insight={selectedInsight} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+
       
     </div>
   )

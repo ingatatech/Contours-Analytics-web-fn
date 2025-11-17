@@ -85,7 +85,7 @@ export default function ChatWidgetEnhanced() {
   }, [])
 
   // Initialize conversation with backend
-  const initializeConversation = async () => {
+  const initializeConversation = async (): Promise<string | null> => {
     try {
       const response = await fetch(`${apiBaseUrl}/chat/conversations`, {
         method: 'POST',
@@ -98,12 +98,16 @@ export default function ChatWidgetEnhanced() {
 
       if (response.ok) {
         const data = await response.json()
-        setConversationId(data.data.id)
+        const newConversationId = data.data.id
+        setConversationId(newConversationId)
+        return newConversationId
       } else {
         console.error('Failed to create conversation')
+        return null
       }
     } catch (error) {
       console.error('Error initializing conversation:', error)
+      return null
     }
   }
 
@@ -145,10 +149,14 @@ export default function ChatWidgetEnhanced() {
 
   const handleSendMessage = async () => {
     // Make sure conversation is initialized
-    if (!conversationId) {
-      showAlert('Please wait while we initialize the chat...', 'Initializing Chat', 'info')
-      await initializeConversation()
-      return
+    let currentConversationId = conversationId
+    if (!currentConversationId) {
+      showAlert('Initializing chat...', 'Starting Conversation', 'info')
+      currentConversationId = await initializeConversation()
+      if (!currentConversationId) {
+        showAlert('Failed to initialize chat. Please try again.', 'Error', 'error')
+        return
+      }
     }
 
     if (!inputValue.trim() || isLoading) return
@@ -168,7 +176,7 @@ export default function ChatWidgetEnhanced() {
     try {
       // Send message to backend
       const response = await fetch(
-        `${apiBaseUrl}/chat/conversations/${conversationId}/message`,
+        `${apiBaseUrl}/chat/conversations/${currentConversationId}/message`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -186,13 +194,6 @@ export default function ChatWidgetEnhanced() {
         }
         
         setMessages(prev => [...prev, assistantMessage])
-        
-        // Text-to-speech if available
-        if ('speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(assistantMessage.text)
-          utterance.lang = `${language}-${language === 'pt' ? 'BR' : language.toUpperCase()}`
-          speechSynthesis.speak(utterance)
-        }
       } else {
         const errorData = await response.json()
         const errorMessage: Message = {

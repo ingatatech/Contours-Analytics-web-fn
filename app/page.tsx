@@ -83,52 +83,54 @@ function InteractiveInsightCard({ insight, index }: { insight: any, index: numbe
   const [isHovered, setIsHovered] = useState(false)
   
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, rotateX: -15 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-  
-    >
-      <article className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-        <div className="relative">
-          <Image
-            src={insight.image || "/placeholder.svg"}
-            alt={insight.title}
-            width={400}
-            height={250}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-3 left-3 flex space-x-2">
-            <span className="px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800">
-              {insight?.category ?? ""}
-            </span>
-          </div>
-        </div>
-
-        <div className="p-6">
-          <div className="flex items-center space-x-2 text-xs text-gray-500 mb-3">
-            <Calendar className="h-4 w-4" />
-            <span>{new Date(insight.createdAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}</span>
+    <Link href={`/insights/detail?id=${insight.id}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 30, rotateX: -15 }}
+        whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: index * 0.15 }}
+        className="cursor-pointer"
+      >
+        <article className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group h-full">
+          <div className="relative">
+            <Image
+              src={insight.image || "/placeholder.svg"}
+              alt={insight.title}
+              width={400}
+              height={250}
+              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="absolute top-3 left-3 flex space-x-2">
+              <span className="px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800">
+                {insight?.category ?? ""}
+              </span>
+            </div>
           </div>
 
-          <h3 className="text-lg font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors cursor-pointer">
-            {insight.title}
-          </h3>
-          
-          <div className="flex items-center justify-end">
-            <button className="text-blue-600 hover:text-blue-700 font-medium transition-colors flex items-center space-x-1 group">
-              <span>Read more</span>
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+          <div className="p-6">
+            <div className="flex items-center space-x-2 text-xs text-gray-500 mb-3">
+              <Calendar className="h-4 w-4" />
+              <span>{new Date(insight.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}</span>
+            </div>
+
+            <h3 className="text-lg font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors cursor-pointer line-clamp-2">
+              {insight.title}
+            </h3>
+            
+            <div className="flex items-center justify-end">
+              <button className="text-blue-600 hover:text-blue-700 font-medium transition-colors flex items-center space-x-1 group">
+                <span>Read more</span>
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
-        </div>
-      </article>
-    </motion.div>
+        </article>
+      </motion.div>
+    </Link>
   )
 }
 
@@ -139,6 +141,7 @@ export default function Home() {
   const [selectedInsight, setSelectedInsight] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [partnerScroll, setPartnerScroll] = useState(0)
+  const [partnerScrollAmount, setPartnerScrollAmount] = useState(0)
   const partnerScrollRef = useRef<HTMLDivElement>(null)
 
   // Generate random positions once on mount to avoid hydration mismatch
@@ -167,12 +170,16 @@ export default function Home() {
   const handlePartnerScroll = (direction: 'left' | 'right') => {
     if (partnerScrollRef.current) {
       const scrollAmount = 280 // card width (224px) + gap (56px)
-      const newScroll = direction === 'left' 
-        ? Math.max(0, partnerScroll - scrollAmount)
-        : partnerScroll + scrollAmount
+      const maxScroll = partnerScrollRef.current.scrollWidth - partnerScrollRef.current.offsetWidth
       
-      partnerScrollRef.current.style.transform = `translateX(-${newScroll}px)`
-      setPartnerScroll(newScroll)
+      let newScroll = partnerScrollAmount
+      if (direction === 'left') {
+        newScroll = Math.max(0, partnerScrollAmount - scrollAmount)
+      } else {
+        newScroll = Math.min(maxScroll, partnerScrollAmount + scrollAmount)
+      }
+      
+      setPartnerScrollAmount(newScroll)
     }
   }
 
@@ -502,16 +509,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               {insights.slice(0, 3).map((insight, index) => (
-                <motion.div
-                  key={insight.title}
-                  onClick={() => {
-                    setSelectedInsight(insight)
-                    setIsModalOpen(true)
-                  }}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <InteractiveInsightCard insight={insight} index={index} />
-                </motion.div>
+                <InteractiveInsightCard key={insight.title} insight={insight} index={index} />
               ))}
             </div>
 
@@ -585,7 +583,7 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handlePartnerScroll('left')}
                 className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
-                disabled={partnerScroll === 0}
+                disabled={partnerScrollAmount === 0}
               >
                 <ChevronLeft className="w-6 h-6 text-primary-500 group-hover:text-primary-600 transition-colors" />
               </motion.button>
@@ -599,7 +597,7 @@ export default function Home() {
                 <motion.div
                   ref={partnerScrollRef}
                   className="flex gap-6 w-max"
-                  initial={{ x: 0 }}
+                  animate={{ x: -partnerScrollAmount }}
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
                   {[...partners].map((partner, index) => (
@@ -621,7 +619,6 @@ export default function Home() {
 
                       <div className="relative p-6">
                         <motion.div 
-                          whileHover={{ rotate: 360, scale: 1.1 }}
                           transition={{ duration: 0.8 }}
                           className="w-full h-20 bg-gradient-to-br from-primary-500/10 to-primary-500/10 rounded-xl mb-4 flex items-center justify-center text-2xl font-bold text-primary group-hover:from-primary-500/20 group-hover:to-primary-500/20 transition-all relative overflow-hidden"
                         >

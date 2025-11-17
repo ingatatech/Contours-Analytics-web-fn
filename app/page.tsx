@@ -186,6 +186,23 @@ export default function Home() {
 
 
   return (
+        <>
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     <div className="min-h-screen bg-white overflow-hidden">
 
       <div className="relative z-10">
@@ -204,9 +221,9 @@ export default function Home() {
               >
                 {/* Trust Badge */}
                 <motion.div
-         initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+                  initial={{ opacity: 0, y: 40 }}
+                 animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1 }}
                   className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 backdrop-blur-sm"
                 >
                   <motion.div
@@ -220,9 +237,9 @@ export default function Home() {
                 {/* Main Headline */}
                 <div>
                   <motion.h1
-         initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+                initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 1 }}
                     className="text-4xl font-bold leading-tight mb-6"
                   >
                     <span className="text-white">Transform Your Data</span> {" "}
@@ -232,9 +249,9 @@ export default function Home() {
                   </motion.h1>
                   
                   <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 1 }}
                     className="text-xl text-slate-300 leading-relaxed max-w-6xl"
                   >
                    We are a leading provider of comprehensive data analytics and actuarial services. With cutting-edge technology and highly skilled professionals, we empower businesses to make informed decisions and mitigate risks effectively.
@@ -266,8 +283,8 @@ export default function Home() {
                 {/* CTA Buttons */}
                 <motion.div
                      initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
                   className="flex flex-col sm:flex-row gap-4"
                 >
                   <motion.a
@@ -718,5 +735,6 @@ export default function Home() {
       />
       </div>
     </div>
+    </>
   )
 }

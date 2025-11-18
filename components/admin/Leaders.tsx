@@ -57,7 +57,7 @@ import toast from "react-hot-toast";
 import api from "@/lib/axios";
 
 import { AnimatePresence, motion } from "framer-motion";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import DeleteConfirmationModal from "../ui/DeleteConfirmationModal";
 
 export default function LeadersPage() {
   const [leaders, setLeaders] = useState<Leaders[]>([]);
@@ -77,15 +77,9 @@ export default function LeadersPage() {
     name: "",
     title: "",
     bio: "",
-    location: "",
-    experience: 0,
-    projectsLed: 0,
     email: "",
     linkedinUrl: "",
     phone: "",
-    realisedProjects: "",
-    education: [""],
-    professionalMembership: [""],
     isActive: true,
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -114,26 +108,6 @@ export default function LeadersPage() {
     fetchLeaders();
   }, []);
 
-    const addArrayItem = (field: keyof typeof formData, value = "") => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: [...(prev[field] as string[]), value],
-    }))
-  }
-
-  const removeArrayItem = (field: keyof typeof formData, index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: (prev[field] as string[]).filter((_, i) => i !== index),
-    }))
-  }
-
-  const updateArrayItem = (field: keyof typeof formData, index: number, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: (prev[field] as string[]).map((item, i) => (i === index ? value : item)),
-    }))
-  }
 
 
     async function handleReorder(result: DropResult) {
@@ -163,15 +137,9 @@ export default function LeadersPage() {
         name: leader.name,
         title: leader.title,
         bio: leader.bio,
-        location: leader.location,
-        experience: leader.experience,
-        projectsLed: leader.projectsLed,
         email: leader.email || "",
         linkedinUrl: leader.linkedinUrl || "",
         phone: leader.phone || "",
-        realisedProjects: leader.realisedProjects || "",
-        education: Array.isArray(leader.education) && leader.education.length ? leader.education : [""],
-        professionalMembership: Array.isArray(leader.professionalMembership) && leader.professionalMembership.length ? leader.professionalMembership : [""],
         isActive: leader.isActive,
       });
     } else {
@@ -180,15 +148,9 @@ export default function LeadersPage() {
         name: "",
         title: "",
         bio: "",
-        location: "",
-        experience: 0,
-        projectsLed: 0,
         email: "",
         linkedinUrl: "",
         phone: "",
-        realisedProjects: "",
-        education: [""],
-        professionalMembership: [""],
         isActive: true,
       });
     }
@@ -755,42 +717,9 @@ const errorData = err.response?.data;
                     </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Location
-                      </label>
-                      <Input
-                        value={formData.location}
-                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        placeholder="e.g., New York, NY"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
-                      />
-                    </div>
+           
 
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Years of Experience
-                      </label>
-                      <Input
-                        value={formData.experience}
-                        onChange={(e) => setFormData({ ...formData, experience: parseInt(e.target.value) || 0 })}
-                        placeholder="0"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
-                      />
-                    </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Projects Led
-                      </label>
-                      <Input
-                      
-                        value={formData.projectsLed}
-                        onChange={(e) => setFormData({ ...formData, projectsLed: parseInt(e.target.value) || 0 })}
-                        placeholder="0"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
-                      />
-                    </div>
                   </div>
 
                   <div className="flex items-center space-x-2">
@@ -887,98 +816,10 @@ const errorData = err.response?.data;
                   </div>
                 </div>
 
-                {/* Realised Projects */}
-                <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-slate-900 border-b pb-2">Realised  Projects</h3>
-                    <RichTextEditor
-                      value={formData.realisedProjects}
-                      onChange={(value) => setFormData(prev => ({ ...prev, realisedProjects: value }))}
-                      placeholder="Write a brief Realised Projects..."
-                      />
-              
-                </div>
-                {/* Education */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-slate-900 border-b pb-2">Education</h3>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => addArrayItem("education")}
-                      className="border-primary/20 text-primary hover:bg-primary/5"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add Education
-                    </Button>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {formData.education.map((edu, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Input
-                          value={edu}
-                          onChange={(e) => updateArrayItem("education", index, e.target.value)}
-                          placeholder="e.g., BS Computer Science, MIT"
-                          className="flex-1 border-slate-200 focus:border-primary focus:ring-primary/20"
-                        />
-                        {formData.education.length > 1 && (
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            onClick={() => removeArrayItem("education", index)}
-                            className="border-red-200 text-red-600 hover:bg-red-50 p-2"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        
+      
 
-
-     {/* professionalMembership */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-slate-900 border-b pb-2">Professional Membership</h3>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => addArrayItem("professionalMembership")}
-                      className="border-primary/20 text-primary hover:bg-primary/5"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add professional Membership
-                    </Button>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {formData.professionalMembership.map((professionalMembership, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Input
-                          value={professionalMembership}
-                          onChange={(e) => updateArrayItem("professionalMembership", index, e.target.value)}
-                          placeholder="e.g., Member of Institute of Certified Public Accountants of Rwanda (iCPAR) and holder of Audit Practice Certificate"
-                          className="flex-1 border-slate-200 focus:border-primary focus:ring-primary/20"
-                        />
-                        {formData.professionalMembership.length > 1 && (
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            onClick={() => removeArrayItem("professionalMembership", index)}
-                            className="border-red-200 text-red-600 hover:bg-red-50 p-2"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+    
                 {/* Biography */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-slate-900 border-b pb-2">Biography</h3>

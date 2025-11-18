@@ -119,7 +119,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Main Content */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Left Sidebar - Sub Services List */}

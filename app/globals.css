@@ -89,3 +89,18 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
+
+.ql-editor {
+  white-space: pre-wrap;     /* respects line breaks */
+  word-break: break-word;    /* break long words */
+  overflow-wrap: break-word; /* modern word wrapping */
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  display: flex;
+  animation: scroll 25s linear infinite;
+}

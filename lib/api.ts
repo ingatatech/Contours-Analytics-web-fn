@@ -214,3 +214,40 @@ export const fetchLeaderById = async (id: string) => {
   return response.data;
 };
 
+
+export const createServiceCategory = async (data: {
+  name: string;
+  slug: string;
+  description: string;
+  isActive?: boolean;
+  sortOrder?: number;
+}) => {
+  const response = await api.post("/services/categories", data);
+  return response.data;
+};
+
+export const updateServiceCategory = async (
+  id: string,
+  data: {
+    name?: string;
+    slug?: string;
+    description?: string;
+    isActive?: boolean;
+    sortOrder?: number;
+  }
+) => {
+  const response = await api.patch(`/services/categories/${id}`, data);
+  return response.data;
+};
+
+export const deleteServiceCategory = async (id: string) => {
+  const response = await api.delete(`/services/categories/${id}`);
+  return response.data;
+};
+
+export const fetchServicesByCategory = async (categorySlug: string) => {
+  const response = await api.get(
+    `/services?category=${categorySlug}&limit=100`
+  );
+  return response.data;
+};

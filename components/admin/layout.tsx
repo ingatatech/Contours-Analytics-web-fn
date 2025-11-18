@@ -61,9 +61,8 @@ export default function AdminLayoutStructure({
       icon: LayoutDashboard,
       children: [{ title: "Dashboard", href: "/admin", icon: LayoutDashboard }],
     },
-    {
-      id: "services",
-      title: "Services & Industries",
+     {id: "services",
+      title: "Services",
       icon: Briefcase,
       children: [
         {
@@ -77,7 +76,7 @@ export default function AdminLayoutStructure({
     },
     {
       id: "content",
-      title: "Content Management",
+      title: "Contents",
       icon: Newspaper,
       children: [
         { title: "Insights", href: "/admin/insights", icon: Newspaper },
@@ -95,13 +94,11 @@ export default function AdminLayoutStructure({
     },
     {
       id: "users",
-      title: "Experts & Leaders",
+      title: "Leaders",
       icon: Users,
       children: [
-        { title: "Experts", href: "/admin/experts", icon: Users },
         { title: "Leaders", href: "/admin/leaders", icon: Users },
         { title: "Partners", href: "/admin/partners", icon: Handshake },
-        { title: "Affiliations", href: "/admin/affiliations", icon: AwardIcon },
         { title: "Subscribers", href: "/admin/subscribers", icon: UserCheck },
       ],
     },

@@ -15,6 +15,7 @@ export interface Partner {
   id: string
   name: string
   image: string
+  websiteUrl: string
   createdAt: string
 }
 
@@ -30,6 +31,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   const [form, setForm] = useState({
     name: "",
     image: "",
+    websiteUrl: "",
   })
   const [page, setPage] = useState(1)
   const pageSize = 10
@@ -63,6 +65,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
       const formData = new FormData()
       formData.append("name", form.name)
+      formData.append("websiteUrl", form.websiteUrl)
 
       if (imageFile) {
         formData.append("image", imageFile)
@@ -94,6 +97,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     setForm({
       name: partner.name,
       image: partner.image,
+      websiteUrl: partner.websiteUrl,
     })
     setImageFile(null)
     setShowModal(true)
@@ -111,7 +115,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   }
 
   function resetForm() {
-    setForm({ name: "", image: "" })
+    setForm({ name: "", image: "", websiteUrl: "" })
     setImageFile(null)
     setEditingPartner(null)
   }
@@ -339,6 +343,17 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Enter partner name..."
+                    className="border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Website URL *</label>
+                  <Input
+                    value={form.websiteUrl}
+                    onChange={(e) => setForm({ ...form, websiteUrl: e.target.value })}
+                    placeholder="https://example.com"
                     className="border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                     required
                   />

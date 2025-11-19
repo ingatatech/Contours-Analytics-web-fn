@@ -8,76 +8,12 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import Image from 'next/image'
+import { Insight } from '@/lib/types/Insights'
+import { fetchInsights } from '@/lib/api'
+import api from '@/lib/axios'
+import { Partner } from '@/components/admin/partners'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
-const insights = [
-  {
-    id: 1,
-    title: 'Leveraging Predictive Analytics for Business Growth',
-    category: 'Analytics',
-    content: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
-    createdAt: 'Nov 15, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: 2,
-    title: 'IFRS 17 Compliance: A Comprehensive Guide',
-    category: 'Actuarial',
-    content: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
-    createdAt: 'Nov 12, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-
-  },
-  {
-    id: 3,
-    title: 'Building a Data-Driven Organization',
-    category: 'Business Intelligence',
-    content: 'Transform your organization with a strategic approach to data management and analytics.',
-    createdAt: 'Nov 10, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: 4,
-    title: 'Credit Risk Assessment in Uncertain Times',
-    category: 'Credit Rating',
-    content: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
-    createdAt: 'Nov 8, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop'
-  },
-  {
-    id: 5,
-    title: 'AI-Powered Risk Management Solutions',
-    category: 'Technology',
-    content: 'Explore how artificial intelligence is revolutionizing risk management across industries.',
-    createdAt: 'Nov 5, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: 6,
-    title: 'ESG Reporting: Best Practices and Frameworks',
-    category: 'Sustainability',
-    content: 'A comprehensive guide to environmental, social, and governance reporting standards.',
-    createdAt: 'Nov 2, 2024',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  }
-]
-
-const partners = [
-  { name: 'CloudTech Solutions', category: 'Technology' },
-  { name: 'DataViz Pro', category: 'Analytics' },
-  { name: 'SecureNet', category: 'Security' },
-  { name: 'InsightAI', category: 'AI/ML' },
-  { name: 'FinanceCore', category: 'Financial' },
-  { name: 'DataStream', category: 'Integration' },
-  { name: 'CloudTech Solutions', category: 'Technology' },
-  { name: 'DataViz Pro', category: 'Analytics' },
-  { name: 'DataStream', category: 'Integration' }
-]
 
 function InteractiveInsightCard({ insight, index }: { insight: any, index: number }) {
   const [isHovered, setIsHovered] = useState(false)
@@ -143,7 +79,58 @@ export default function Home() {
   const [partnerScroll, setPartnerScroll] = useState(0)
   const [partnerScrollAmount, setPartnerScrollAmount] = useState(0)
   const partnerScrollRef = useRef<HTMLDivElement>(null)
+ const [insights, setInsights] = useState<Insight[]>([])
+  const [services, setServices] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [partners, setPartners] = useState<Partner[]>([])
 
+  const loadInsights = async () => {
+    try {
+          setLoading(true)
+          setError(null)
+          const response = await fetchInsights("isActive=true&limit=100")
+          const data = response.insights || response.data || response
+          if (Array.isArray(data)) {
+            setInsights(data)
+          } else if (data?.insights && Array.isArray(data.insights)) {
+            setInsights(data.insights)
+          } else {
+            setInsights([])
+          }
+        } catch (err) {
+          console.error("Error loading insights:", err)
+          setError("Failed to load insights.")
+        } finally {
+          setLoading(false)
+        }
+      }
+          useEffect(() => {
+      loadInsights()
+      fetchPartners()
+      fetchServices()
+    }, [])
+  
+  async function fetchPartners() {
+    setLoading(true)
+    try {
+      const res = await api.get("/partners")
+      setPartners(res.data)
+    } catch (err: any) {
+        console.error('Error fetching partners:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function fetchServices() {
+    try {
+      const res = await api.get("/services")
+      setServices(res.data.data || res.data)
+    } catch (err: any) {
+      console.error('Error fetching services:', err)
+    }
+  }
   // Generate random positions once on mount to avoid hydration mismatch
   const [randomPositions] = useState(() =>
     [...Array(12)].map(() => ({
@@ -379,32 +366,19 @@ export default function Home() {
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              {[
-                {
-                  title: 'Data Analytics',
-                  description: 'Transform raw data into strategic insights',
-                  gradient: 'from-blue-500 to-cyan-500',
-                  link: '/services?service=data-analytics'
-                },
-                {
-                  title: 'Actuarial Services',
-                  description: 'Quantitative expertise and risk assessment',
-                  gradient: 'from-emerald-500 to-teal-500',
-                  link: '/services?service=actuarial'
-                },
-                {
-                  title: 'Business Intelligence',
-                  description: 'Data-driven ecosystems and BI solutions',
-                  gradient: 'from-primary-500 to-primary-600',
-                  link: '/services?service=business-intelligence'
-                },
-                {
-                  title: 'Credit Rating',
-                  description: 'Comprehensive credit evaluation services',
-                  gradient: 'from-orange-500 to-red-500',
-                  link: '/services?service=credit-rating'
-                }
-              ].map((service, idx) => (
+              {loading ? (
+                <div className="col-span-full flex justify-center py-12">
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                services.slice(0, 4).map((service, idx) => {
+                const gradients = [
+                  'from-blue-500 to-cyan-500',
+                  'from-emerald-500 to-teal-500', 
+                  'from-primary-500 to-primary-600',
+                  'from-orange-500 to-red-500'
+                ];
+                return (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
@@ -414,10 +388,10 @@ export default function Home() {
                   whileHover={{ y: -8 }}
                   className="group"
                 >
-                  <Link href={service.link}>
+                  <Link href={`/services?service=${service.id}`}>
                     <div className="relative h-full cursor-pointer">
                       {/* Background Gradient Blur */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradients[idx % gradients.length]} rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
                       
                       {/* Card Content */}
                       <div className="relative bg-white dark:bg-secondary-800 rounded-2xl p-6 border border-secondary-200 dark:border-secondary-700 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
@@ -425,13 +399,11 @@ export default function Home() {
 
                         {/* Title */}
                         <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
-                          {service.title}
+                          {service.name}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-4 flex-grow">
-                          {service.description}
-                        </p>
+                        <div className="text-sm text-secondary-600 dark:text-secondary-400 mb-4 flex-grow" dangerouslySetInnerHTML={{ __html: service.description?.substring(0, 100) + '...' || 'No description available' }} />
 
                         {/* CTA Link */}
                         <motion.div
@@ -446,7 +418,9 @@ export default function Home() {
                     </div>
                   </Link>
                 </motion.div>
-              ))}
+              )
+              })
+              )}
             </div>
 
             {/* View All Services CTA */}
@@ -524,9 +498,15 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              {insights.slice(0, 3).map((insight, index) => (
-                <InteractiveInsightCard key={insight.title} insight={insight} index={index} />
-              ))}
+              {loading ? (
+                <div className="col-span-full flex justify-center py-12">
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                insights.slice(0, 3).map((insight, index) => (
+                  <InteractiveInsightCard key={insight.title} insight={insight} index={index} />
+                ))
+              )}
             </div>
 
             <motion.div
@@ -622,7 +602,13 @@ export default function Home() {
                     whileHover={{ y: -8, scale: 1.08 }}
                     className="group flex-shrink-0 w-56"
                   >
-                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl">
+                    <a 
+                      href={partner.websiteUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-secondary-800 border border-secondary-200/50 dark:border-secondary-700/50 hover:border-primary-500/50 transition-all duration-300 hover:shadow-2xl cursor-pointer">
                       {/* Glowing background effect */}
                       <motion.div
                         animate={{
@@ -645,30 +631,20 @@ export default function Home() {
                               opacity: [0.3, 0.6, 0.3]
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-primary-500/20 rounded-xl"
+                            className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-primary-500/20 w-32 h-16 rounded-xl"
                           />
-                          <span className="relative">{partner.name.split(' ').map(word => word[0]).join('')}</span>
+                          <Image className="max-h-full max-w-full object-contain" src={partner.image} alt={partner.name} width={200} height={80} />
                         </motion.div>
 
                         <div className="relative">
                           <h3 className="text-sm font-bold text-secondary-900 dark:text-white mb-1 group-hover:text-primary transition-colors line-clamp-1">
                             {partner.name}
                           </h3>
-                          <motion.p 
-                            animate={{ opacity: [0.6, 1, 0.6] }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                            className="text-xs text-secondary-600 dark:text-secondary-400 font-medium inline-flex items-center gap-1"
-                          >
-                            <motion.span
-                              animate={{ scale: [1, 1.3, 1] }}
-                              transition={{ duration: 2, repeat: Infinity }}
-                              className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-primary-500"
-                            />
-                            {partner.category}
-                          </motion.p>
+                    
                         </div>
                       </div>
-                    </div>
+                      </div>
+                    </a>
                   </motion.div>
                 ))}
                 </motion.div>

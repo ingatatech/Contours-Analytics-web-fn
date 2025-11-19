@@ -217,7 +217,7 @@ export const createServiceCategory = async (data: {
   isActive?: boolean;
   order?: number;
 }) => {
-  const response = await api.post("/services/categories", data);
+  const response = await api.post("/services", data);
   return response.data;
 };
 
@@ -231,18 +231,13 @@ export const updateServiceCategory = async (
     order?: number;
   }
 ) => {
-  const response = await api.patch(`/services/categories/${id}`, data);
+  const response = await api.patch(`/services/${id}`, data);
   return response.data;
 };
 
 export const deleteServiceCategory = async (id: string) => {
-  const response = await api.delete(`/services/categories/${id}`);
+  const response = await api.delete(`/services/${id}`);
   return response.data;
 };
 
-export const fetchServicesByCategory = async (categorySlug: string) => {
-  const response = await api.get(
-    `/services?category=${categorySlug}&limit=100`
-  );
-  return response.data;
-};
+

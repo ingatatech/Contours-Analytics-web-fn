@@ -6,46 +6,92 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { servicesData } from '@/lib/servicesData'
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
+import api from '@/lib/axios'
 
 export default function ServicesPage() {
   const searchParams = useSearchParams()
   const [selectedServiceId, setSelectedServiceId] = useState<string>('')
   const [selectedSubServiceId, setSelectedSubServiceId] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [services, setServices] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
  
+
+  const fetchServices = async () => {
+    try {
+      setLoading(true)
+      const res = await api.get('/services')
+      setServices(res.data.data || res.data)
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     setMounted(true)
-    // Get service from URL params
-    const service = searchParams?.get('service')
-    if (service && servicesData.find(s => s.id === service)) {
-      setSelectedServiceId(service)
-      // Set first sub-service by default
-      const selectedSvc = servicesData.find(s => s.id === service)
-      if (selectedSvc?.subServices[0]) {
-        setSelectedSubServiceId(selectedSvc.subServices[0].id)
-      }
-    } else if (servicesData[0]) {
-      setSelectedServiceId(servicesData[0].id)
-      setSelectedSubServiceId(servicesData[0].subServices[0]?.id || null)
-    }
-  }, [searchParams])
+    fetchServices()
+  }, [])
 
-  if (!mounted) {
-    return <div className="min-h-screen bg-white" />
+  useEffect(() => {
+    if (services.length > 0) {
+      // Get service from URL params
+      const service = searchParams?.get('service')
+      if (service && services.find(s => s.id === service)) {
+        setSelectedServiceId(service)
+        // Set first sub-service by default
+        const selectedSvc = services.find(s => s.id === service)
+        if (selectedSvc?.subServices[0]) {
+          setSelectedSubServiceId(selectedSvc.subServices[0].id)
+        }
+      } else if (services[0]) {
+        setSelectedServiceId(services[0].id)
+        setSelectedSubServiceId(services[0].subServices[0]?.id || null)
+      }
+    }
+  }, [searchParams, services])
+
+  if (!mounted || loading) {
+    return <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading services...</p>
+      </div>
+    </div>
   }
 
-  const selectedService = servicesData.find(s => s.id === selectedServiceId)
-  const selectedSubService = selectedService?.subServices.find(sub => sub.id === selectedSubServiceId)
+  const selectedService = services.find(s => s.id === selectedServiceId)
+  const selectedSubService = selectedService?.subServices?.find(sub => sub.id === selectedSubServiceId)
+
+  // Debug logging
+  console.log('Services:', services)
+  console.log('Selected Service ID:', selectedServiceId)
+  console.log('Selected Service:', selectedService)
+
+  if (services.length === 0) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600 mb-4">No services available</p>
+          <Link href="/">
+            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              Back to Home
+            </button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   if (!selectedService) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-600 mb-4">Service not found</p>
+          <p className="text-sm text-gray-500 mb-4">Available services: {services.map(s => s.name).join(', ')}</p>
           <Link href="/">
             <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
               Back to Home
@@ -110,7 +156,7 @@ export default function ServicesPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className=""
             >
-              <p className="text-lg  text-white leading-relaxed max-w-6xl">{selectedService.description}</p>
+              <div className="text-lg text-white leading-relaxed max-w-6xl" dangerouslySetInnerHTML={{ __html: selectedService.description }} />
             </motion.div>
 
          
@@ -129,7 +175,7 @@ export default function ServicesPage() {
                  Our Solutions
                 </h3>
                 <div className="space-y-2">
-                  {selectedService.subServices.map((subSvc) => (
+                  {selectedService.subServices?.map((subSvc) => (
                     <motion.button
                       key={subSvc.id}
                       onClick={() => setSelectedSubServiceId(subSvc.id)}
@@ -167,9 +213,7 @@ export default function ServicesPage() {
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">
                      {selectedSubService.name}
                     </h2>
-                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                     {selectedSubService.description}
-                    </p>
+                    <div className="text-lg text-gray-700 leading-relaxed mb-6" dangerouslySetInnerHTML={{ __html: selectedSubService.description }} />
 
                   
                   </div>
@@ -180,8 +224,8 @@ export default function ServicesPage() {
                      Key Contacts
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {selectedSubService.keyContacts.map((contact, idx) => {
-                        const contactId = `${selectedSubService.id}-${idx}`
+                      {selectedService.teamMembers?.map((contact, idx) => {
+                        const contactId = `${selectedService.id}-${idx}`
 
                         return (
                           <motion.div
@@ -245,9 +289,7 @@ export default function ServicesPage() {
                                   <h4 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors duration-300">
                                    {contact.name}
                                   </h4>
-                                  <p className="text-sm font-semibold text-blue-600">
-                                   {contact.title}
-                                  </p>
+                                  <div className="text-sm font-semibold text-blue-600" dangerouslySetInnerHTML={{ __html: contact.position }} />
                                 </div>
 
                                 {/* Contact Section */}

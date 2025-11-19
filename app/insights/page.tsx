@@ -9,7 +9,7 @@ import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import Image
  from 'next/image'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
-import { subscribeNewsletter } from '@/lib/api'
+import { fetchInsights, subscribeNewsletter } from '@/lib/api'
 interface Insight {
   id: string
   title: string
@@ -19,64 +19,12 @@ interface Insight {
   image: string
 }
 
-const insights: Insight[] = [
-  {
-    id: '1',
-    title: 'Leveraging Predictive Analytics for Business Growth',
-    category: 'Analytics',
-    content: 'Discover how predictive analytics can help your organization anticipate market trends and make proactive decisions.',
-    createdAt: '2024-11-15',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: '2',
-    title: 'IFRS 17 Compliance: A Comprehensive Guide',
-    category: 'Actuarial',
-    content: 'Navigate the complexities of IFRS 17 implementation with our expert insights and best practices.',
-    createdAt: '2024-11-12',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: '3',
-    title: 'Building a Data-Driven Organization',
-    category: 'Business Intelligence',
-    content: 'Transform your organization with a strategic approach to data management and analytics.',
-    createdAt: '2024-11-10',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: '4',
-    title: 'Credit Risk Assessment in Uncertain Times',
-    category: 'Credit Rating',
-    content: 'Comprehensive strategies for evaluating credit risk in volatile economic conditions.',
-    createdAt: '2024-11-08',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop'
-  },
-  {
-    id: '5',
-    title: 'AI-Powered Risk Management Solutions',
-    category: 'Technology',
-    content: 'Explore how artificial intelligence is revolutionizing risk management across categories.',
-    createdAt: '2024-11-05',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  },
-  {
-    id: '6',
-    title: 'ESG Reporting: Best Practices and Frameworks',
-    category: 'Sustainability',
-    content: 'A comprehensive guide to environmental, social, and governance reporting standards.',
-    createdAt: '2024-11-02',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop'
-  }
-]
-
-
 
 
 export default function InsightsPage() {
   const [isClient, setIsClient] = useState(false)
     const [showFilters, setShowFilters] = useState(false)
-  // const [insights, setInsights] = useState<Insight[]>([])
+  const [insights, setInsights] = useState<Insight[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [email, setEmail] = useState("")
@@ -85,7 +33,29 @@ export default function InsightsPage() {
   const [categories, setcategories] = useState<[]>([])
   const [categoryFilter, setcategoryFilter] = useState("All categories")
   const [searchTerm, setSearchTerm] = useState("")
-
+  useEffect(() => {
+    const loadInsights = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        const response = await fetchInsights("isActive=true&limit=100")
+        const data = response.insights || response.data || response
+        if (Array.isArray(data)) {
+          setInsights(data)
+        } else if (data?.insights && Array.isArray(data.insights)) {
+          setInsights(data.insights)
+        } else {
+          setInsights([])
+        }
+      } catch (err) {
+        console.error("Error loading insights:", err)
+        setError("Failed to load insights.")
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadInsights()
+  }, [])
 
    const filteredInsights = insights.filter((insight) => {
     const matchesSearch =

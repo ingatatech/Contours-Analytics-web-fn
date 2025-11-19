@@ -26,7 +26,6 @@ import {
   createServiceCategory,
   updateServiceCategory,
   deleteServiceCategory,
-  fetchServicesByCategory,
 } from "@/lib/api";
 import RichTextEditor from "../ui/RichTextEditor";
 import { DragDropContext, Droppable, DroppableProvided, Draggable, DraggableProvided, DropResult } from "@hello-pangea/dnd";
@@ -42,6 +41,7 @@ export interface ServiceCategory {
   description: string;
   teamMemberIds: string[];
   teamMembers: TeamMember[];
+  subServices: Service[];
   isActive: boolean;
   order: number;
   createdAt: string;
@@ -51,8 +51,7 @@ export interface ServiceCategory {
 export interface Service {
   id: string;
   name: string;
-  title: string;
-  serviceDescription: string;
+  description: string;
   isActive: boolean;
   order: number;
   createdAt: string;
@@ -205,8 +204,8 @@ export default function AdminServiceCategories() {
     try {
       setServicesLoading(true);
       setViewingCategory(category);
-      const res = await fetchServicesByCategory(category.id);
-      setCategoryServices(res.data || []);
+      const res = await fetchServiceCategories();
+      setCategoryServices(res.data.find(cat => cat.id === category.id)?.subServices || []);
       setShowServicesModal(true);
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to fetch services");
@@ -244,7 +243,7 @@ export default function AdminServiceCategories() {
     newCategories.splice(destIndex, 0, removed);
     const categoryIds = newCategories.map((teamMember: ServiceCategory) => teamMember.id);
     try {
-      await api.put("/services/categories/reorder", { categoryIds })
+      await api.put("/services/reorder", { categoryIds })
       toast.success("Categories order updated successfully!")
       fetchServiceCategories()
     } catch (err: any) {
@@ -270,10 +269,10 @@ export default function AdminServiceCategories() {
   return (
     <AdminLayout>
        {/* Page Header */}
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-1 sm:space-y-0">
             
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Briefcase className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
@@ -300,7 +299,7 @@ export default function AdminServiceCategories() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 space-y-4"
+        className="py-4 space-y-4"
       >
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="relative flex-1">
@@ -961,9 +960,6 @@ export default function AdminServiceCategories() {
                               </Badge>
                             </div>
 
-                            <p className="text-gray-700 text-sm leading-relaxed mb-3">
-                              {service.title}
-                            </p>
 
                             <div className="text-xs text-gray-500">
                               Created:{" "}

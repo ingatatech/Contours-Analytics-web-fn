@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Plus, Minus } from 'lucide-react'
+import api from '@/lib/axios'
+import LoadingSpinner from '../ui/LoadingSpinner'
 
 
 export default function Navigation() {
@@ -14,9 +16,24 @@ export default function Navigation() {
   const [isDark, setIsDark] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [mobileWhoWeAreOpen, setMobileWhoWeAreOpen] = useState(false)
+  const [services, setServices] = useState<any[]>([])
+  const [servicesLoading, setServicesLoading] = useState(false)
+
+  const fetchServices = async () => {
+    try {
+      setServicesLoading(true)
+      const res = await api.get('/services/categories')
+      setServices(res.data.data || res.data)
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    } finally {
+      setServicesLoading(false)
+    }
+  }
 
   useEffect(() => {
     setMounted(true)
+    fetchServices()
     const isDarkMode = localStorage.getItem('theme') === 'dark' || 
       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
     setIsDark(isDarkMode)
@@ -146,42 +163,23 @@ export default function Navigation() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-secondary-900 rounded-xl shadow-2xl dark:border-secondary-700 py-2 overflow-hidden"
                   >
-                    <Link
-                      href="/services?service=data-analytics"
-                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
-                    >
-                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                        Data Analytics
+                    {servicesLoading ? (
+                      <div className="flex justify-center py-4">
+                        <LoadingSpinner size="sm" />
                       </div>
-                    
-                    </Link>
-                    <Link
-                      href="/services?service=actuarial"
-                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
-                    >
-                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                        Actuarial Services
-                      </div>
-                      
-                    </Link>
-                    <Link
-                      href="/services?service=business-intelligence"
-                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
-                    >
-                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                        Business Intelligence
-                      </div>
-                    
-                    </Link>
-                    <Link
-                      href="/services?service=credit-rating"
-                      className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
-                    >
-                      <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                        Credit Rating
-                      </div>
-                     
-                    </Link>
+                    ) : (
+                      services.map((service) => (
+                        <Link
+                          key={service.id}
+                          href={`/services?service=${service.id}`}
+                          className="block px-4 py-3 hover:bg-secondary-50 dark:hover:bg-secondary-800 transition-colors group"
+                        >
+                          <div className="text-sm font-semibold text-secondary-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                            {service.name}
+                          </div>
+                        </Link>
+                      ))
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -308,34 +306,16 @@ export default function Navigation() {
                       className="overflow-hidden"
                     >
                       <div className="pl-4 pt-2 pb-2 space-y-1">
-                        <Link
-                          href="/services?service=data-analytics"
-                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Data Analytics
-                        </Link>
-                        <Link
-                          href="/services?service=actuarial"
-                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Actuarial Services
-                        </Link>
-                        <Link
-                          href="/services?service=business-intelligence"
-                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Business Intelligence
-                        </Link>
-                        <Link
-                          href="/services?service=credit-rating"
-                          className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Credit Rating
-                        </Link>
+                        {services.map((service) => (
+                          <Link
+                            key={service.id}
+                            href={`/services?service=${service.id}`}
+                            className="block p-2 text-sm text-secondary-600 dark:text-secondary-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-50 dark:hover:bg-secondary-800 rounded-lg transition-colors"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {service.name}
+                          </Link>
+                        ))}
                       </div>
                     </motion.div>
                   )}

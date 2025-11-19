@@ -21,10 +21,11 @@ import {
   AwardIcon,
 } from "lucide-react";
 import Image from "next/image";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ProfileModal from "./ProfileSettings";
 import {useRouter } from "next/navigation";
 import { fetchCurrentUser } from "@/lib/api";
+import Link from "next/link";
 interface ExpandedSectionsState {
   overall: boolean;
   services: boolean;
@@ -164,15 +165,23 @@ export default function AdminLayoutStructure({
           <div className="p-4">
             {/* Top Row - Logo and Close Button */}
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <LayoutDashboard className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">Admin</h2>
-                  <p className="text-xs text-gray-500">Dashboard</p>
-                </div>
-              </div>
+
+              
+                       <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex-shrink-0"
+          >
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.jpeg"
+                alt="Contours Analytics"
+                width={200}
+                height={80}
+                className="h-12 w-auto"
+              />
+            </Link>
+          </motion.div>
+              
 
               {/* Close Button for Mobile */}
               <button
@@ -183,11 +192,7 @@ export default function AdminLayoutStructure({
               </button>
             </div>
 
-            {/* Status Indicator */}
-            <div className="flex items-center gap-2 mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium text-green-700">System Online</span>
-            </div>
+           
           </div>
         </div>
 

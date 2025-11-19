@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchLeaders } from "@/lib/api";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import ExploreServicesButton from "@/components/ui/ExploreServicesButton";
 
 // Leader interface type
 interface Leader {
@@ -365,12 +366,7 @@ export default function LeadershipPage() {
                 >
                   Contact Us Today
                 </a>
-                <a
-                  href="/services"
-                  className="bg-transparent border-2 border-white/20 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-all duration-200"
-                >
-                  Explore Our Services
-                </a>
+                <ExploreServicesButton />
               </div>
             </div>
           </div>

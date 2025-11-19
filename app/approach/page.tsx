@@ -2,6 +2,7 @@
 
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
+import ExploreServicesButton from '@/components/ui/ExploreServicesButton'
 import { motion, useScroll } from 'framer-motion'
 import { Target, Database, BarChart3, Eye, Rocket, CheckCircle, ArrowRight, Users, Clock, Award, Zap, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
@@ -171,15 +172,7 @@ export default function ApproachPage() {
                Our Process
               </motion.a>
                 </motion.div>
-                              <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link href="/contact-us" className="inline-flex items-center border-2 border-white/30 text-white px-10 py-3 rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 group">
-                    Get Started Today
-                    <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
-                  </Link>
-                </motion.div>
+            <ExploreServicesButton />
             </motion.div>
           </motion.div>
         </div>

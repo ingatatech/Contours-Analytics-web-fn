@@ -10,17 +10,12 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 interface Leader {
   id: string
   name: string
-  title: string
+  position: string
   bio: string
   image: string
-  location: string
-  experience: number
-  projectsLed: number
-  linkedinUrl?: string
+  linkedin?: string
   email?: string
   phone?: string
-  education: string[]
-  realisedProjects: string
   order: number
   isActive: boolean
   createdAt: string
@@ -56,9 +51,6 @@ export default function LeadershipPage() {
     loadLeaders();
   }, []);
 
-
-  const totalExperience = leaders.reduce((sum, leader) => sum + leader.experience, 0);
-  const totalProjects = leaders.reduce((sum, leader) => sum + leader.projectsLed, 0);
 
   return (
     <>
@@ -222,13 +214,13 @@ export default function LeadershipPage() {
           className="relative group cursor-pointer"
         >
           {/* Main Card */}
-          <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 h-[373px]">
+          <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 h-[420px]">
             
         
             {/* LinkedIn Badge */}
-            {leader.linkedinUrl && (
+            {leader.linkedin && (
               <a
-                href={leader.linkedinUrl}
+                href={leader.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-6 right-6 z-20 flex items-center justify-center w-11 h-11 rounded-xl bg-white shadow-lg text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-110 hover:rotate-6"
@@ -271,8 +263,12 @@ export default function LeadershipPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors duration-300">
                   {leader.name}
                 </h3>
-                <p className="text-sm font-semibold text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: leader.title}}/>
-            
+                <p className="text-sm font-semibold text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: leader.position}}/>
+                
+                {/* Bio */}
+                {leader.bio && (
+                  <div className="text-xs text-gray-600 mb-3 line-clamp-3" dangerouslySetInnerHTML={{ __html: leader.bio }} />
+                )}
               </div>
 
               {/* Contact Section */}
@@ -309,21 +305,7 @@ export default function LeadershipPage() {
                   </div>
                 )}
 
-                  {/* location */}
-                {leader.location && (
-                  <div className="flex items-center text-gray-700 text-sm hover:translate-x-1 transition-transform duration-200">
-                    <div className="w-9 h-9 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center mr-3 group-hover:from-emerald-200 group-hover:to-teal-200 transition-all duration-300 shadow-sm">
-                      <MapPin className="w-4 h-4 text-emerald-600" />
-                    </div>
-                    <p
-                      
-                      className="hover:text-emerald-700 transition-colors duration-200 font-medium"
-                 
-                    >
-                      {leader.location}
-                    </p>
-                  </div>
-                )}
+             
               </div>
             </div>
 
@@ -357,26 +339,6 @@ export default function LeadershipPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { number: loading ? "..." : `${totalExperience}+`, label: "Years Combined Experience", icon: Award },
-                { number: loading ? "..." : `${totalProjects}+`, label: "Projects Successfully Led", icon: Briefcase },
-                { number: loading ? "..." : leaders.length.toString(), label: "Senior Leaders", icon: Users },
-                { number: "100%", label: "Client Satisfaction Rate", icon: GraduationCap }
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300"
-                >
-                  <stat.icon className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                  <div className="text-3xl font-bold text-gray-800 mb-2">{stat.number}</div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 

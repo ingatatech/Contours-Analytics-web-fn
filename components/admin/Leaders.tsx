@@ -58,6 +58,7 @@ import api from "@/lib/axios";
 
 import { AnimatePresence, motion } from "framer-motion";
 import DeleteConfirmationModal from "../ui/DeleteConfirmationModal";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function LeadersPage() {
   const [leaders, setLeaders] = useState<TeamMember[]>([]);
@@ -345,8 +346,7 @@ const errorData = err.response?.data;
                 <TableRow>
                   <TableCell colSpan={6} className="text-center py-12">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="w-4 h-4 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
-                      <span className="text-slate-600">Loading leaders...</span>
+                     <LoadingSpinner/>
                     </div>
                   </TableCell>
                 </TableRow>

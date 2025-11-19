@@ -188,7 +188,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
         
         <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
             <Newspaper className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </div>
           <div>
@@ -203,7 +203,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     
         <Button
           onClick={() => openModal()}
-          className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
+          className="bg-primary-500 hover:bg-primary-500/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
         >
           <Plus className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
           Add Insight

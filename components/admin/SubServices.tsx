@@ -48,10 +48,9 @@ import RichTextEditor from "../ui/RichTextEditor";
 interface ServiceCategory {
   id: string;
   name: string;
-  slug: string;
   description: string;
   isActive: boolean;
-  sortOrder: number;
+  order: number;
 }
 
 
@@ -60,11 +59,10 @@ interface ServiceCategory {
 
 interface Service {
   id: string;
-  slug: string;
   name: string;
   serviceDescription: string;
   isActive: boolean;
-  sortOrder: number;
+  order: number;
   category: ServiceCategory;
   createdAt: string;
   updatedAt: string;
@@ -72,7 +70,6 @@ interface Service {
 
 interface ServiceFormData {
   name: string;
-  slug: string;
   serviceDescription: string;
   categoryId: string;
   isActive: boolean;
@@ -94,7 +91,6 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [formData, setFormData] = useState<ServiceFormData>({
     name: "",
-    slug: "",
     serviceDescription: "",
     categoryId: "",
     isActive: true,
@@ -150,7 +146,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("/services/categories/all");
+      const response = await axios.get("/services");
       setCategories(response.data.data);
     } catch (error) {
       toast.error("Failed to fetch categories");
@@ -213,7 +209,6 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   const resetForm = () => {
     setFormData({
       name: "",
-      slug: "",
       serviceDescription: "",
       categoryId: "",
       isActive: true,
@@ -226,7 +221,6 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     setSelectedService(service);
     setFormData({
       name: service.name,
-      slug: service.slug,
       serviceDescription: service.serviceDescription,
       categoryId: service.category.id,
       isActive: service.isActive,
@@ -241,12 +235,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   };
 
 
-  const generateSlug = (name: string) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  };
+
 
   // Clear filters function
   const clearFilters = () => {
@@ -311,7 +300,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                 <SelectContent>
                   <SelectItem value="all">All Services</SelectItem>
                   {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.slug}>
+                    <SelectItem key={category.id} value={category.id}>
                       {category.name}
                     </SelectItem>
                   ))}
@@ -517,27 +506,12 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                           setFormData((prev) => ({
                             ...prev,
                             name,
-                            slug: generateSlug(name),
                           }));
                         }}
                         required
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="slug">Slug</Label>
-                      <Input
-                        id="slug"
-                        value={formData.slug}
-                        onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            slug: e.target.value,
-                          }))
-                        }
-                        disabled
-                        required
-                      />
-                    </div>
+                 
                   </div>
 
                   <div className="space-y-2">
@@ -627,14 +601,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                           </Label>
                           <h3 className="text-xl font-bold text-slate-900">{selectedService.name}</h3>
                         </div>
-                        <div>
-                          <Label className="text-xs uppercase tracking-wide font-semibold text-slate-500 mb-2 block">
-                            Service Slug
-                          </Label>
-                          <code className="text-sm bg-slate-100 px-3 py-1 rounded-md font-mono text-slate-800">
-                            {selectedService.slug}
-                          </code>
-                        </div>
+                   
                       </div>
                       <div className="space-y-4">
                         <div>

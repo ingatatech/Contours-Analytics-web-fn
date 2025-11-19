@@ -21,7 +21,7 @@ interface Leader {
   phone?: string
   education: string[]
   realisedProjects: string
-  sortOrder: number
+  order: number
   isActive: boolean
   createdAt: string
   updatedAt: string
@@ -39,7 +39,7 @@ export default function LeadershipPage() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetchLeaders("isActive=true&limit=200&sortBy=sortOrder&sortOrder=asc");
+        const response = await fetchLeaders("isActive=true&limit=200&sortBy=order&order=asc");
         const data = response.leaders || response.data || response;
         
         // Handle both array response and object with leaders property

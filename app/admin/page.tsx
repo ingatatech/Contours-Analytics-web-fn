@@ -331,7 +331,7 @@ export default function AdminDashboard() {
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="border border-gray-200 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="border border-gray-200 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             >
               <option value="monthly">Monthly View ({currentYear})</option>
             </select>
@@ -357,7 +357,7 @@ export default function AdminDashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <div className="bg-gradient-to-r from-primary via-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-gradient-to-r from-primary-500 via-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="relative z-10 flex items-center justify-between">
             <div>

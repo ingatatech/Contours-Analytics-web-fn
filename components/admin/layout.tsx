@@ -71,7 +71,6 @@ export default function AdminLayoutStructure({
           icon: Briefcase,
         },
         { title: "Sub-Services", href: "/admin/services", icon: Package },
-        { title: "Industries", href: "/admin/industries", icon: Tags },
       ],
     },
     {
@@ -80,11 +79,7 @@ export default function AdminLayoutStructure({
       icon: Newspaper,
       children: [
         { title: "Insights", href: "/admin/insights", icon: Newspaper },
-        {
-          title: "Testimonials",
-          href: "/admin/testimonials",
-          icon: MessageSquareQuote,
-        },
+     
         {
           title: "Contact Messages",
           href: "/admin/contact-messages",

@@ -52,7 +52,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Leaders } from "@/lib/types/Leader";
+import { Leaders } from "@/lib/types/TeamMember";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
 

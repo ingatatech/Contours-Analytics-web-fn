@@ -129,13 +129,9 @@ export const fetchServiceById = async (id: string) => {
   return response.data;
 };
 
-export const fetchServiceBySlug = async (slug: string) => {
-  const response = await api.get(`/services/slug/${slug}`);
-  return response.data;
-};
 
 export const fetchServiceCategories = async () => {
-  const response = await api.get("/services/categories/all");
+  const response = await api.get("/services");
   return response.data;
 };
 
@@ -217,10 +213,9 @@ export const fetchLeaderById = async (id: string) => {
 
 export const createServiceCategory = async (data: {
   name: string;
-  slug: string;
   description: string;
   isActive?: boolean;
-  sortOrder?: number;
+  order?: number;
 }) => {
   const response = await api.post("/services/categories", data);
   return response.data;
@@ -233,7 +228,7 @@ export const updateServiceCategory = async (
     slug?: string;
     description?: string;
     isActive?: boolean;
-    sortOrder?: number;
+    order?: number;
   }
 ) => {
   const response = await api.patch(`/services/categories/${id}`, data);

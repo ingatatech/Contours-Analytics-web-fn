@@ -33,18 +33,17 @@ import { DragDropContext, Droppable, DroppableProvided, Draggable, DraggableProv
 import api from "@/lib/axios";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Label } from "../ui/label";
-import { Leaders } from "@/lib/types/Leader";
+import { TeamMember } from "@/lib/types/TeamMember";
 import LoadingSpinner from "../ui/LoadingSpinner";
 
 export interface ServiceCategory {
   id: string;
   name: string;
-  slug: string;
   description: string;
-  leaderIds: string[];
-  leaders: Leaders[];
+  teamMemberIds: string[];
+  teamMembers: TeamMember[];
   isActive: boolean;
-  sortOrder: number;
+  order: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -53,17 +52,16 @@ export interface Service {
   id: string;
   name: string;
   title: string;
-  slug: string;
   serviceDescription: string;
   isActive: boolean;
-  sortOrder: number;
+  order: number;
   createdAt: string;
   updatedAt: string;
 }
 
 export default function AdminServiceCategories() {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
-    const [leaders, setLeaders] = useState<Leaders[]>([]);
+    const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -80,18 +78,16 @@ export default function AdminServiceCategories() {
   const [servicesLoading, setServicesLoading] = useState(false);
   const [formData, setFormData] = useState<{
     name: string;
-    slug: string;
     description: string;
-    leaderIds: string[];
+    teamMemberIds: string[];
     isActive: boolean;
-    sortOrder: number;
+    order: number;
   }>({
     name: "",
-    slug: "",
     description: "",
-    leaderIds: [],
+    teamMemberIds: [],
     isActive: true,
-    sortOrder: 0,
+    order: 0,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -99,7 +95,7 @@ export default function AdminServiceCategories() {
 
   useEffect(() => {
     loadCategories();
-    fetchLeaders();
+    fetchTeamMembers();
   }, []);
 
   async function loadCategories() {
@@ -114,12 +110,12 @@ export default function AdminServiceCategories() {
       setLoading(false);
     }
   }
-  const fetchLeaders = async () => {
+  const fetchTeamMembers = async () => {
     try {
-      const response = await api.get("/leaders");
-      setLeaders(response.data.data);
+      const response = await api.get("team");
+      setTeamMembers(response.data.data);
     } catch (error) {
-      toast.error("Failed to fetch leaders");
+      toast.error("Failed to fetch teamMembers");
     }
   };
   async function handleSave() {
@@ -149,11 +145,10 @@ export default function AdminServiceCategories() {
     setEditingCategory(category);
     setFormData({
       name: category.name,
-      slug: category.slug,
       description: category.description,
-      leaderIds: category.leaders.map((e) => e.id),
+      teamMemberIds: category.teamMembers.map((e) => e.id),
       isActive: category.isActive,
-      sortOrder: category.sortOrder,
+      order: category.order,
     });
     setShowModal(true);
   }
@@ -190,11 +185,10 @@ export default function AdminServiceCategories() {
   function resetForm() {
     setFormData({
       name: "",
-      slug: "",
       description: "",
-      leaderIds: [],
+      teamMemberIds: [],
       isActive: true,
-      sortOrder: 0,
+      order: 0,
     });
   }
 
@@ -204,25 +198,13 @@ export default function AdminServiceCategories() {
     setShowModal(true);
   }
 
-  function generateSlug(name: string) {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
-  }
 
-  function handleNameChange(name: string) {
-    const slug = generateSlug(name);
-    setFormData({ ...formData, name, slug });
-  }
 
   async function handleViewServices(category: ServiceCategory) {
     try {
       setServicesLoading(true);
       setViewingCategory(category);
-      const res = await fetchServicesByCategory(category.slug);
+      const res = await fetchServicesByCategory(category.id);
       setCategoryServices(res.data || []);
       setShowServicesModal(true);
     } catch (err: any) {
@@ -235,7 +217,6 @@ export default function AdminServiceCategories() {
   const filteredCategories = categories.filter((category) => {
     const matchesSearch =
       category?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      category?.slug?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       category?.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus =
@@ -260,7 +241,7 @@ export default function AdminServiceCategories() {
     const newCategories = Array.from(categories);
     const [removed] = newCategories.splice(sourceIndex, 1);
     newCategories.splice(destIndex, 0, removed);
-    const categoryIds = newCategories.map((leader: ServiceCategory) => leader.id);
+    const categoryIds = newCategories.map((teamMember: ServiceCategory) => teamMember.id);
     try {
       await api.put("/services/categories/reorder", { categoryIds })
       toast.success("Categories order updated successfully!")
@@ -292,7 +273,7 @@ export default function AdminServiceCategories() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Briefcase className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
               <div>
@@ -307,7 +288,7 @@ export default function AdminServiceCategories() {
         
             <Button
               onClick={() => openAddModal()}
-              className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
+              className="bg-primary-500 hover:bg-primary-500/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
             >
               <Plus className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               Add Service
@@ -324,16 +305,16 @@ export default function AdminServiceCategories() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
-              placeholder="Search services by name, slug, or description..."
+              placeholder="Search services by name, or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 border-gray-200 focus:border-primary focus:ring-primary/20 h-12"
+              className="pl-12 border-gray-200 focus:border-primary-500 focus:ring-primary-500/20 h-12"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-3 rounded-lg bg-white border border-gray-200 text-gray-900 focus:border-primary focus:ring-primary/20 min-w-[180px]"
+            className="px-4 py-3 rounded-lg bg-white border border-gray-200 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20 min-w-[180px]"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -363,7 +344,7 @@ export default function AdminServiceCategories() {
             </p>
             <Button
               onClick={openAddModal}
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary-500 hover:bg-primary-500/90"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add First Category
@@ -375,7 +356,7 @@ export default function AdminServiceCategories() {
 							{(provided: DroppableProvided) => (
 								<div ref={provided.innerRef} {...provided.droppableProps} className="overflow-y-auto">
             <table className="w-full">
-              <thead className="bg-primary/5 border-b border-gray-200">
+              <thead className="bg-primary-500/5 border-b border-gray-200">
                 <tr>
                   <th className="px-3 py-4 text-left text-sm font-semibold text-gray-900">
                     #
@@ -410,7 +391,7 @@ export default function AdminServiceCategories() {
                         ref={provided.innerRef}
 															{...provided.draggableProps}
 															{...provided.dragHandleProps}
-                      className={`hover:bg-primary/5 transition-colors duration-200 ${snapshot.isDragging ? "bg-sky-100" : ""}`}
+                      className={`hover:bg-primary-500/5 transition-colors duration-200 ${snapshot.isDragging ? "bg-sky-100" : ""}`}
                     >
                       <td className="px-3 py-4 text-sm text-gray-900">
                         {(page - 1) * pageSize + index + 1}
@@ -476,7 +457,7 @@ export default function AdminServiceCategories() {
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(category)}
-                            className="border-primary/20 text-primary hover:bg-primary/5"
+                            className="border-primary-500/20 text-primary-500 hover:bg-primary-500/5"
                           >
                             <Edit className="w-4 h-4" />
                           </Button>
@@ -646,20 +627,20 @@ export default function AdminServiceCategories() {
                 </div>
 
                 {/* Key Contacts */}
-                {viewingCategory.leaders && viewingCategory.leaders.length > 0 && (
+                {viewingCategory.teamMembers && viewingCategory.teamMembers.length > 0 && (
                   <div className="space-y-4">
                     <h4 className="text-lg font-semibold text-gray-900">
                       Key Contacts
                     </h4>
                     <div className="bg-white border-2 border-gray-100 rounded-xl p-6">
                       <div className="flex flex-wrap gap-2">
-                        {viewingCategory.leaders.map((leader) => {
+                        {viewingCategory.teamMembers.map((teamMember) => {
                     
-                          return leader ? (
+                          return teamMember ? (
                             <Badge
-                              key={leader.id}
+                              key={teamMember.id}
                               className="text-sm px-3 py-1"
-                            dangerouslySetInnerHTML={{ __html:leader.name + "-" +leader.title}}/>
+                            dangerouslySetInnerHTML={{ __html:teamMember.name + "-" +teamMember.position}}/>
                               
 
                           ) : null;
@@ -753,23 +734,11 @@ export default function AdminServiceCategories() {
                     </label>
                     <Input
                       value={formData.name}
-                      onChange={(e) => handleNameChange(e.target.value)}
-                      placeholder="Enter service name..."
-                      className="border-gray-200 focus:border-primary focus:ring-primary/20"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Slug *
-                    </label>
-                    <Input
-                      value={formData.slug}
                       onChange={(e) =>
-                        setFormData({ ...formData, slug: e.target.value })
+                        setFormData({ ...formData, name: e.target.value })
                       }
-                      disabled
-                      placeholder="Enter URL slug..."
-                      className="border-gray-200 focus:border-primary focus:ring-primary/20"
+                      placeholder="Enter service name..."
+                      className="border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                     />
                   </div>
                 </div>
@@ -790,54 +759,54 @@ export default function AdminServiceCategories() {
                 </div>
                 
                                     <div className="space-y-2">
-                                      <Label htmlFor="leaderIds">Key Contact</Label>
+                                      <Label htmlFor="teamMemberIds">Key Contact</Label>
                                       <Select
                                         value=""
                                         onValueChange={(value) => {
-                                          if (!formData.leaderIds.includes(value)) {
+                                          if (!formData.teamMemberIds.includes(value)) {
                                             setFormData((prev) => ({
                                               ...prev,
-                                              leaderIds: [...prev.leaderIds, value],
+                                              teamMemberIds: [...prev.teamMemberIds, value],
                                             }));
                                           }
                                         }}
                                       >
                                         <SelectTrigger>
-                                          <SelectValue placeholder="Add leaders" />
+                                          <SelectValue placeholder="Add teamMembers" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                          {leaders
-                                            .filter(
-                                              (leader) =>
-                                                !formData.leaderIds.includes(leader.id)
+                                          {teamMembers
+                                            ?.filter(
+                                              (teamMember) =>
+                                                !formData.teamMemberIds.includes(teamMember.id)
                                             )
-                                            .map((leader) => (
-                                              <SelectItem key={leader.id} value={leader.id} >
-                                                {leader.name}
+                                            .map((teamMember) => (
+                                              <SelectItem key={teamMember.id} value={teamMember.id} >
+                                                {teamMember.name}
                                               </SelectItem>
                                             ))}
                                         </SelectContent>
                                       </Select>
-                                      {formData.leaderIds.length > 0 && (
+                                      {formData.teamMemberIds.length > 0 && (
                                         <div className="flex flex-wrap gap-2 mt-2">
-                                          {formData.leaderIds.map((leaderId) => {
-                                            const leader = leaders.find(
-                                              (e) => e.id === leaderId
+                                          {formData.teamMemberIds.map((teamMemberId) => {
+                                            const teamMember = teamMembers?.find(
+                                              (e) => e.id === teamMemberId
                                             );
-                                            return leader ? (
+                                            return teamMember ? (
                                               <Badge
-                                                key={leaderId}
+                                                key={teamMemberId}
                                                 variant="secondary"
                                                 className="flex items-center gap-1"
                                               >
-                                                {leader.name}
+                                                {teamMember.name}
                                                 <button
                                                   type="button"
                                                   onClick={() =>
                                                     setFormData((prev) => ({
                                                       ...prev,
-                                                      leaderIds: prev.leaderIds.filter(
-                                                        (id) => id !== leaderId
+                                                      teamMemberIds: prev.teamMemberIds.filter(
+                                                        (id) => id !== teamMemberId
                                                       ),
                                                     }))
                                                   }
@@ -862,7 +831,7 @@ export default function AdminServiceCategories() {
                             isActive: e.target.checked,
                           })
                         }
-                        className="rounded border-gray-300 text-primary focus:ring-primary"
+                        className="rounded border-gray-300 text-primary-500 focus:ring-primary"
                       />
                       <span className="text-sm font-medium text-gray-700">
                         Active
@@ -874,7 +843,7 @@ export default function AdminServiceCategories() {
               <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
                 <Button
                   onClick={handleSave}
-                  className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                  className="flex-1 bg-primary-500 hover:bg-primary-500/90 text-white"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center gap-2">
@@ -959,7 +928,7 @@ export default function AdminServiceCategories() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-primary/20 transition-colors"
+                        className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-primary-500/20 transition-colors"
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">

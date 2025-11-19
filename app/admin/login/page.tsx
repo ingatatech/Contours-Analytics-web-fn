@@ -67,7 +67,7 @@ export default function ONCGAdminLogin() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-primary via-primary/30 to-primary/80 flex items-center justify-center p-2 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-primary-500 via-primary-500/30 to-primary-500/80 flex items-center justify-center p-2 relative overflow-hidden">
         {/* Back to Home Button - Fixed Position */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -135,7 +135,7 @@ export default function ONCGAdminLogin() {
         >
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-primary/90 p-3 text-center relative">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-500/90 p-3 text-center relative">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -187,7 +187,7 @@ export default function ONCGAdminLogin() {
                       className={`pl-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                         errors.email
                           ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                          : "border-gray-200 focus:border-primary focus:ring-primary/20"
+                          : "border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                       }`}
                       disabled={loading}
                     />
@@ -222,7 +222,7 @@ export default function ONCGAdminLogin() {
                       className={`pl-12 pr-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                         errors.password
                           ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                          : "border-gray-200 focus:border-primary focus:ring-primary/20"
+                          : "border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                       }`}
                       disabled={loading}
                     />
@@ -261,7 +261,7 @@ export default function ONCGAdminLogin() {
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
-                      className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                      className="h-4 w-4 text-primary-500 focus:ring-primary-500 border-gray-300 rounded"
                     />
                     <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                       Remember me
@@ -269,7 +269,7 @@ export default function ONCGAdminLogin() {
                   </div>
                   <Link
                     href="/admin/forgot-password"
-                    className="text-sm text-primary hover:underline font-medium"
+                    className="text-sm text-primary-500 hover:underline font-medium"
                   >
                     Forgot Password?
                   </Link>
@@ -280,7 +280,7 @@ export default function ONCGAdminLogin() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full h-12 bg-gradient-to-r from-primary-500 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <div className="flex items-center justify-center gap-2">

@@ -82,6 +82,7 @@ export default function Home() {
  const [insights, setInsights] = useState<Insight[]>([])
   const [services, setServices] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+  const [partnersLoading, setPartnersLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [partners, setPartners] = useState<Partner[]>([])
 
@@ -112,14 +113,14 @@ export default function Home() {
     }, [])
   
   async function fetchPartners() {
-    setLoading(true)
+    setPartnersLoading(true)
     try {
       const res = await api.get("/partners")
       setPartners(res.data)
     } catch (err: any) {
         console.error('Error fetching partners:', err)
     } finally {
-      setLoading(false)
+      setPartnersLoading(false)
     }
   }
 
@@ -590,13 +591,18 @@ export default function Home() {
 
               {/* Partners Container */}
               <div className="overflow-hidden">
-                <motion.div
-                  ref={partnerScrollRef}
-                  className="flex gap-6 w-max"
-                  animate={{ x: -partnerScrollAmount }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                >
-                  {[...partners].map((partner, index) => (
+                {partnersLoading ? (
+                  <div className="flex justify-center py-12">
+                    <LoadingSpinner />
+                  </div>
+                ) : (
+                  <motion.div
+                    ref={partnerScrollRef}
+                    className="flex gap-6 w-max"
+                    animate={{ x: -partnerScrollAmount }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  >
+                    {[...partners].map((partner, index) => (
                   <motion.div
                     key={`${partner.name}-${index}`}
                     whileHover={{ y: -8, scale: 1.08 }}
@@ -646,8 +652,9 @@ export default function Home() {
                       </div>
                     </a>
                   </motion.div>
-                ))}
-                </motion.div>
+                  ))}
+                  </motion.div>
+                )}
               </div>
 
               {/* Right Navigation Button */}

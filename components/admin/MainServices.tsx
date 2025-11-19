@@ -205,7 +205,7 @@ export default function AdminServiceCategories() {
       setServicesLoading(true);
       setViewingCategory(category);
       const res = await fetchServiceCategories();
-      setCategoryServices(res.data.find(cat => cat.id === category.id)?.subServices || []);
+      setCategoryServices(res.data.find((cat: any) => cat.id === category.id)?.subServices || []);
       setShowServicesModal(true);
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to fetch services");

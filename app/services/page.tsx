@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Phone, Linkedin, ArrowRight, MapPin, Award, Users, ChevronDown, ChevronUp, FileText, ArrowUpRight, Sparkles } from 'lucide-react'
+import { Mail, Phone, Linkedin, ArrowRight, Award } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { AnimatedCode } from '@/components/ui/AnimatedCode'
 import AnimatedBackground from '@/components/ui/AnimatedBackground'
 import api from '@/lib/axios'
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 export default function ServicesPage() {
   const searchParams = useSearchParams()
@@ -56,15 +57,12 @@ export default function ServicesPage() {
 
   if (!mounted || loading) {
     return <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Loading services...</p>
-      </div>
+     <LoadingSpinner/>
     </div>
   }
 
   const selectedService = services.find(s => s.id === selectedServiceId)
-  const selectedSubService = selectedService?.subServices?.find(sub => sub.id === selectedSubServiceId)
+  const selectedSubService = selectedService?.subServices?.find((sub: any) => sub.id === selectedSubServiceId)
 
   // Debug logging
   console.log('Services:', services)
@@ -175,7 +173,7 @@ export default function ServicesPage() {
                  Our Solutions
                 </h3>
                 <div className="space-y-2">
-                  {selectedService.subServices?.map((subSvc) => (
+                  {selectedService.subServices?.map((subSvc:any) => (
                     <motion.button
                       key={subSvc.id}
                       onClick={() => setSelectedSubServiceId(subSvc.id)}
@@ -224,7 +222,7 @@ export default function ServicesPage() {
                      Key Contacts
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {selectedService.teamMembers?.map((contact, idx) => {
+                      {selectedService.teamMembers?.map((contact: any, idx: number) => {
                         const contactId = `${selectedService.id}-${idx}`
 
                         return (

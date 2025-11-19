@@ -218,7 +218,7 @@ export default function ONCGResetPasswordPage() {
           >
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-primary" />
+                <Mail className="w-8 h-8 text-primary-500" />
               </div>
               {/* <h2 className="text-2xl font-bold text-gray-800 mb-2">Reset Your Password</h2> */}
               <p className="text-gray-600">
@@ -355,7 +355,7 @@ export default function ONCGResetPasswordPage() {
           >
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Lock className="w-8 h-8 text-primary" />
+                <Lock className="w-8 h-8 text-primary-500" />
               </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">Create New Password</h2>
               <p className="text-gray-600">Set a strong password for your ONCG admin account</p>

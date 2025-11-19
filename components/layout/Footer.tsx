@@ -91,7 +91,7 @@ export default function Footer() {
             </motion.div>
 
             {/* Contact Info */}
-                <div className="space-y-4">
+                <div className="space-y-1">
               <h3 className="text-lg font-semibold mb-6 bg-gradient-to-r from-slate-100 to-white bg-clip-text text-transparent">Contacts</h3>
 
                   <motion.div
@@ -136,7 +136,9 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-white text-sm">
-              © 2024 Contours Analytics. All rights reserved. | Made with <span className="text-white">♦</span> for Data Excellence
+              © 2024 Contours Analytics. All rights reserved. | <span className="text-sm text-primary-foreground/80">
+              Developed by <span className="font-semibold text-white">The Ingata Technologies Ltd</span>
+            </span>
             </p>
             
             {/* Social Links */}

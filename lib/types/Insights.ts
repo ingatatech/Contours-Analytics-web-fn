@@ -8,10 +8,7 @@ export interface Insight {
   viewCount: number
   isActive: boolean
   displayOrder: number
-  industry?: {
-    id: string
-    name: string
-  }
+  category: string
   author?: {
     id: string
     name: string

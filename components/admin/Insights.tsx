@@ -18,6 +18,7 @@ import type{ Insight } from "@/lib/types/Insights"
 import toast from "react-hot-toast"
 import api from "@/lib/axios"
 import RichTextEditor from "../ui/RichTextEditor"
+import LoadingSpinner from "../ui/LoadingSpinner"
 
 interface InsightFormData {
   title: string
@@ -32,9 +33,10 @@ interface InsightFormData {
 
 export default function InsightsPage() {
   const [insights, setInsights] = useState<Insight[]>([])
+  const [categories, setCategories] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
-  const [industryFilter, setCategoryFilter] = useState("All Ctaegories")
+  const [categoryFilter, setCategoryFilter] = useState("All Categories")
   const [statusFilter, setStatusFilter] = useState("All Status")
 const [isSubmitting, setIsSubmitting] = useState(false)
   // Modal states
@@ -61,7 +63,12 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   const fetchInsights = async () => {
     try {
       const { data } = await api.get("/insights")
-      setInsights(data.insights || data)
+      const insightsData = data.insights || data
+      setInsights(insightsData)
+      
+      // Extract unique categories as strings
+      const uniqueCategories = [...new Set(insightsData.map((insight: Insight) => insight.category).filter(Boolean))]
+      setCategories(uniqueCategories)
     } catch (error) {
       console.error("Error fetching insights:", error)
       toast.error("Failed to fetch insights")
@@ -69,6 +76,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
       setLoading(false)
     }
   }
+
 
 
 
@@ -170,7 +178,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     const matchesSearch =
       insight.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       insight.content.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = industryFilter === "All Ctaegories" || insight.category === industryFilter
+    const matchesCategory = categoryFilter === "All Categories" || insight.category === categoryFilter
     const matchesStatus =
       statusFilter === "All Status" ||
       (statusFilter === "active" && insight.isActive) ||
@@ -227,15 +235,15 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                 />
               </div>
              
-              <Select value={industryFilter} onValueChange={setCategoryFilter}>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All Ctaegories" />
+                  <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="All Ctaegories">All Ctaegories</SelectItem>
-                  {categories.map((industry) => (
-                    <SelectItem key={industry.id} value={industry.id}>
-                      {industry.name}
+                  <SelectItem value="All Categories">All Categories</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -269,7 +277,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     <TableHead>Title</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Created</TableHead>
+                    <TableHead>Added At</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -280,7 +288,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                         <div className="max-w-xs truncate">{insight.title}</div>
                       </TableCell>
                     
-                      <TableCell>{insight.industry?.name || "N/A"}</TableCell>
+                      <TableCell>{insight.category || "N/A"}</TableCell>
                       <TableCell>
                         <Badge variant={insight.isActive ? "default" : "secondary"}>
                           {insight.isActive ? "Active" : "Inactive"}
@@ -361,23 +369,13 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="industry">Category</Label>
-                  <Select
+                  <Label htmlFor="category">Category</Label>
+                   <Input
+                    id="category"
                     value={formData.category}
-                    onValueChange={(value) => setFormData({ ...formData, category: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select industry" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="All Ctaegories">No Category</SelectItem>
-                      {categories.map((industry) => (
-                        <SelectItem key={industry.id} value={industry.id}>
-                          {industry.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
 
@@ -421,7 +419,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                 <div>
                   <h3 className="text-xl font-semibold">{selectedInsight.title}</h3>
                   <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-                    <span>Created: {new Date(selectedInsight.createdAt).toLocaleDateString()}</span>
+                    <span>Added At: {new Date(selectedInsight.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
 
@@ -446,7 +444,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-medium mb-2">Category</h4>
-                    <p>{selectedInsight.industry?.name || "N/A"}</p>
+                    <p>{selectedInsight.category || "N/A"}</p>
                   </div>
               
                 </div>

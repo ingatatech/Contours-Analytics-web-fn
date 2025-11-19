@@ -361,7 +361,7 @@ export default function AdminContactMessages() {
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <MessageSquare className="w-6 h-6 text-primary" />
+                  <MessageSquare className="w-6 h-6 text-primary-500" />
                   Contact Message Details
                 </h2>
                 <Button variant="outline" size="sm" onClick={() => setShowModal(false)} className="border-gray-200">

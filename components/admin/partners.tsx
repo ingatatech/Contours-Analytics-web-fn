@@ -133,7 +133,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
         
         <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
             <Handshake className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </div>
           <div>
@@ -148,7 +148,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     
         <Button
           onClick={() => openAddModal()}
-          className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
+          className="bg-primary-500 hover:bg-primary-500/90 text-white shadow-md hover:shadow-lg transition-all duration-300 px-3 py-2 sm:px-4 sm:py-2 flex items-center justify-center text-sm sm:text-base"
         >
           <Plus className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
           Add Partners
@@ -163,7 +163,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
             placeholder="Search partners..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 border-gray-200 focus:border-primary focus:ring-primary/20 h-12"
+            className="pl-12 border-gray-200 focus:border-primary-500 focus:ring-primary-500/20 h-12"
           />
         </div>
       </motion.div>
@@ -185,7 +185,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
             <p className="text-gray-500 mb-6">
               {searchTerm ? "No partners match your search" : "Add your first business partner"}
             </p>
-            <Button onClick={openAddModal} className="bg-primary hover:bg-primary/90">
+            <Button onClick={openAddModal} className="bg-primary-500 hover:bg-primary-500/90">
               <Plus className="w-4 h-4 mr-2" />
               Add First Partner
             </Button>
@@ -193,7 +193,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-primary/5 border-b border-gray-200">
+              <thead className="bg-primary-500/5 border-b border-gray-200">
                 <tr>
                   <th className="px-3 py-1 text-left text-sm font-semibold text-gray-900">#</th>
                   <th className="px-3 py-1 text-left text-sm font-semibold text-gray-900">Partner</th>
@@ -211,13 +211,13 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ delay: index * 0.05 }}
-                      className="hover:bg-primary/5 transition-colors duration-200"
+                      className="hover:bg-primary-500/5 transition-colors duration-200"
                     >
                       <td className="px-3 py-1 text-sm text-gray-900">{(page - 1) * pageSize + index + 1}</td>
                       <td className="px-3 py-1">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-primary/10 to-primary/20 rounded-lg flex items-center justify-center">
-                            <Handshake className="w-5 h-5 text-primary" />
+                          <div className="w-10 h-10 bg-gradient-to-br from-primary-500/10 to-primary-500/20 rounded-lg flex items-center justify-center">
+                            <Handshake className="w-5 h-5 text-primary-500" />
                           </div>
                           <span className="text-sm font-semibold text-gray-900">{partner.name}</span>
                         </div>
@@ -251,7 +251,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(partner)}
-                            className="border-primary/20 text-primary hover:bg-primary/5"
+                            className="border-primary-500/20 text-primary-500 hover:bg-primary-500/5"
                           >
                             <Edit className="w-4 h-4" />
                           </Button>
@@ -339,7 +339,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Enter partner name..."
-                    className="border-gray-200 focus:border-primary focus:ring-primary/20"
+                    className="border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                     required
                   />
                 </div>
@@ -350,7 +350,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     type="file"
                     onChange={handleImageChange}
                     accept="image/*"
-                    className="border-gray-200 focus:border-primary focus:ring-primary/20"
+                    className="border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                     required={!editingPartner}
                   />
                   {imageFile && (
@@ -377,7 +377,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                                   <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                      className="flex-1 bg-primary-500 hover:bg-primary-500/90 text-white"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center gap-2">

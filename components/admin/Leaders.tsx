@@ -121,7 +121,7 @@ export default function LeadersPage() {
     newLeaders.splice(destIndex, 0, removed);
     const leaderIds = newLeaders.map((expert: TeamMember) => expert.id);
     try {
-      await api.post("/leaders/reorder", { leaderIds })
+      await api.post("/team/reorder", { leaderIds })
       toast.success("Leader order updated successfully!")
       fetchLeaders()
     } catch (err: any) {
@@ -180,10 +180,10 @@ export default function LeadersPage() {
       }
 
       if (editingLeader) {
-        await api.patch(`/leaders/${editingLeader.id}`, formDataToSend);
+        await api.patch(`/team/${editingLeader.id}`, formDataToSend);
         toast.success("Leader updated successfully");
       } else {
-        await api.post("/leaders", formDataToSend);
+        await api.post("/team", formDataToSend);
         toast.success("Leader created successfully");
       }
 
@@ -211,7 +211,7 @@ const errorData = err.response?.data;
   const handleDelete = async (id: string) => {
 
     try {
-      await api.delete(`/leaders/${id}`);
+      await api.delete(`/team/${id}`);
       toast.success("Leader deleted successfully");
       setDeleteModal({ isOpen: false, leaderId: null });
 
@@ -249,7 +249,7 @@ const errorData = err.response?.data;
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Crown className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -259,7 +259,7 @@ const errorData = err.response?.data;
             </div>
             <Button
               onClick={() => openModal()}
-              className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
+              className="bg-primary-500 hover:bg-primary-500/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Leader
@@ -345,7 +345,7 @@ const errorData = err.response?.data;
                 <TableRow>
                   <TableCell colSpan={6} className="text-center py-12">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                      <div className="w-4 h-4 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
                       <span className="text-slate-600">Loading leaders...</span>
                     </div>
                   </TableCell>
@@ -381,7 +381,7 @@ const errorData = err.response?.data;
                                 src={leader.image || "/placeholder.svg"}
                                 alt={leader.name}
                               />
-                              <AvatarFallback className="bg-gradient-to-r from-primary to-blue-600 text-white font-semibold">
+                              <AvatarFallback className="bg-gradient-to-r from-primary-500 to-blue-600 text-white font-semibold">
                                 {leader.name
                                   .split(" ")
                                   .map((n) => n[0])
@@ -511,7 +511,7 @@ const errorData = err.response?.data;
                 {viewingLeader.bio && (
                   <div className="bg-white rounded-lg border p-6">
                     <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                      <User className="h-5 w-5 mr-2 text-primary" />
+                      <User className="h-5 w-5 mr-2 text-primary-500" />
                       Biography
                     </h4>
                     <div 
@@ -525,14 +525,14 @@ const errorData = err.response?.data;
                 {(viewingLeader.email || viewingLeader.phone || viewingLeader.linkedinUrl) && (
                   <div className="bg-white rounded-lg border p-6">
                     <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                      <Mail className="h-5 w-5 mr-2 text-primary" />
+                      <Mail className="h-5 w-5 mr-2 text-primary-500" />
                       Contact Information
                     </h4>
                     <div className="space-y-3">
                       {viewingLeader.email && (
                         <div className="flex items-center space-x-3">
                           <Mail className="h-4 w-4 text-slate-400" />
-                          <a href={`mailto:${viewingLeader.email}`} className="text-primary hover:underline">
+                          <a href={`mailto:${viewingLeader.email}`} className="text-primary-500 hover:underline">
                             {viewingLeader.email}
                           </a>
                         </div>
@@ -540,7 +540,7 @@ const errorData = err.response?.data;
                       {viewingLeader.phone && (
                         <div className="flex items-center space-x-3">
                           <Phone className="h-4 w-4 text-slate-400" />
-                          <a href={`tel:${viewingLeader.phone}`} className="text-primary hover:underline">
+                          <a href={`tel:${viewingLeader.phone}`} className="text-primary-500 hover:underline">
                             {viewingLeader.phone}
                           </a>
                         </div>
@@ -554,7 +554,7 @@ const errorData = err.response?.data;
                             href={viewingLeader.linkedinUrl} 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="text-primary hover:underline"
+                            className="text-primary-500 hover:underline"
                           >
                             LinkedIn Profile
                           </a>
@@ -607,7 +607,7 @@ const errorData = err.response?.data;
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Enter full name"
                         required
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
+                        className="border-slate-200 focus:border-primary-500 focus:ring-primary-500/20"
                       />
                     </div>
 
@@ -635,7 +635,7 @@ const errorData = err.response?.data;
                       id="isActive"
                       checked={formData.isActive}
                       onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                      className="rounded border-slate-300 text-primary focus:ring-primary"
+                      className="rounded border-slate-300 text-primary-500 focus:ring-primary-500"
                     />
                     <label htmlFor="isActive" className="text-sm font-medium text-slate-700">
                       Active Leader
@@ -657,7 +657,7 @@ const errorData = err.response?.data;
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="leader@example.com"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
+                        className="border-slate-200 focus:border-primary-500 focus:ring-primary-500/20"
                       />
                     </div>
 
@@ -669,7 +669,7 @@ const errorData = err.response?.data;
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+1 (555) 123-4567"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
+                        className="border-slate-200 focus:border-primary-500 focus:ring-primary-500/20"
                       />
                     </div>
 
@@ -682,7 +682,7 @@ const errorData = err.response?.data;
                         value={formData.linkedinUrl}
                         onChange={(e) => setFormData({ ...formData, linkedinUrl: e.target.value })}
                         placeholder="https://linkedin.com/in/username"
-                        className="border-slate-200 focus:border-primary focus:ring-primary/20"
+                        className="border-slate-200 focus:border-primary-500 focus:ring-primary-500/20"
                       />
                     </div>
                   </div>
@@ -713,7 +713,7 @@ const errorData = err.response?.data;
                           type="file"
                           accept="image/*"
                           onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                          className="border-slate-200 focus:border-primary focus:ring-primary/20"
+                          className="border-slate-200 focus:border-primary-500 focus:ring-primary-500/20"
                         />
                         <p className="text-xs text-slate-500 mt-1">
                           Upload a square image for best results. Max size: 5MB
@@ -756,7 +756,7 @@ const errorData = err.response?.data;
                   <Button
                     type="submit"
                     disabled={submitting}
-                    className="bg-primary hover:bg-primary/90 text-white px-6"
+                    className="bg-primary-500 hover:bg-primary-500/90 text-white px-6"
                   >
                     {submitting ? (
                       <>

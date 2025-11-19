@@ -832,7 +832,7 @@ export default function AdminServiceCategories() {
                             isActive: e.target.checked,
                           })
                         }
-                        className="rounded border-gray-300 text-primary-500 focus:ring-primary"
+                        className="rounded border-gray-300 text-primary-500 focus:ring-primary-500"
                       />
                       <span className="text-sm font-medium text-gray-700">
                         Active

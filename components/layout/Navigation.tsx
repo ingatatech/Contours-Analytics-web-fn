@@ -22,7 +22,7 @@ export default function Navigation() {
   const fetchServices = async () => {
     try {
       setServicesLoading(true)
-      const res = await api.get('/services/categories')
+      const res = await api.get('/services')
       setServices(res.data.data || res.data)
     } catch (error) {
       console.error('Error fetching services:', error)

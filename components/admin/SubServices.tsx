@@ -45,7 +45,7 @@ import axios from "@/lib/axios";
 import { toast } from "react-hot-toast";
 import RichTextEditor from "../ui/RichTextEditor";
 
-interface ServiceCategory {
+interface MainService {
   id: string;
   name: string;
   description: string;
@@ -53,35 +53,31 @@ interface ServiceCategory {
   order: number;
 }
 
-
-
-
-
 interface Service {
   id: string;
   name: string;
-  serviceDescription: string;
+  description: string;
   isActive: boolean;
   order: number;
-  category: ServiceCategory;
+  mainService: MainService;
   createdAt: string;
   updatedAt: string;
 }
 
 interface ServiceFormData {
   name: string;
-  serviceDescription: string;
-  categoryId: string;
+  description: string;
+  mainServiceId: string;
   isActive: boolean;
  
 }
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
-  const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const [mainServices, setMainServices] = useState<MainService[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [mainServiceFilter, setmainServiceFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -91,8 +87,8 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [formData, setFormData] = useState<ServiceFormData>({
     name: "",
-    serviceDescription: "",
-    categoryId: "",
+    description: "",
+    mainServiceId: "",
     isActive: true,
   });
 
@@ -101,15 +97,15 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     fetchServices();
-    fetchCategories();
-  }, [currentPage, searchTerm, categoryFilter, statusFilter]);
+    fetchMainServices();
+  }, [currentPage, searchTerm, mainServiceFilter, statusFilter]);
 
   // Reset to first page when filters change
   useEffect(() => {
     if (currentPage !== 1) {
       setCurrentPage(1);
     }
-  }, [searchTerm, categoryFilter, statusFilter]);
+  }, [searchTerm, mainServiceFilter, statusFilter]);
 
   const fetchServices = async () => {
     try {
@@ -124,9 +120,9 @@ const [isSubmitting, setIsSubmitting] = useState(false)
         params.append("search", searchTerm.trim());
       }
 
-      // Only add category param if it's not "all"
-      if (categoryFilter && categoryFilter !== "all") {
-        params.append("category", categoryFilter);
+      // Only add mainService param if it's not "all"
+      if (mainServiceFilter && mainServiceFilter !== "all") {
+        params.append("mainService", mainServiceFilter);
       }
 
       // Only add status param if it's not "all"
@@ -134,7 +130,8 @@ const [isSubmitting, setIsSubmitting] = useState(false)
         params.append("isActive", statusFilter);
       }
 
-      const response = await axios.get(`/services?${params}`);
+      const response = await axios.get(`/services/sub-services/all?${params}`);
+      console.log(response.data.data);
       setServices(response.data.data);
       setTotalPages(response.data.pagination.pages);
     } catch (error: any) {
@@ -144,12 +141,12 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     }
   };
 
-  const fetchCategories = async () => {
+  const fetchMainServices = async () => {
     try {
       const response = await axios.get("/services");
-      setCategories(response.data.data);
+      setMainServices(response.data.data);
     } catch (error) {
-      toast.error("Failed to fetch categories");
+      toast.error("Failed to fetch mainServices");
     }
   };
 
@@ -160,11 +157,11 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     try {
        setIsSubmitting(true)
       if (selectedService) {
-        await axios.patch(`/services/${selectedService.id}`, formData);
+        await axios.patch(`/services/sub-services/${selectedService.id}`, formData);
         toast.success("Service updated successfully");
         setIsEditModalOpen(false);
       } else {
-        await axios.post("/services", formData);
+        await axios.post("/services/sub-services", formData);
         toast.success("Service created successfully");
         setIsAddModalOpen(false);
       }
@@ -180,7 +177,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this sub-service?")) {
       try {
-        await axios.delete(`/services/${id}`);
+        await axios.delete(`/services/sub-services/${id}`);
         toast.success("Service deleted successfully");
         fetchServices();
       } catch (error: any) {
@@ -193,7 +190,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleToggleStatus = async (id: string) => {
     try {
-      await axios.patch(`/services/${id}/toggle-status`);
+      await axios.patch(`/services/sub-services/${id}/toggle-status`);
       toast.success("Service status updated");
       fetchServices();
     } catch (error: any) {
@@ -209,8 +206,8 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   const resetForm = () => {
     setFormData({
       name: "",
-      serviceDescription: "",
-      categoryId: "",
+      description: "",
+      mainServiceId: "",
       isActive: true,
     });
     setSelectedService(null);
@@ -221,8 +218,8 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     setSelectedService(service);
     setFormData({
       name: service.name,
-      serviceDescription: service.serviceDescription,
-      categoryId: service.category.id,
+      description: service.description,
+      mainServiceId: service.mainService?.id || "",
       isActive: service.isActive,
     
     });
@@ -240,7 +237,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
   // Clear filters function
   const clearFilters = () => {
     setSearchTerm("");
-    setCategoryFilter("all");
+    setmainServiceFilter("all");
     setStatusFilter("all");
     setCurrentPage(1);
   };
@@ -288,20 +285,20 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                   <Input
                     placeholder="Search sub-services..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e:any) => setSearchTerm(e.target.value)}
                     className="pl-8"
                   />
                 </div>
               </div>
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <Select value={mainServiceFilter} onValueChange={setmainServiceFilter}>
                 <SelectTrigger className="w-full sm:w-[200px]">
                   <SelectValue placeholder="All Services" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Services</SelectItem>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
+                  {mainServices.map((mainService) => (
+                    <SelectItem key={mainService.id} value={mainService.id}>
+                      {mainService.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -316,7 +313,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                   <SelectItem value="false">Inactive</SelectItem>
                 </SelectContent>
               </Select>
-              {(searchTerm || categoryFilter !== "all" || statusFilter !== "all") && (
+              {(searchTerm || mainServiceFilter !== "all" || statusFilter !== "all") && (
                 <Button variant="outline" onClick={clearFilters}>
                   Clear Filters
                 </Button>
@@ -378,9 +375,9 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                           <Badge
                             variant="outline"
                             className="truncate max-w-[120px]"
-                            title={service.category.name}
+                            title={service.mainService?.name}
                           >
-                            {service.category.name}
+                            {service.mainService?.name}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -388,7 +385,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                             className="truncate max-w-[300px]"
                             dangerouslySetInnerHTML={{
                               __html:
-                                service.serviceDescription.substring(0, 100) +
+                                service.description.substring(0, 100) +
                                 "...",
                             }}
                           />
@@ -488,20 +485,15 @@ const [isSubmitting, setIsSubmitting] = useState(false)
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <Tabs defaultValue="basic" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="basic">Basic Info</TabsTrigger>
-                  <TabsTrigger value="past-projects">Past Projects</TabsTrigger>
-                </TabsList>
+             
 
-                <TabsContent value="basic" className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Sub-Service Name</Label>
                       <Input
                         id="name"
                         value={formData.name}
-                        onChange={(e) => {
+                        onChange={(e: any) => {
                           const name = e.target.value;
                           setFormData((prev) => ({
                             ...prev,
@@ -515,15 +507,15 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="serviceDescription">
+                    <Label htmlFor="description">
                       Sub-Service Description
                     </Label>
                     <RichTextEditor
-                      value={formData.serviceDescription}
+                      value={formData.description}
                       onChange={(value) =>
                         setFormData((prev) => ({
                           ...prev,
-                          serviceDescription: value,
+                          description: value,
                         }))
                       }
                       placeholder="Enter sub-service description..."
@@ -532,13 +524,13 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="categoryId">Main Service</Label>
+                      <Label htmlFor="mainServiceId">Main Service</Label>
                       <Select
-                        value={formData.categoryId}
+                        value={formData.mainServiceId}
                         onValueChange={(value) =>
                           setFormData((prev) => ({
                             ...prev,
-                            categoryId: value,
+                            mainServiceId: value,
                           }))
                         }
                       >
@@ -546,9 +538,9 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                           <SelectValue placeholder="Select service" />
                         </SelectTrigger>
                         <SelectContent>
-                          {categories.map((category) => (
-                            <SelectItem key={category.id} value={category.id}>
-                              {category.name}
+                          {mainServices.map((mainService) => (
+                            <SelectItem key={mainService.id} value={mainService.id}>
+                              {mainService.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -557,9 +549,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
                   
                   </div>
-                </TabsContent>
-
-              </Tabs>
+              
 
               <DialogFooter>
                 <Button type="submit"
@@ -606,10 +596,10 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                       <div className="space-y-4">
                         <div>
                           <Label className="text-xs uppercase tracking-wide font-semibold text-slate-500 mb-2 block">
-                            Category
+                            mainService
                           </Label>
                           <Badge variant="outline" className="text-sm px-3 py-1 bg-blue-50 text-blue-700 border-blue-200">
-                            {selectedService.category.name}
+                            {selectedService.mainService?.name}
                           </Badge>
                         </div>
                         <div className="flex flex-col space-y-2 text-xs text-slate-500">
@@ -642,7 +632,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     <div
                       className="prose prose-slate prose-sm max-w-none leading-relaxed"
                       dangerouslySetInnerHTML={{
-                        __html: selectedService.serviceDescription,
+                        __html: selectedService.description,
                       }}
                     />
                   </div>

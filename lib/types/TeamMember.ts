@@ -1,6 +1,7 @@
 export interface TeamMember {
   id: string
   name: string
+  image: string
   position: string
   bio: string
   linkedinUrl?: string

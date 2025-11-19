@@ -112,8 +112,9 @@ export default function AdminServiceCategories() {
   }
   const fetchTeamMembers = async () => {
     try {
-      const response = await api.get("team");
-      setTeamMembers(response.data.data);
+      const response = await api.get("/team");
+      console.log("Team Members:", response.data);
+      setTeamMembers(response.data);
     } catch (error) {
       toast.error("Failed to fetch teamMembers");
     }
@@ -758,7 +759,7 @@ export default function AdminServiceCategories() {
                   />
                 </div>
                 
-                                    <div className="space-y-2">
+                                    <div className="space-y-3 relative z-10">
                                       <Label htmlFor="teamMemberIds">Key Contact</Label>
                                       <Select
                                         value=""
@@ -772,9 +773,9 @@ export default function AdminServiceCategories() {
                                         }}
                                       >
                                         <SelectTrigger>
-                                          <SelectValue placeholder="Add teamMembers" />
+                                          <SelectValue placeholder="Add Key Contact" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="relative z-50">
                                           {teamMembers
                                             ?.filter(
                                               (teamMember) =>
@@ -788,7 +789,7 @@ export default function AdminServiceCategories() {
                                         </SelectContent>
                                       </Select>
                                       {formData.teamMemberIds.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 mt-2">
+                                        <div className="flex flex-wrap gap-2 mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
                                           {formData.teamMemberIds.map((teamMemberId) => {
                                             const teamMember = teamMembers?.find(
                                               (e) => e.id === teamMemberId
@@ -797,9 +798,9 @@ export default function AdminServiceCategories() {
                                               <Badge
                                                 key={teamMemberId}
                                                 variant="secondary"
-                                                className="flex items-center gap-1"
+                                                className="flex items-center gap-2 bg-white border border-blue-300 text-gray-900 hover:bg-blue-50 px-3 py-1.5"
                                               >
-                                                {teamMember.name}
+                                                <span className="font-medium">{teamMember.name}</span>
                                                 <button
                                                   type="button"
                                                   onClick={() =>
@@ -810,7 +811,7 @@ export default function AdminServiceCategories() {
                                                       ),
                                                     }))
                                                   }
-                                                  className="ml-1 hover:bg-destructive hover:text-destructive-foreground rounded-full"
+                                                  className="ml-1 text-red-500 hover:text-red-700 font-bold hover:bg-red-100 rounded-full w-5 h-5 flex items-center justify-center transition-colors"
                                                 >
                                                   ×
                                                 </button>

@@ -52,7 +52,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Leaders } from "@/lib/types/TeamMember";
+import { TeamMember } from "@/lib/types/TeamMember";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
 
@@ -60,7 +60,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import DeleteConfirmationModal from "../ui/DeleteConfirmationModal";
 
 export default function LeadersPage() {
-  const [leaders, setLeaders] = useState<Leaders[]>([]);
+  const [leaders, setLeaders] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -69,13 +69,13 @@ export default function LeadersPage() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false)
-  const [editingLeader, setEditingLeader] = useState<Leaders | null>(null);
-  const [viewingLeader, setViewingLeader] = useState<Leaders | null>(null);
+  const [editingLeader, setEditingLeader] = useState<TeamMember | null>(null);
+  const [viewingLeader, setViewingLeader] = useState<TeamMember | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
     name: "",
-    title: "",
+    position: "",
     bio: "",
     email: "",
     linkedinUrl: "",
@@ -92,7 +92,7 @@ export default function LeadersPage() {
   // Fetch leaders
   const fetchLeaders = async () => {
     try {
-      const { data } = await api.get("/leaders");
+      const { data } = await api.get("/team");
       setLeaders(data.data || data);
     } catch (error) {
       console.error("Error fetching leaders:", error);
@@ -119,7 +119,7 @@ export default function LeadersPage() {
     const newLeaders = Array.from(leaders);
     const [removed] = newLeaders.splice(sourceIndex, 1);
     newLeaders.splice(destIndex, 0, removed);
-    const leaderIds = newLeaders.map((expert: Leaders) => expert.id);
+    const leaderIds = newLeaders.map((expert: TeamMember) => expert.id);
     try {
       await api.post("/leaders/reorder", { leaderIds })
       toast.success("Leader order updated successfully!")
@@ -130,12 +130,12 @@ export default function LeadersPage() {
     }
   }
   // Open modal for adding or editing
-  const openModal = (leader?: Leaders) => {
+  const openModal = (leader?:TeamMember) => {
     if (leader) {
       setEditingLeader(leader);
       setFormData({
         name: leader.name,
-        title: leader.title,
+        position: leader.position,
         bio: leader.bio,
         email: leader.email || "",
         linkedinUrl: leader.linkedinUrl || "",
@@ -146,7 +146,7 @@ export default function LeadersPage() {
       setEditingLeader(null);
       setFormData({
         name: "",
-        title: "",
+        position: "",
         bio: "",
         email: "",
         linkedinUrl: "",
@@ -226,7 +226,7 @@ const errorData = err.response?.data;
   const filteredLeaders = leaders.filter((leader) => {
     const matchesSearch =
       leader.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      leader.title.toLowerCase().includes(searchTerm.toLowerCase()) ;
+      leader.position.toLowerCase().includes(searchTerm.toLowerCase()) ;
 
 
     const matchesStatus =
@@ -238,7 +238,7 @@ const errorData = err.response?.data;
   });
 
 
-    const handleView = (leader: Leaders) => {
+    const handleView = (leader: TeamMember) => {
     setViewingLeader(leader)
     setShowViewModal(true)
   }
@@ -296,20 +296,7 @@ const errorData = err.response?.data;
           </div>
           
    
-          
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-slate-600">Avg Experience</p>
-                <p className="text-2xl font-bold text-slate-900">
-                  {leaders.length > 0 ? Math.round(leaders.reduce((acc, l) => acc + l.experience, 0) / leaders.length) : 0} yrs
-                </p>
-              </div>
-              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                <Star className="h-5 w-5 text-orange-600" />
-              </div>
-            </div>
-          </div>
+    
         </div>
 
         {/* Filters */}
@@ -318,7 +305,7 @@ const errorData = err.response?.data;
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
-                placeholder="Search leaders by name, title, or ..."
+                placeholder="Search leaders by name, position, or ..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -349,8 +336,6 @@ const errorData = err.response?.data;
             <TableHeader>
               <TableRow className="bg-slate-50">
                 <TableHead className="font-semibold">Leader</TableHead>
-                <TableHead className="font-semibold">Location</TableHead>
-                <TableHead className="font-semibold">Experience</TableHead>
                 <TableHead className="font-semibold">Status</TableHead>
                 <TableHead className="text-right font-semibold">Actions</TableHead>
               </TableRow>
@@ -408,23 +393,13 @@ const errorData = err.response?.data;
                               <div className="font-semibold text-slate-900">
                                 {leader.name}
                               </div>
-                              <div className="text-sm text-slate-600"dangerouslySetInnerHTML={{ __html:leader.title }}/>
+                              <div className="text-sm text-slate-600"dangerouslySetInnerHTML={{ __html:leader.position }}/>
                                
                              
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="truncate">
-                          <div className="flex items-center text-sm text-slate-600">
-                            <MapPin className="h-4 w-4 mr-1 text-slate-400" />
-                            {leader.location}
-                          </div>
-                        </TableCell>
-                        <TableCell className="truncate">
-                          <div className="flex items-center text-sm font-medium">
-                            {leader.experience} years
-                          </div>
-                        </TableCell>
+                     
                         <TableCell>
                           <Badge
                             variant={leader.isActive ? "default" : "secondary"}
@@ -518,7 +493,7 @@ const errorData = err.response?.data;
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-slate-900">{viewingLeader.name}</h3>
-                    <p className="text-slate-600 font-medium"dangerouslySetInnerHTML={{ __html:viewingLeader.title }}/>
+                    <p className="text-slate-600 font-medium"dangerouslySetInnerHTML={{ __html:viewingLeader.position }}/>
                     <div className="flex items-center mt-3 space-x-3">
                  
                       <Badge
@@ -528,77 +503,9 @@ const errorData = err.response?.data;
                         {viewingLeader.isActive ? "Active" : "Inactive"}
                       </Badge>
                     </div>
-                    {viewingLeader.location && (
-                      <div className="flex items-center mt-2 text-slate-600">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        {viewingLeader.location}
-                      </div>
-                    )}
+               
                   </div>
                 </div>
-
-                {/* Experience & Projects */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-lg border p-6">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center">
-                      <Briefcase className="h-5 w-5 mr-2 text-primary" />
-                      Experience
-                    </h4>
-                    <p className="text-2xl font-bold text-primary">{viewingLeader.experience} years</p>
-                  </div>
-                  <div className="bg-white rounded-lg border p-6">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center">
-                      <Star className="h-5 w-5 mr-2 text-primary" />
-                      Projects Led
-                    </h4>
-                    <p className="text-2xl font-bold text-primary">{viewingLeader.projectsLed}</p>
-                  </div>
-                </div>
-
-                {/* Education */}
-                {viewingLeader.education && viewingLeader.education.length > 0 && (
-                  <div className="bg-white rounded-lg border p-6">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                      <GraduationCap className="h-5 w-5 mr-2 text-primary" />
-                      Education
-                    </h4>
-                    <ul className="space-y-2">
-                      {viewingLeader.education.map((edu, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-slate-700">{edu}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {/* Education */}
-                {viewingLeader.professionalMembership && viewingLeader.professionalMembership.length > 0 && (
-                  <div className="bg-white rounded-lg border p-6">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                      <Medal className="h-5 w-5 mr-2 text-primary" />
-                      Professional Membership
-                    </h4>
-                    <ul className="space-y-2">
-                      {viewingLeader.professionalMembership.map((profession, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-slate-700">{profession}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {/* Realised Projects */}
-                {viewingLeader.realisedProjects && viewingLeader.realisedProjects.length > 0 && (
-                  <div className="bg-white rounded-lg border p-6">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                      <Award className="h-5 w-5 mr-2 text-primary" />
-                      Realised Projects
-                    </h4>
-                       <div className="flex flex-wrap gap-2"dangerouslySetInnerHTML={{ __html: viewingLeader.realisedProjects}}/>
-                  </div>
-                )}
 
                 {/* Bio */}
                 {viewingLeader.bio && (
@@ -706,12 +613,12 @@ const errorData = err.response?.data;
 
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Title *
+                        position *
                       </label>
                  
                          <RichTextEditor
-                      value={formData.title}
-                      onChange={(value) => setFormData(prev => ({ ...prev, title: value }))}
+                      value={formData.position}
+                      onChange={(value) => setFormData(prev => ({ ...prev, position: value }))}
                       placeholder="e.g., Head of Professional Practices Corporate Advisory Services"
                       />
                     </div>
@@ -870,7 +777,6 @@ const errorData = err.response?.data;
   isOpen={deleteModal.isOpen}
   onClose={() => setDeleteModal({ isOpen: false, leaderId: null })}
   onConfirm={handleDelete.bind(null, deleteModal.leaderId!)}
-  title="Delete a leader"
   message="Are you sure you want to delete this Leader? This action cannot be undone."
 />
     </AdminLayoutStructure>

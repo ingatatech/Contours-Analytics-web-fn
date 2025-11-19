@@ -8,11 +8,10 @@ interface DeleteConfirmationModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onConfirm: () => Promise<void>;
-	title: string;
 	message: string;
 }
 
-const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpen, onClose, onConfirm, title, message }) => {
+const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpen, onClose, onConfirm,  message }) => {
 	const [isDeleting, setIsDeleting] = useState(false);
 
 	if (!isOpen) return null;
@@ -35,7 +34,6 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpe
 				</div>
 
 				{/* Title */}
-				<h2 className="text-xl font-semibold text-gray-800 mb-3">{title}</h2>
 
 				{/* Message */}
 				<p className="text-gray-600 text-center mb-6">{message}</p>

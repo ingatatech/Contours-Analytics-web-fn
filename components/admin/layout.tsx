@@ -244,13 +244,7 @@ export default function AdminLayoutStructure({
           ))}
         </nav>
 
-        {/* Footer Info */}
-        <div className="p-4 border-t border-slate-200 bg-gradient-to-t from-slate-50 to-white">
-          <div className="text-xs text-slate-500 text-center">
-            <p className="font-semibold mb-1">Contours Analytics</p>
-            <p>v1.0.0</p>
-          </div>
-        </div>
+     
       </aside>
 
       {/* Main Content */}

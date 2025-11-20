@@ -417,7 +417,7 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                             className="truncate max-w-[300px]"
                             dangerouslySetInnerHTML={{
                               __html:
-                                service.description.substring(0, 100) +
+                                service.description.substring(0, 60) +
                                 "...",
                             }}
                           />

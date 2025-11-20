@@ -38,10 +38,8 @@ import AdminLayoutStructure from "@/components/admin/layout";
 
 interface DashboardStats {
   services: number;
-  industries: number;
   insights: number;
-  testimonials: number;
-  experts: number;
+  leaders: number;
   partners: number;
   subscribers: number;
   contactMessages: number;
@@ -51,11 +49,8 @@ interface MonthlyStats {
   month: number;
   monthName: string;
   services: number;
-  industries: number;
   insights: number;
   leaders: number;
-  testimonials: number;
-  experts: number;
   partners: number;
   subscribers: number;
   contactMessages: number;
@@ -64,11 +59,8 @@ interface MonthlyStats {
 interface YearlyStats {
   year: number
   services: number;
-  industries: number;
   insights: number;
   leaders: number;
-  testimonials: number;
-  experts: number;
   partners: number;
   subscribers: number;
   contactMessages: number;
@@ -83,10 +75,8 @@ interface StatisticsResponse {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     services: 0,
-    industries: 0,
     insights: 0,
-    testimonials: 0,
-    experts: 0,
+    leaders: 0,
     partners: 0,
     subscribers: 0,
     contactMessages: 0,
@@ -107,19 +97,15 @@ export default function AdminDashboard() {
       // Fetch all data in parallel
       const [
         servicesRes,
-        industriesRes,
         insightsRes,
-        testimonialsRes,
-        expertsRes,
+        leadersRes,
         partnersRes,
         subscribersRes,
         contactMessagesRes,
       ] = await Promise.all([
         api.get("/services"),
-        api.get("/industries"),
         api.get("/insights"),
-        api.get("/testimonials"),
-        api.get("/experts"),
+        api.get("/team"),
         api.get("/partners"),
         api.get("/subscribers"),
         api.get("/contact-messages"),
@@ -134,15 +120,9 @@ export default function AdminDashboard() {
       const totals: DashboardStats = {
         services:
           servicesRes.data?.data?.length || servicesRes.data?.length || 0,
-        industries:
-          industriesRes.data?.industries?.length || industriesRes.data?.length || 0,
         insights:
           insightsRes.data?.insights?.length || insightsRes.data?.length || 0,
-        testimonials:
-          testimonialsRes.data?.data?.length ||
-          testimonialsRes.data?.length ||
-          0,
-        experts: expertsRes.data?.data?.length || expertsRes.data?.length || 0,
+        leaders: leadersRes.data?.data?.length || leadersRes.data?.length || 0,
         partners:
           partnersRes.data?.data?.length || partnersRes.data?.length || 0,
         subscribers:
@@ -162,10 +142,8 @@ export default function AdminDashboard() {
       console.error("Failed to fetch dashboard data:", err);
       setStats({
         services: 0,
-        industries: 0,
         insights: 0,
-        testimonials: 0,
-        experts: 0,
+        leaders: 0,
         partners: 0,
         subscribers: 0,
         contactMessages: 0,
@@ -221,10 +199,8 @@ export default function AdminDashboard() {
   // Prepare pie chart data
   const pieData = [
     { name: "Services", value: stats.services, color: "#3b82f6" },
-    { name: "Industries", value: stats.industries, color: "#10b981" },
     { name: "Insights", value: stats.insights, color: "#8b5cf6" },
-    { name: "Testimonials", value: stats.testimonials, color: "#ef4444" },
-    { name: "Experts", value: stats.experts, color: "#06b6d4" },
+    { name: "Leaders", value: stats.leaders, color: "#06b6d4" },
     { name: "Partners", value: stats.partners, color: "#84cc16" },
     { name: "Subscribers", value: stats.subscribers, color: "#f97316" },
   ].filter((item) => item.value > 0);
@@ -241,18 +217,7 @@ export default function AdminDashboard() {
       description: "Professional services offered",
       accentColor: "text-blue-600",
     },
-    {
-      title: "Industry Sectors",
-      value: stats?.industries || 0,
-      growth: getStatGrowth("industries"),
-      icon: Building,
-      gradient: "from-emerald-500 via-green-600 to-teal-700",
-      bgGradient: "from-emerald-50/50 via-green-50/30 to-teal-50/20",
-      glowColor: "shadow-emerald-500/20",
-      href: "/admin/industries",
-      description: "Industry expertise areas",
-      accentColor: "text-emerald-600",
-    },
+  
     {
       title: "Published Insights",
       value: stats?.insights || 0,
@@ -266,27 +231,16 @@ export default function AdminDashboard() {
       accentColor: "text-purple-600",
     },
 
+ 
     {
-      title: "Client Testimonials",
-      value: stats?.testimonials || 0,
-      growth: getStatGrowth("testimonials"),
-      icon: MessageSquare,
-      gradient: "from-pink-500 via-rose-600 to-red-700",
-      bgGradient: "from-pink-50/50 via-rose-50/30 to-red-50/20",
-      glowColor: "shadow-pink-500/20",
-      href: "/admin/testimonials",
-      description: "Customer feedback received",
-      accentColor: "text-pink-600",
-    },
-    {
-      title: "Expert Profiles",
-      value: stats?.experts || 0,
-      growth: getStatGrowth("experts"),
+      title: "Leaders Profiles",
+      value: stats?.leaders || 0,
+      growth: getStatGrowth("leaders"),
       icon: Award,
       gradient: "from-cyan-500 via-teal-600 to-blue-700",
       bgGradient: "from-cyan-50/50 via-teal-50/30 to-blue-50/20",
       glowColor: "shadow-cyan-500/20",
-      href: "/admin/experts",
+      href: "/admin/team",
       description: "Expert consultants",
       accentColor: "text-cyan-600",
     },

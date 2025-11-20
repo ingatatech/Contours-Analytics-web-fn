@@ -31,27 +31,17 @@ import {
   Trash2,
   Eye,
   Search,
-  MoreHorizontal,
-  MapPin,
-  Briefcase,
+
   Users,
   Mail,
   Phone,
-  Star,
   Plus,
   Crown,
-  Award,
-  GraduationCap,
-  Medal,
+ 
   User,
   X,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { TeamMember } from "@/lib/types/TeamMember";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
@@ -336,7 +326,9 @@ const errorData = err.response?.data;
           <Table>
             <TableHeader>
               <TableRow className="bg-slate-50">
-                <TableHead className="font-semibold">Leader</TableHead>
+                <TableHead className="font-semibold">Image</TableHead>
+                <TableHead className="font-semibold">Name</TableHead>
+                <TableHead className="font-semibold">Position</TableHead>
                 <TableHead className="font-semibold">Status</TableHead>
                 <TableHead className="text-right font-semibold">Actions</TableHead>
               </TableRow>
@@ -374,31 +366,25 @@ const errorData = err.response?.data;
                         {...provided.dragHandleProps}
                         className={`hover:bg-slate-50/50 transition-colors ${snapshot.isDragging ? "bg-sky-100" : ""}`}
                       >
-                        <TableCell className="truncate">
-                          <div className="flex items-center space-x-3">
-                            <Avatar className="h-12 w-12 ring-2 ring-slate-100">
-                              <AvatarImage
-                                src={leader.image || "/placeholder.svg"}
-                                alt={leader.name}
-                              />
-                              <AvatarFallback className="bg-gradient-to-r from-primary-500 to-blue-600 text-white font-semibold">
-                                {leader.name
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")
-                                  .toUpperCase()}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <div className="font-semibold text-slate-900">
-                                {leader.name}
-                              </div>
-                              <div className="text-sm text-slate-600"dangerouslySetInnerHTML={{ __html:leader.position }}/>
-                               
-                             
-                            </div>
-                          </div>
+                        <TableCell>
+                          <Avatar className="h-12 w-12 ring-2 ring-slate-100">
+                            <AvatarImage
+                              src={leader.image || "/placeholder.svg"}
+                              alt={leader.name}
+                            />
+                            <AvatarFallback className="bg-gradient-to-r from-primary-500 to-blue-600 text-white font-semibold">
+                              {leader.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                                .toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
                         </TableCell>
+                        <TableCell className="font-semibold text-slate-900">
+                          {leader.name}
+                        </TableCell>
+                        <TableCell className="text-sm text-slate-600" dangerouslySetInnerHTML={{ __html:leader.position }}/>
                      
                         <TableCell>
                           <Badge
@@ -409,36 +395,32 @@ const errorData = err.response?.data;
                           </Badge>
                         </TableCell>
                         <TableCell className="text-right">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-slate-100">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuItem
-                                onClick={() => handleView(leader)}
-                                className="cursor-pointer"
-                              >
-                                <Eye className="mr-2 h-4 w-4" />
-                                View Details
-                              </DropdownMenuItem>
-                              <DropdownMenuItem
-                                onClick={() => openModal(leader)}
-                                className="cursor-pointer"
-                              >
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit Leader
-                              </DropdownMenuItem>
-                              <DropdownMenuItem
-                                onClick={() => setDeleteModal({ isOpen: true, leaderId: leader.id })}
-                                className="text-red-600 cursor-pointer hover:bg-red-50"
-                              >
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Delete
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleView(leader)}
+                              className="h-8 px-2 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => openModal(leader)}
+                              className="h-8 px-2 hover:bg-green-50 hover:text-green-600"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeleteModal({ isOpen: true, leaderId: leader.id })}
+                              className="h-8 px-2 hover:bg-red-50 hover:text-red-600"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     )}

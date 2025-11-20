@@ -36,12 +36,22 @@ export default function AdminContactMessages() {
   const [updating, setUpdating] = useState<string | null>(null)
   const [page, setPage] = useState(1)
   const pageSize = 10
-
-  const services = ["Construction", "Cleaning Services", "Landscaping", "Maintenance", "Consultation"]
+  const [services, setServices] = useState<string[]>([])
 
   useEffect(() => {
     fetchMessages()
+    fetchServices()
   }, [])
+
+  async function fetchServices() {
+    try {
+      const res = await api.get("/services")
+      const serviceNames = res.data.data.map((service: any) => service.name)
+      setServices(serviceNames)
+    } catch (err: any) {
+      console.error("Failed to fetch services")
+    }
+  }
 
   async function fetchMessages() {
     setLoading(true)
@@ -111,7 +121,7 @@ export default function AdminContactMessages() {
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Crown className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -134,13 +144,13 @@ export default function AdminContactMessages() {
             placeholder="Search messages..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-12 border-gray-200 focus:border-primary focus:ring-primary/20 h-12"
+            className="pl-12 border-gray-200 focus:border-primary-500 focus:ring-primary-500/20 h-12"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-3 border border-gray-200 text-gray-900 rounded-lg focus:border-primary focus:ring-primary/20 min-w-[150px]"
+          className="px-4 py-3 border border-gray-200 text-gray-900 rounded-lg focus:border-primary-500 focus:ring-primary-500/20 min-w-[150px]"
         >
           <option value="all">All Status</option>
           <option value="responded">Responded</option>
@@ -149,7 +159,7 @@ export default function AdminContactMessages() {
         <select
           value={serviceFilter}
           onChange={(e) => setServiceFilter(e.target.value)}
-          className="px-4 py-3 border border-gray-200 text-gray-900 rounded-lg focus:border-primary focus:ring-primary/20 min-w-[180px]"
+          className="px-4 py-3 border border-gray-200 text-gray-900 rounded-lg focus:border-primary-500 focus:ring-primary-500/20 min-w-[180px]"
         >
           <option value="all">All Services</option>
           {services.map((service) => (
@@ -181,7 +191,7 @@ export default function AdminContactMessages() {
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-primary/5">
+              <thead className="bg-primary-500/5">
                 <tr>
                   <th className="px-3 py-1 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                     #
@@ -218,7 +228,7 @@ export default function AdminContactMessages() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ delay: index * 0.05 }}
-                      className="hover:bg-primary/5 transition-colors duration-200"
+                      className="hover:bg-primary-500/5 transition-colors duration-200"
                     >
                       <td className="px-3 py-1 whitespace-nowrap text-sm text-gray-900">
                         {(page - 1) * pageSize + index + 1}
@@ -276,7 +286,7 @@ export default function AdminContactMessages() {
                             size="sm"
                             variant="outline"
                             onClick={() => handleViewMessage(message)}
-                            className="border-primary/20 text-primary hover:bg-primary/5"
+                            className="border-primary-500/20 text-primary-500 hover:bg-primary-500/5"
                           >
                             <Eye className="w-4 h-4 mr-1" />
                             View

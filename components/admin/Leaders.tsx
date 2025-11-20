@@ -112,7 +112,7 @@ export default function LeadersPage() {
     newLeaders.splice(destIndex, 0, removed);
     const memberIds = newLeaders.map((member: TeamMember) => member.id);
     try {
-      await api.patch("/team/reorder", { memberIds })
+      await api.put("/team/reorder", { memberIds })
       toast.success("Leader order updated successfully!")
       fetchLeaders()
     } catch (err: any) {

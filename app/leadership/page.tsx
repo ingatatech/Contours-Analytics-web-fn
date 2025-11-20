@@ -215,7 +215,7 @@ export default function LeadershipPage() {
           className="relative group cursor-pointer"
         >
           {/* Main Card */}
-          <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 h-[420px]">
+          <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 h-[410px]">
             
             {/* Background Fill for Upper Section */}
             <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-br from-blue-500 to-indigo-600" />

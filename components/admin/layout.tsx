@@ -171,7 +171,7 @@ export default function AdminLayoutStructure({
             whileHover={{ scale: 1.05 }}
             className="flex-shrink-0"
           >
-            <Link href="/" className="flex items-center">
+            <Link href="/admin" className="flex items-center">
               <Image
                 src="/logo.jpeg"
                 alt="Contours Analytics"

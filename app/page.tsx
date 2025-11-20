@@ -156,19 +156,19 @@ export default function Home() {
   }, [])
 
   const handlePartnerScroll = (direction: 'left' | 'right') => {
-    if (partnerScrollRef.current) {
-      const scrollAmount = 280 // card width (224px) + gap (56px)
-      const maxScroll = partnerScrollRef.current.scrollWidth - partnerScrollRef.current.offsetWidth
-      
-      let newScroll = partnerScrollAmount
-      if (direction === 'left') {
-        newScroll = Math.max(0, partnerScrollAmount - scrollAmount)
-      } else {
-        newScroll = Math.min(maxScroll, partnerScrollAmount + scrollAmount)
-      }
-      
-      setPartnerScrollAmount(newScroll)
+    const scrollAmount = 280 // card width (224px) + gap (56px)
+    const containerWidth = typeof window !== 'undefined' ? window.innerWidth : 1200
+    const totalWidth = partners.length * 280 // total width of all cards
+    const maxScroll = Math.max(0, totalWidth - containerWidth + 200) // add padding
+    
+    let newScroll = partnerScrollAmount
+    if (direction === 'left') {
+      newScroll = Math.max(0, partnerScrollAmount - scrollAmount)
+    } else {
+      newScroll = Math.min(maxScroll, partnerScrollAmount + scrollAmount)
     }
+    
+    setPartnerScrollAmount(newScroll)
   }
 
 
@@ -590,7 +590,7 @@ export default function Home() {
               <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary-50 dark:from-secondary-900 to-transparent z-10 pointer-events-none" />
 
               {/* Partners Container */}
-              <div className="overflow-hidden">
+              <div className="overflow-hidden px-20">
                 {partnersLoading ? (
                   <div className="flex justify-center py-12">
                     <LoadingSpinner />
@@ -598,7 +598,7 @@ export default function Home() {
                 ) : (
                   <motion.div
                     ref={partnerScrollRef}
-                    className="flex gap-6 w-max"
+                    className="flex gap-6 w-max py-4"
                     animate={{ x: -partnerScrollAmount }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   >

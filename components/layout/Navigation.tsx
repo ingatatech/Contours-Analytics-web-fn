@@ -83,7 +83,7 @@ export default function Navigation() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6">
             <Link
               href="/"
               className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
@@ -197,6 +197,13 @@ export default function Navigation() {
               className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-secondary-700 dark:text-secondary-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-secondary-100 dark:hover:bg-secondary-800"
             >
               <span>Contact Us</span>
+            </Link>
+            
+            <Link
+              href="/admin/login"
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-primary-500 text-white hover:bg-primary-600 shadow-md hover:shadow-lg"
+            >
+              Sign In
             </Link>
           </div>
 
@@ -336,6 +343,14 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
               >
                 Contact Us
+              </Link>
+              
+              <Link
+                href="/admin/login"
+                className="block px-3 py-2 text-base font-medium bg-primary-500 text-white hover:bg-primary-600 rounded-lg transition-colors text-center mt-4"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign In
               </Link>
             </div>
           </motion.div>

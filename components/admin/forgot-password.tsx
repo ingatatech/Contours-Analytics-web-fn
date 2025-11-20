@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import toast from "react-hot-toast"
 import Link from "next/link"
 import Image from "next/image"
+import AnimatedBackground from "../ui/AnimatedBackground"
 
 interface ResetPasswordResponse {
   success: boolean
@@ -15,7 +16,7 @@ interface ResetPasswordResponse {
   otp?: string
 }
 
-export default function ONCGResetPasswordPage() {
+export default function ContoursAnalyticsResetPasswordPage() {
   const [step, setStep] = useState<"email" | "otp" | "password" | "success">("email")
   const [email, setEmail] = useState("")
   const [otp, setOtp] = useState<string>("".padEnd(5, ""));
@@ -86,7 +87,7 @@ export default function ONCGResetPasswordPage() {
     setLoading(true)
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "https://oncg.api.oncg.rw/api"}/users/request-reset`,
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/users/request-reset`,
         {
           method: "POST",
           headers: {
@@ -117,7 +118,7 @@ export default function ONCGResetPasswordPage() {
     setLoading(true)
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "https://oncg.api.oncg.rw/api"}/users/verify-otp`,
+        `${process.env.NEXT_PUBLIC_API_URL || "https://Contours Analytics.api.Contours Analytics.rw/api"}/users/verify-otp`,
         {
           method: "POST",
           headers: {
@@ -177,7 +178,7 @@ export default function ONCGResetPasswordPage() {
     setLoading(true)
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "https://oncg.api.oncg.rw/api"}/users/reset`,
+        `${process.env.NEXT_PUBLIC_API_URL || ""}/users/reset`,
         {
           method: "POST",
           headers: {
@@ -217,12 +218,12 @@ export default function ONCGResetPasswordPage() {
             className="space-y-6"
           >
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-primary-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-primary-500" />
               </div>
               {/* <h2 className="text-2xl font-bold text-gray-800 mb-2">Reset Your Password</h2> */}
               <p className="text-gray-600">
-                Enter your ONCG email address and we'll send you a secure verification code.
+                Enter your Contours Analytics email address and we'll send you a secure verification code.
               </p>
             </div>
 
@@ -237,11 +238,11 @@ export default function ONCGResetPasswordPage() {
                     setEmail(e.target.value)
                     if (errors.email) setErrors((prev) => ({ ...prev, email: "" }))
                   }}
-                  placeholder="admin@onconsultinggroup.com"
+                  placeholder="admin@contoursanalytics.com"
                   className={`pl-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                     errors.email
                       ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-gray-200 focus:border-primary focus:ring-primary/20"
+                      : "border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                   }`}
                   disabled={loading}
                 />
@@ -252,7 +253,7 @@ export default function ONCGResetPasswordPage() {
             <Button
               onClick={handleRequestReset}
               disabled={loading}
-              className="w-full h-12 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full h-12 bg-gradient-to-r from-primary-500 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -297,7 +298,7 @@ export default function ONCGResetPasswordPage() {
                     value={otp[i] || ""}
                     onChange={(e) => handleOtpChange(e, i)}
                     onKeyDown={(e) => handleOtpBackspace(e, i)}
-                    className="w-14 h-14 text-center text-xl font-bold border-2 focus:border-primary focus:ring-primary/20 rounded-xl"
+                    className="w-14 h-14 text-center text-xl font-bold border-2 focus:border-primary-500 focus:ring-primary-500/20 rounded-xl"
                     disabled={loading}
                   />
                 ))}
@@ -317,7 +318,7 @@ export default function ONCGResetPasswordPage() {
               <Button
                 onClick={handleVerifyOTP}
                 disabled={loading}
-                className="flex-1 h-12 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className="flex-1 h-12 bg-gradient-to-r from-primary-500 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
@@ -337,7 +338,7 @@ export default function ONCGResetPasswordPage() {
               <button
                 onClick={handleRequestReset}
                 disabled={loading}
-                className="text-primary hover:text-primary/80 text-sm font-medium"
+                className="text-primary-500 hover:text-primary-500/80 text-sm font-medium"
               >
                 Didn't receive the code? Resend
               </button>
@@ -354,11 +355,11 @@ export default function ONCGResetPasswordPage() {
             className="space-y-6"
           >
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-primary-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Lock className="w-8 h-8 text-primary-500" />
               </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">Create New Password</h2>
-              <p className="text-gray-600">Set a strong password for your ONCG admin account</p>
+              <p className="text-gray-600">Set a strong password for your Contours Analytics admin account</p>
             </div>
 
             <div>
@@ -376,7 +377,7 @@ export default function ONCGResetPasswordPage() {
                   className={`pl-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                     errors.password
                       ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-gray-200 focus:border-primary focus:ring-primary/20"
+                      : "border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                   }`}
                   disabled={loading}
                 />
@@ -399,7 +400,7 @@ export default function ONCGResetPasswordPage() {
                   className={`pl-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                     errors.confirmPassword
                       ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-gray-200 focus:border-primary focus:ring-primary/20"
+                      : "border-gray-200 focus:border-primary-500 focus:ring-primary-500/20"
                   }`}
                   disabled={loading}
                 />
@@ -428,7 +429,7 @@ export default function ONCGResetPasswordPage() {
               <Button
                 onClick={handleResetPassword}
                 disabled={loading}
-                className="flex-1 h-12 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className="flex-1 h-12 bg-gradient-to-r from-primary-500 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
@@ -466,7 +467,7 @@ export default function ONCGResetPasswordPage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">Password Reset Complete!</h2>
               <p className="text-gray-600 mb-2">
-                Your ONCG admin password has been successfully updated.
+                Your Contours Analytics admin password has been successfully updated.
               </p>
               <p className="text-sm text-gray-500">
                 You can now access your dashboard with your new password.
@@ -481,7 +482,7 @@ export default function ONCGResetPasswordPage() {
             </div>
 
             <Link href="/admin/login">
-              <Button className="w-full h-12 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button className="w-full h-12 bg-gradient-to-r from-primary-500 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-5 h-5" />
                   Access Admin Dashboard
@@ -499,34 +500,9 @@ export default function ONCGResetPasswordPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-primary via-primary/30 to-primary/80 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-primary-500 via-primary-500/30 to-primary-500/80 flex items-center justify-center p-4 relative overflow-hidden">
         {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              scale: [1.2, 1, 1.2],
-              rotate: [360, 180, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="absolute bottom-10 left-10 w-48 h-48 bg-white/5 rounded-full blur-3xl"
-          />
-        </div>
+      <AnimatedBackground/>
 
         {/* Reset Password Card */}
         <motion.div
@@ -537,7 +513,7 @@ export default function ONCGResetPasswordPage() {
         >
           <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-primary/90 p-4 text-center">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-500/90 p-4 text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -545,8 +521,8 @@ export default function ONCGResetPasswordPage() {
                 className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-2"
               >
                 <Image
-                  src="/images/oncg-logo1.jpg"
-                  alt="ONCG Logo"
+                  src="/image.png"
+                  alt="Contours Analytics Logo"
                   width={48}
                   height={48}
                   className="w-14 h-14 object-contain"
@@ -558,7 +534,7 @@ export default function ONCGResetPasswordPage() {
                 transition={{ delay: 0.4 }}
                 className="text-xl font-bold text-white mb-1"
               >
-                ONCG Password Recovery
+                Contours Analytics Password Recovery
               </motion.h1>
           
             </div>
@@ -572,7 +548,7 @@ export default function ONCGResetPasswordPage() {
                 <div className="text-center  pt-4 border-t border-gray-200">
                   <Link
                     href="/admin/login"
-                    className="text-primary hover:text-primary/80 text-sm font-medium flex items-center justify-center gap-2"
+                    className="text-primary-500 hover:text-primary-500/80 text-sm font-medium flex items-center justify-center gap-2"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     Back to Admin Login

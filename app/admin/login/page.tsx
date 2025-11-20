@@ -10,8 +10,9 @@ import { login } from "@/lib/api"
 import toast from "react-hot-toast"
 import Link from "next/link"
 import Image from "next/image"
+import AnimatedBackground from "@/components/ui/AnimatedBackground"
 
-export default function ONCGAdminLogin() {
+export default function ContoursAnalyticsAdminLogin() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
@@ -86,46 +87,8 @@ export default function ONCGAdminLogin() {
           </Link>
         </motion.div>
 
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              scale: [1.2, 1, 1.2],
-              rotate: [360, 180, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="absolute bottom-10 left-10 w-48 h-48 bg-white/5 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-            className="absolute top-1/2 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-2xl"
-          />
-        </div>
-
+    
+<AnimatedBackground/>
         {/* Login Card */}
         <motion.div
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
@@ -143,8 +106,8 @@ export default function ONCGAdminLogin() {
                 className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4"
               >
                 <Image
-                  src="/images/oncg-logo1.jpg"
-                  alt="ONCG Logo"
+                  src="/image.png"
+                  alt="Contours Analytics Logo"
                   width={48}
                   height={48}
                   className="w-12 h-12 object-contain"
@@ -156,7 +119,7 @@ export default function ONCGAdminLogin() {
                 transition={{ delay: 0.4 }}
                 className="text-2xl font-bold text-white mb-1"
               >
-                ONCG Admin Portal
+                Contours Analytics Admin Portal
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -164,7 +127,7 @@ export default function ONCGAdminLogin() {
                 transition={{ delay: 0.5 }}
                 className="text-white/80 text-sm"
               >
-                ONCG - Admin Access
+                Contours Analytics - Admin Access
               </motion.p>
             </div>
 
@@ -183,7 +146,7 @@ export default function ONCGAdminLogin() {
                         setEmail(e.target.value)
                         if (errors.email) setErrors({ ...errors, email: "" })
                       }}
-                      placeholder="admin@onconsultinggroup.com"
+                      placeholder="admin@contoursanalytics.com"
                       className={`pl-12 h-12 border-2 transition-all duration-300 focus:ring-2 ${
                         errors.email
                           ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"

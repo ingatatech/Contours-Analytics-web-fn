@@ -307,7 +307,7 @@ export default function ServicesPage() {
                                           onClick={(e) => e.stopPropagation()}
                                         >
                                           <Mail className="w-4 h-4 text-blue-600 shrink-0" />
-                                          <span className="truncate font-medium text-xs">{contact.email}</span>
+                                          <span className="truncate font-medium text-sm">{contact.email}</span>
                                         </a>
                                       )}
 
@@ -319,7 +319,7 @@ export default function ServicesPage() {
                                           onClick={(e) => e.stopPropagation()}
                                         >
                                           <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
-                                          <span className="font-medium text-xs">{contact.phone}</span>
+                                          <span className="font-medium text-sm">{contact.phone}</span>
                                         </a>
                                       )}
                                     </motion.div>

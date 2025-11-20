@@ -452,7 +452,7 @@ npm run lint
 - Check network tab in DevTools
 
 ### Getting Help
-- 📧 Email: info@contoursanalytics.com
+- 📧 Email: contoursanalytics@gmail.com
 - 📱 Contact form: `/contact`
 - 💬 Chat widget: Click the message icon
 - 🐛 Report bugs: GitHub Issues

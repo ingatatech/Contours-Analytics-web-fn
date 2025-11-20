@@ -101,7 +101,7 @@ export default function Footer() {
                     <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
                       <Mail className="w-5 h-5 text-white-500" />
                     </div>
-                    <span>info@contoursanalytics.com</span>
+                    <span>contoursanalytics@gmail.com</span>
                   </motion.div>
                   <motion.div
                     whileHover={{ x: 5 }}

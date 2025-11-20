@@ -154,7 +154,7 @@ npm run lint     # Run ESLint
 ## 📧 Support
 
 For issues or questions:
-- Email: info@contoursanalytics.com
+- Email: contoursanalytics@gmail.com
 - See [DEPLOYMENT.md](DEPLOYMENT.md) or [README_DEVELOPMENT.md](README_DEVELOPMENT.md)
 
 ---

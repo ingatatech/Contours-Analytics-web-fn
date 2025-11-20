@@ -358,7 +358,7 @@ Proprietary - Contours Analytics
 
 ## 📧 Support
 
-For issues or questions, contact: info@contoursanalytics.com
+For issues or questions, contact: contoursanalytics@gmail.com
 
 ---
 

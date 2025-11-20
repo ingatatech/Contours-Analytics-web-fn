@@ -51,7 +51,7 @@ const offices: Office[] = [
     name: "Headquarter",
     address: "Kimironko , Trumph House 3rd Floor",
     phone: "+(250) 786 600 190",
-    email: "info@contoursanalytics.rw",
+    email: "contoursanalytics@gmail.com",
     hours: "Mon-Fri: 9:00 AM - 6:00 PM",
     coordinates: { lat: 40.7128, lng: -74.0060 }
   },
@@ -298,7 +298,7 @@ export default function ContactPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link href="mailto:info@contoursanalytics.rw" className="inline-flex items-center  bg-primary-500 text-white px-10 py-3 rounded-full font-medium hover:bg-white hover:text-primary-500 transition-all duration-300 group shadow-2xl hover:shadow-primary-500/25">
+                  <Link href="mailto:contoursanalytics@gmail.com" className="inline-flex items-center  bg-primary-500 text-white px-10 py-3 rounded-full font-medium hover:bg-white hover:text-primary-500 transition-all duration-300 group shadow-2xl hover:shadow-primary-500/25">
                           Email Us
                     <Mail className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
                   </Link>

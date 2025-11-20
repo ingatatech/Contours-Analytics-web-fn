@@ -377,7 +377,7 @@ If you find a bug, please note:
 6. **Network requests** (from DevTools)
 
 ### Contact
-- 📧 Email: info@contoursanalytics.com
+- 📧 Email: contoursanalytics@gmail.com
 - 💬 Use the chat widget (when working!)
 - 📝 Contact form at `/contact`
 

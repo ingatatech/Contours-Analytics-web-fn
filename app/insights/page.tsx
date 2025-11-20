@@ -33,6 +33,8 @@ export default function InsightsPage() {
   const [categories, setcategories] = useState<[]>([])
   const [categoryFilter, setcategoryFilter] = useState("All categories")
   const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 6
   useEffect(() => {
     const loadInsights = async () => {
       try {
@@ -64,6 +66,12 @@ export default function InsightsPage() {
 
     return matchesSearch
   })
+
+  const totalPages = Math.ceil(filteredInsights.length / itemsPerPage)
+  const paginatedInsights = filteredInsights.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
   useEffect(() => {
     setIsClient(true)
   }, [])
@@ -342,7 +350,7 @@ export default function InsightsPage() {
           {/* Insights Grid */}
           {!loading && !error && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredInsights.map((insight) => {
+              {paginatedInsights.map((insight) => {
                 return (
                     <Link href={`/insights/detail?id=${insight.id}`}>
                   <article
@@ -392,6 +400,43 @@ export default function InsightsPage() {
                   </Link>
                 )
               })}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {!loading && !error && totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Previous
+              </button>
+              
+              <div className="flex items-center gap-2">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      currentPage === page
+                        ? 'bg-blue-600 text-white'
+                        : 'border border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Next
+              </button>
             </div>
           )}
 

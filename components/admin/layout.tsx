@@ -233,7 +233,7 @@ export default function AdminLayoutStructure({
               {expandedSections[section.id as keyof ExpandedSectionsState] && (
                 <div className="ml-4 mt-2 space-y-1 border-l border-slate-200">
                   {section.children.map((item, index) => (
-                    <a
+                    <Link
                       key={index}
                       href={item.href}
                       className="group relative flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm text-slate-600 hover:text-blue-700 hover:bg-blue-50 ml-2"
@@ -241,7 +241,7 @@ export default function AdminLayoutStructure({
                       <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       <item.icon className="h-4 w-4 text-slate-500 group-hover:text-blue-600 transition-colors" />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

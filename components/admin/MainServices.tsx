@@ -241,9 +241,9 @@ export default function AdminServiceCategories() {
     const newCategories = Array.from(categories);
     const [removed] = newCategories.splice(sourceIndex, 1);
     newCategories.splice(destIndex, 0, removed);
-    const categoryIds = newCategories.map((teamMember: ServiceCategory) => teamMember.id);
+    const serviceIds = newCategories.map((category: ServiceCategory) => category.id);
     try {
-      await api.put("/services/reorder", { categoryIds })
+      await api.patch("/services/reorder", { serviceIds })
       toast.success("Categories order updated successfully!")
       fetchServiceCategories()
     } catch (err: any) {

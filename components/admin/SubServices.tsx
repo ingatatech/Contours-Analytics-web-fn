@@ -44,6 +44,7 @@ import { Search, Eye, Edit, Trash2, Users, Plus, Package } from "lucide-react";
 import axios from "@/lib/axios";
 import { toast } from "react-hot-toast";
 import RichTextEditor from "../ui/RichTextEditor";
+import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 
 interface MainService {
   id: string;
@@ -242,6 +243,27 @@ const [isSubmitting, setIsSubmitting] = useState(false)
     setCurrentPage(1);
   };
 
+  async function handleReorder(result: DropResult) {
+    if (!result.destination) return;
+    const sourceIndex = result.source.index;
+    const destIndex = result.destination.index;
+    if (sourceIndex === destIndex) return;
+
+    const newServices = Array.from(services);
+    const [removed] = newServices.splice(sourceIndex, 1);
+    newServices.splice(destIndex, 0, removed);
+    const serviceIds = newServices.map((service: Service) => service.id);
+    
+    try {
+      await axios.patch("/services/sub-services/reorder", { serviceIds });
+      toast.success("Sub-services order updated successfully!");
+      fetchServices();
+    } catch (err: any) {
+      toast.error("Failed to update sub-services order");
+      fetchServices();
+    }
+  }
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -336,26 +358,36 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
-                  {loading ? (
-                    Array.from({ length: 5 }).map((_, index) => (
-                      <TableRow key={index} className="h-12">
-                        <TableCell colSpan={7}>
-                          <div className="flex items-center space-x-4">
-                            <div className="h-4 bg-gray-200 rounded animate-pulse flex-1"></div>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  ) : services.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={7} className="text-center py-8">
-                        No services found
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    services.map((service, index) => (
-                      <TableRow key={service.id} className="h-12 align-middle">
+                <DragDropContext onDragEnd={handleReorder}>
+                  <Droppable droppableId="services">
+                    {(provided) => (
+                      <TableBody {...provided.droppableProps} ref={provided.innerRef}>
+                        {loading ? (
+                          Array.from({ length: 5 }).map((_, index) => (
+                            <TableRow key={index} className="h-12">
+                              <TableCell colSpan={7}>
+                                <div className="flex items-center space-x-4">
+                                  <div className="h-4 bg-gray-200 rounded animate-pulse flex-1"></div>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : services.length === 0 ? (
+                          <TableRow>
+                            <TableCell colSpan={7} className="text-center py-8">
+                              No services found
+                            </TableCell>
+                          </TableRow>
+                        ) : (
+                          services.map((service, index) => (
+                            <Draggable key={service.id} draggableId={service.id} index={index}>
+                              {(provided) => (
+                                <TableRow
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  className="h-12 align-middle"
+                                >
                         <TableCell className="w-16 text-center">
                           <span className="text-sm font-medium text-slate-500">
                             {(currentPage - 1) * 10 + index + 1}
@@ -429,10 +461,16 @@ const [isSubmitting, setIsSubmitting] = useState(false)
                             </Button>
                           </div>
                         </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
+                                </TableRow>
+                              )}
+                            </Draggable>
+                          ))
+                        )}
+                        {provided.placeholder}
+                      </TableBody>
+                    )}
+                  </Droppable>
+                </DragDropContext>
               </Table>
             </div>
           </CardContent>

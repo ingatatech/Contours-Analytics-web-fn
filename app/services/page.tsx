@@ -236,6 +236,8 @@ export default function ServicesPage() {
                           >
                             {/* Main Card */}
                             <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100/50">
+                            {/* Background Fill for Upper Section */}
+            <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-br from-blue-500 to-indigo-600" />
                               {/* LinkedIn Badge */}
                               {contact.linkedin && (
                                 <a

@@ -49,50 +49,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang="en" className={inter.variable}>
-      <head>
-        {/* Google Analytics */}
-        {gaId && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${gaId}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
-
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://contoursanalytics.com" />
-
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-
-        {/* Favicon */}
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%23038bca' width='32' height='32' rx='8'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' fill='white' font-weight='bold' font-size='18'>CA</text></svg>"
-        />
-      </head>
+       <head>
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+				<link rel="apple-touch-icon" type="image/png" href="/image.png" />
+				<link rel="icon" type="image/png" href="/image.png" />
+			</head>
       <body className="antialiased">
         <Toaster position="top-right" />
         <ClientLayout>

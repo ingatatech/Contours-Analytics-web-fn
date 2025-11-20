@@ -44,8 +44,13 @@ export default function InsightsPage() {
         const data = response.insights || response.data || response
         if (Array.isArray(data)) {
           setInsights(data)
+          // Extract unique categories
+          const uniqueCategories = [...new Set(data.map((insight: Insight) => insight.category).filter(Boolean))]
+          setcategories(uniqueCategories as any)
         } else if (data?.insights && Array.isArray(data.insights)) {
           setInsights(data.insights)
+          const uniqueCategories = [...new Set(data.insights.map((insight: Insight) => insight.category).filter(Boolean))]
+          setcategories(uniqueCategories as any)
         } else {
           setInsights([])
         }
@@ -63,8 +68,12 @@ export default function InsightsPage() {
     const matchesSearch =
       insight.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       insight.content.toLowerCase().includes(searchTerm.toLowerCase())
+    
+    const matchesCategory = 
+      categoryFilter === "All categories" || 
+      insight.category === categoryFilter
 
-    return matchesSearch
+    return matchesSearch && matchesCategory
   })
 
   const totalPages = Math.ceil(filteredInsights.length / itemsPerPage)

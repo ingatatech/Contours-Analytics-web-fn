@@ -217,6 +217,8 @@ export default function LeadershipPage() {
           {/* Main Card */}
           <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 h-[420px]">
             
+            {/* Background Fill for Upper Section */}
+            <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-br from-blue-500 to-indigo-600" />
         
             {/* LinkedIn Badge */}
             {leader.linkedin && (
@@ -236,11 +238,11 @@ export default function LeadershipPage() {
               <div className="flex flex-col items-center">
                 <div className="relative group/avatar">
                   {/* Glow Ring */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
                   
-                  {/* Avatar Container */}
-                  <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 p-1 shadow-xl group-hover/avatar:scale-105 transition-transform duration-300">
-                    <div className="w-full h-full rounded-full border-4 border-white overflow-hidden">
+                  {/* Avatar Container - Rectangle */}
+                  <div className="relative w-32 h-36 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 p-1 shadow-xl group-hover/avatar:scale-105 transition-transform duration-300">
+                    <div className="w-full h-full rounded-2xl border-4 border-white overflow-hidden">
                       <img
                         src={leader.image || "/api/placeholder/300/400"}
                         alt={leader.name}

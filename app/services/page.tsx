@@ -256,26 +256,33 @@ export default function ServicesPage() {
                                     {/* Glow Ring */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
                                     
-                                    {/* Avatar Container */}
-                                    <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 p-1 shadow-lg group-hover/avatar:scale-105 transition-transform duration-300">
-                                      <div className="w-full h-full rounded-full border-4 border-white overflow-hidden bg-gray-200">
-                                        <Image
-                                          src={contact.image}
-                                          alt={contact.name}
-                                          width={96}
-                                          height={96}
-                                          className="w-full h-full object-cover"
-                                          onError={(e) => {
-                                            e.currentTarget.src = '/placeholder-avatar.svg'
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
+                                       {/* Avatar Section */}
+            <div className="relative pt-4 pb-4 px-6">
+              <div className="flex flex-col items-center">
+                <div className="relative group/avatar">
+                  {/* Glow Ring */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-110" />
+                  
+                  {/* Avatar Container - Rectangle */}
+                  <div className="relative w-32 h-36 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 p-1 shadow-xl group-hover/avatar:scale-105 transition-transform duration-300">
+                    <div className="w-full h-full rounded-2xl border-4 border-white overflow-hidden">
+                      <img
+                        src={contact.image || "/api/placeholder/300/400"}
+                        alt={contact.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
 
-                                    {/* Status Badge */}
-                                    <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-full p-2 shadow-lg">
-                                      <Award className="w-4 h-4" />
-                                    </div>
+                  {/* Status Badge */}
+                  <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-full p-2 shadow-lg">
+                    <Award className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                                   
                                   </div>
                                 </div>
                               </div>

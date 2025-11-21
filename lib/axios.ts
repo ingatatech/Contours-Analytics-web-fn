@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_API_URL || "https://oncg.api.oncg.rw/api",
+	baseURL: process.env.NEXT_PUBLIC_API_URL || "https://contours-analytics-web-bn.onrender.com/api",
 });
 
 // Automatically attach JWT if present

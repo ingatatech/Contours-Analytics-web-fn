@@ -319,7 +319,7 @@ export default function AdminDashboard() {
                 Welcome back, Admin! 👋
               </h2>
               <p className="text-blue-100 text-sm mb-3">
-                Here's your ONCG platform overview for {currentYear}.
+                Here's your Contours Analytics platform overview for {currentYear}.
               </p>
               <div className="flex items-center gap-6 text-sm text-blue-200">
                 <div className="flex items-center gap-2">

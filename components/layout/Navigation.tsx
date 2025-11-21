@@ -74,7 +74,7 @@ export default function Navigation() {
             <Link href="/" className="flex items-center pl-5">
               <Image
                 src="/logo.jpeg"
-                alt="ONCG"
+                alt="Contours Analytics "
                 width={200}
                 height={80}
                 className="h-12 w-auto"

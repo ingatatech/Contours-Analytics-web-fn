@@ -37,7 +37,7 @@ export default function ChatWidgetEnhanced() {
   const [translatedUI, setTranslatedUI] = useState(UI_STRINGS.en)
   const [isLoading, setIsLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(null)
-  const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004/api')
+  const [apiBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || 'https://contours-analytics-web-bn.onrender.com/api')
   const [alertConfig, setAlertConfig] = useState({
     isOpen: false,
     title: '',

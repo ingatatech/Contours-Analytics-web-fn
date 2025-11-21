@@ -702,7 +702,7 @@ export default function ContactPage() {
                    {/* Content */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <iframe
-                    title="ONCG Office Map"
+                    title="Contours Analytics Office Map"
                     src="https://www.google.com/maps?q=Triumph+House+Kimironko+Kigali&output=embed"
                     width="100%"
                     height="100%"

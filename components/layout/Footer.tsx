@@ -136,7 +136,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-white text-sm">
-              © 2024 Contours Analytics. All rights reserved. | <span className="text-sm text-primary-foreground/80">
+              © {new Date().getFullYear()} Contours Analytics. All rights reserved. | <span className="text-sm text-primary-foreground/80">
               Developed by <span className="font-semibold text-white">The Ingata Technologies Ltd</span>
             </span>
             </p>

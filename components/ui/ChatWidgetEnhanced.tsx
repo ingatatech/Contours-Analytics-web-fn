@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, Send, X, Mic, Loader } from 'lucide-react'
 import CustomAlert from './CustomAlert'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface Message {
   id: string
@@ -274,7 +276,36 @@ export default function ChatWidgetEnhanced() {
               {messages.map(msg => (
                 <motion.div key={msg.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[85%] sm:max-w-xs px-3 py-2 rounded-lg text-xs sm:text-sm break-words ${msg.sender === 'user' ? 'bg-primary-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white'}`}>
-                    <p>{msg.text}</p>
+                    {msg.sender === 'user' ? (
+                      <p>{msg.text}</p>
+                    ) : (
+                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            // Custom styling for markdown elements
+                            h1: ({node, ...props}) => <h1 className="text-base font-bold mt-2 mb-1" {...props} />,
+                            h2: ({node, ...props}) => <h2 className="text-sm font-bold mt-2 mb-1" {...props} />,
+                            h3: ({node, ...props}) => <h3 className="text-xs font-bold mt-1 mb-1" {...props} />,
+                            p: ({node, ...props}) => <p className="mb-1" {...props} />,
+                            ul: ({node, ...props}) => <ul className="list-disc list-inside mb-1 space-y-0.5" {...props} />,
+                            ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-1 space-y-0.5" {...props} />,
+                            li: ({node, ...props}) => <li className="text-xs sm:text-sm" {...props} />,
+                            strong: ({node, ...props}) => <strong className="font-bold" {...props} />,
+                            em: ({node, ...props}) => <em className="italic" {...props} />,
+                            code: ({node, inline, ...props}: any) => 
+                              inline ? (
+                                <code className="bg-slate-300 dark:bg-slate-600 px-1 rounded text-xs" {...props} />
+                              ) : (
+                                <code className="bg-slate-300 dark:bg-slate-600 p-1 rounded block text-xs overflow-auto mb-1" {...props} />
+                              ),
+                            blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-slate-400 dark:border-slate-500 pl-2 italic mb-1" {...props} />,
+                          }}
+                        >
+                          {msg.text}
+                        </ReactMarkdown>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}

@@ -96,15 +96,25 @@ export default function ChatWidgetEnhanced() {
         }),
       })
 
-      if (response.ok) {
-        const data = await response.json()
-        const newConversationId = data.data.id
-        setConversationId(newConversationId)
-        return newConversationId
-      } else {
-        console.error('Failed to create conversation')
+      if (!response.ok) {
+        console.error('Failed to create conversation', response.status)
         return null
       }
+
+      const json = await response.json().catch((e) => {
+        console.error('Failed to parse conversation creation response', e)
+        return null
+      })
+
+      const newConversationId = json?.data?.id
+      if (!newConversationId) {
+        console.error('Conversation creation returned no id', json)
+        return null
+      }
+
+      // update local state and return the id
+      setConversationId(newConversationId)
+      return newConversationId
     } catch (error) {
       console.error('Error initializing conversation:', error)
       return null
@@ -148,15 +158,22 @@ export default function ChatWidgetEnhanced() {
   }
 
   const handleSendMessage = async () => {
-    // Make sure conversation is initialized
+    // Make sure conversation is initialized and WAIT for it so we never send with a null id
     let currentConversationId = conversationId
     if (!currentConversationId) {
       showAlert('Initializing chat...', 'Starting Conversation', 'info')
+
+      // Try to create a conversation and wait for a valid id
       currentConversationId = await initializeConversation()
+
+      // HARD CHECK: ensure we received a valid id
       if (!currentConversationId) {
         showAlert('Failed to initialize chat. Please try again.', 'Error', 'error')
         return
       }
+
+      // Also ensure local state is in sync (set again to avoid race with async state updates)
+      setConversationId(currentConversationId)
     }
 
     if (!inputValue.trim() || isLoading) return
@@ -186,16 +203,27 @@ export default function ChatWidgetEnhanced() {
 
       if (response.ok) {
         const data = await response.json()
+
+        // Ensure we pick up conversationId returned by the server (in case it was created server-side)
+        const serverConversationId = data?.data?.conversationId
+        if (serverConversationId) {
+          setConversationId(serverConversationId)
+          // update currentConversationId for immediate use
+          currentConversationId = serverConversationId
+        }
+
+        // Use server-provided assistant message id/content when available
+        const serverAssistant = data?.data?.assistantMessage
         const assistantMessage: Message = {
-          id: data.data.assistantMessage.id,
-          text: data.data.assistantMessage.content,
+          id: serverAssistant?.id || Date.now().toString(),
+          text: serverAssistant?.content || 'I apologize, I couldn\'t generate a response.',
           sender: 'bot',
           timestamp: new Date(),
         }
-        
+
         setMessages(prev => [...prev, assistantMessage])
       } else {
-        const errorData = await response.json()
+        const errorData = await response.json().catch(() => ({ message: 'Failed to get response' }))
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
           text: `Error: ${errorData.message || 'Failed to get response'}`,

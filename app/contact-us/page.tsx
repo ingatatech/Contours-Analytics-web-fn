@@ -50,7 +50,7 @@ const offices: Office[] = [
     id: "main",
     name: "Headquarter",
     address: "Kimironko , Trumph House 3rd Floor",
-    phone: "+(250) 786 600 190",
+    phone: "+(250) 786 600 190 | +(250) 788 303 061",
     email: "contoursanalytics@gmail.com",
     hours: "Mon-Fri: 9:00 AM - 6:00 PM",
     coordinates: { lat: 40.7128, lng: -74.0060 }
@@ -307,7 +307,7 @@ export default function ContactPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                   <Link href="tel:+250786600190"  className="inline-flex items-center border-2 border-white/30 text-white px-10 py-3 rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 group">
+                   <Link href="tel:+250788303061"  className="inline-flex items-center border-2 border-white/30 text-white px-10 py-3 rounded-full font-medium hover:bg-white/10 backdrop-blur-sm transition-all duration-300 group">
                       Call Us
                     <PhoneCall className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform" />
                   </Link>
@@ -667,12 +667,12 @@ export default function ContactPage() {
               <button className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 hover:scale-110">
                 <Linkedin className="h-5 w-5" />
               </button>
-              <button className="flex items-center justify-center w-10 h-10 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 hover:scale-110">
-                <Twitter className="h-5 w-5" />
+              <button className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-xl hover:bg-blue-600 transition-all duration-200 hover:scale-110">
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
               </button>
-              <button className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 hover:scale-110">
-                <Facebook className="h-5 w-5" />
-              </button>
+            
             </div>
             
             <p className="text-sm text-gray-600">

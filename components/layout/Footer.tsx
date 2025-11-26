@@ -22,9 +22,8 @@ const XIcon = () => (
 )
 
 const socialLinks = [
-  { name: 'LinkedIn', href: '#', icon: Linkedin },
-  { name: 'X', href: '#', icon: XIcon },
-  
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/contours-analytics-ltd/', icon: Linkedin },
+  { name: 'X', href: 'https://x.com/ContoursAnalyt', icon: XIcon },
 ]
 
 export default function Footer() {
